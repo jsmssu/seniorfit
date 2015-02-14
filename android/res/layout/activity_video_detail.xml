@@ -6,6 +6,7 @@
     tools:context="${relativePackage}.${activityClass}" >
 
     <TextView
+        android:id="@+id/videodetail_idxindicator"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:gravity="center"

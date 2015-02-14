@@ -37,6 +37,7 @@ public class VideoDetailActivity extends Activity {
 	 
 	TextView videodetail_exerciseintensity;
 	TextView videodetail_submenutitle; 
+	TextView videodetail_idxindicator;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +48,9 @@ public class VideoDetailActivity extends Activity {
 		
 		
 		
-		videodetail_submenutitle = (TextView) findViewById(R.id.videodetail_submenutitle);
-		videodetail_exerciseintensity = (TextView) findViewById(R.id.videodetail_exerciseintensity);
-		
+		videodetail_submenutitle = (TextView)findViewById(R.id.videodetail_submenutitle);
+		videodetail_exerciseintensity = (TextView)findViewById(R.id.videodetail_exerciseintensity);
+		videodetail_idxindicator = (TextView)findViewById(R.id.videodetail_idxindicator);
 		
 		
 		
@@ -84,7 +85,7 @@ public class VideoDetailActivity extends Activity {
 			FitApiDataClass fd = adapter.get_fitapidata_fromSubMenuId(fdJson.getString("subMenuId"));
 			videodetail_submenutitle.setText(fd._subMenuTitle);
 			videodetail_exerciseintensity.setText(fd._exerciseIntensity);
-			 
+			videodetail_idxindicator.setText(idx+"/"+maxIndex);
 			String[] t_thumbnails = (fdJson.getString("thumbnails")).split("-");  
 			
 			final int[] thumbnails = new int[t_thumbnails.length];
