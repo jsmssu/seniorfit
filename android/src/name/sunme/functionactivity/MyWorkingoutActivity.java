@@ -59,7 +59,7 @@ public class MyWorkingoutActivity extends Activity {
 		listdata.add(new HashMap<String, String>() {{put("title", "정리운동");put("mainMenuId", "f");}});
 		
 		list = (ListView) findViewById(R.id.workingout_listview);
-		View child = getLayoutInflater().inflate(R.layout.row);
+		//View child = getLayoutInflater().inflate(R.layout.row);
 		if (listdata != null) {
 			Log.d(TAG, "listdata != null");
 			simpleadapter = new SimpleAdapter(

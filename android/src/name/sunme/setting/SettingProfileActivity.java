@@ -10,6 +10,7 @@ import java.io.OutputStream;
 
 import name.sunme.firstexecution.Setup1Activity;
 import name.sunme.firstexecution.Setup3Activity;
+import name.sunme.maindrawbar.ActivityStyle;
 import name.sunme.seniorfit.DBAdapter;
 import name.sunme.seniorfit.DBHelper;
 import name.sunme.seniorfit.Utils;
@@ -44,6 +45,7 @@ public class SettingProfileActivity extends Activity {
 
 	final int REQUEST_CODE_IMAGE = 1;
 	ImageView settingprofile_photo;
+	ImageView settingprofile_weight;
 	TextView settingprofile_name;
 	
 	private DBHelper helper;
@@ -63,6 +65,16 @@ public class SettingProfileActivity extends Activity {
         
         settingprofile_photo = (ImageView)findViewById(R.id.settingprofile_photo);
         settingprofile_name = (TextView)findViewById(R.id.settingprofile_name);
+        settingprofile_weight = (ImageView)findViewById(R.id.settingprofile_weight);
+        settingprofile_weight.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getApplicationContext(), SettingBMIActivity.class);
+				startActivity(intent);
+			}
+		});
+        
         settingprofile_photo.setOnClickListener(new OnClickListener() {
 			
 			@Override
