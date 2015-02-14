@@ -73,6 +73,8 @@
         android:id="@+id/fitdetail_submenu_listview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:paddingLeft="16dp"
+        android:background="#ffffff"
         android:layout_weight="1" >
     </ListView>
     <Button 

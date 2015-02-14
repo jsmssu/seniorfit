@@ -3,25 +3,39 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#ffffff"
-    android:paddingTop="14dp"
+    android:orientation="horizontal"
     android:paddingBottom="14dp"
-    android:orientation="horizontal" >
+    android:paddingTop="14dp" >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        >
+
+        <ImageView
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/fitdefail_icn_number_outline" />
+
+        <TextView
+            android:id="@+id/subtitlerow_number" 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="1"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
     <TextView
-        android:id="@+id/subtitlerow_number"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
+        android:id="@+id/subtitlerow_title"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" 
-        android:gravity="center_vertical"
-        android:textSize="16sp"
-        android:text="1"
-        /> 
-    <TextView 
-        android:id="@+id/subtitlerow_title" 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" 
-        android:gravity="center_vertical"
-        android:textSize="16sp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:text="서브타이틀"
-        /> 
+        android:textSize="16sp" />
+
 </LinearLayout>
