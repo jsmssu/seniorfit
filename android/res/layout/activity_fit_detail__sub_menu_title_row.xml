@@ -26,11 +26,13 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:gravity="center"
+            android:layout_gravity="center_vertical"
             android:text="1"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
     </RelativeLayout>
 
     <TextView
+        android:layout_marginLeft="8dp"
         android:id="@+id/subtitlerow_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

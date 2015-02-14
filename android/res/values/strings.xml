@@ -127,5 +127,6 @@
     <string name="title_activity_setting_bmi">신체질량지수(BMI)</string>
     <string name="title_activity_setting_profile">내 프로필</string>
     <string name="title_activity_my_workingout">MyWorkingoutActivity</string>
+    <string name="title_activity_video_show">VideoShowActivity</string>
 
 </resources>

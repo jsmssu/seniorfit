@@ -12,6 +12,7 @@ import name.sunme.seniorfit.DBHelper;
 import name.sunme.seniorfit.FitApiDataClass;
 
 import com.example.seniorfit.R;
+import com.example.seniorfit.R.drawable;
 import com.example.seniorfit.R.layout;
 
 import android.app.Activity;
@@ -145,20 +146,24 @@ public class FitDetail_MainMenuTitleActivity extends Activity {
 			@Override
 			public void onClick(View v) { 
 				if (listdata != null) {
-					JSONArray ja = new JSONArray();
+					JSONObject set = new JSONObject();
+					JSONArray fdsJson = new JSONArray();
 					for(int i=0; i<listdata.size(); i++) {
-						JSONObject jo = new JSONObject();
+						JSONObject fdJson = new JSONObject();
 						try { 
-							jo.put("subMenuId", listdata.get(i).get("subMenuId"));
-							ja.put(jo);
+							fdJson.put("subMenuId", listdata.get(i).get("subMenuId"));
+							fdJson.put("thumbnails", drawable.temp_thumbnail+"-"+drawable.temp_thumbnail+"-"+drawable.temp_thumbnail);
+							fdsJson.put(fdJson);
 						} catch (JSONException e) { e.printStackTrace(); }
 					}
 					
+					try { set.put("idx", "1"); } catch (JSONException e) { e.printStackTrace(); }
+					try { set.put("maxIndex", listdata.size()+""); } catch (JSONException e) { e.printStackTrace(); }
+					try { set.put("fdsJson", fdsJson); } catch (JSONException e) { e.printStackTrace(); }
 					Intent intent = new Intent(getApplicationContext(),
 							VideoDetailActivity.class);
-					intent.putExtra("json", ja.toString());
-					startActivity(intent);
-					
+					intent.putExtra("json", set.toString());
+					startActivity(intent); 
 				}				
 			}
 		});

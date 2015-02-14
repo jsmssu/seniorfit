@@ -56,7 +56,7 @@
             android:name="name.sunme.maindrawbar.MainActivity"
             android:label="Senior Fit"
             android:theme="@style/AppThemeActionbarMenu" >
-<intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -100,7 +100,7 @@
         <activity
             android:name="name.sunme.functionactivity.VideoDetailActivity"
             android:label="@string/title_activity_video_detail" >
-        </activity> 
+        </activity>
         <activity
             android:name="name.sunme.seniorfit.FacebookLoginActivity"
             android:label="@string/title_activity_facebook_login" >
@@ -133,7 +133,12 @@
         <activity
             android:name="name.sunme.functionactivity.MyWorkingoutActivity"
             android:label="@string/title_activity_my_workingout" >
-                        
+        </activity>
+        <activity
+            android:name="name.sunme.functionactivity.VideoShowActivity"
+            android:label="@string/title_activity_video_show" 
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         </activity>
     </application>
 
