@@ -5,9 +5,9 @@ import java.io.File;
 import name.sunme.maindrawbar.MainActivity;
 import name.sunme.seniorfit.Utils;
 
-import com.example.seniorfit.R;
-import com.example.seniorfit.R.id;
-import com.example.seniorfit.R.layout;
+import name.sunme.maindrawbar.R;
+import name.sunme.maindrawbar.R.id;
+import name.sunme.maindrawbar.R.layout;
 
 import android.app.Activity;
 import android.content.Intent;

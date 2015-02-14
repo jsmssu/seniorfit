@@ -3,9 +3,9 @@ package name.sunme.seniorfit;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.seniorfit.R;
-import com.example.seniorfit.R.id;
-import com.example.seniorfit.R.layout;
+import name.sunme.maindrawbar.R;
+import name.sunme.maindrawbar.R.id;
+import name.sunme.maindrawbar.R.layout;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.Session.NewPermissionsRequest;

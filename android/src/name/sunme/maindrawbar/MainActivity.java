@@ -6,7 +6,7 @@ import name.sunme.firstexecution.TutorialActivity;
 import name.sunme.seniorfit.DBAdapter;
 import name.sunme.seniorfit.DBHelper; 
 
-import com.example.seniorfit.R;
+import name.sunme.maindrawbar.R;
 
 import android.app.ActionBar;
 import android.app.Activity;

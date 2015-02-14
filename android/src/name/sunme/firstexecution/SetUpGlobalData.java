@@ -1,7 +1,7 @@
 package name.sunme.firstexecution;
 
-import com.example.seniorfit.R;
-import com.example.seniorfit.R.drawable;
+import name.sunme.maindrawbar.R;
+import name.sunme.maindrawbar.R.drawable;
 
 import android.widget.ImageView;
 public class SetUpGlobalData {

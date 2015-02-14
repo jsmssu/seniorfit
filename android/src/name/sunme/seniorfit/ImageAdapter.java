@@ -1,6 +1,6 @@
 package name.sunme.seniorfit;
 
-import com.example.seniorfit.R;
+import name.sunme.maindrawbar.R;
 
 import android.content.Context;
 import android.content.res.Resources;

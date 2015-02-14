@@ -5,8 +5,8 @@ import name.sunme.setting.SettingBMIActivity;
 import name.sunme.setting.SettingGoalActivity;
 import name.sunme.setting.SettingProfileActivity;
 
-import com.example.seniorfit.R;
-import com.example.seniorfit.R.layout;
+import name.sunme.maindrawbar.R;
+import name.sunme.maindrawbar.R.layout;
 
 import android.app.Activity;
 import android.app.Fragment;

@@ -18,7 +18,7 @@
 
 package name.bagi.levente.pedometer;
 
-import com.example.seniorfit.R;
+import name.sunme.maindrawbar.R;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;

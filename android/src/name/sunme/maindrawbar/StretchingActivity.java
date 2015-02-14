@@ -6,7 +6,7 @@ import name.sunme.functionactivity.OtherProgramActivity;
  
 
 
-import com.example.seniorfit.R;
+import name.sunme.maindrawbar.R;
 
 import android.app.Activity;
 import android.content.Intent;

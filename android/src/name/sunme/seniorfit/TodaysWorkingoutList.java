@@ -10,7 +10,7 @@ import org.json.JSONObject;
 
 import android.widget.ImageView;
 
-import com.example.seniorfit.R;
+import name.sunme.maindrawbar.R;
 
 public class TodaysWorkingoutList { 
 	

@@ -7,8 +7,8 @@ import name.sunme.seniorfit.DBAdapter;
 import name.sunme.seniorfit.DBHelper;
 import name.sunme.seniorfit.GlobalData;
 
-import com.example.seniorfit.R;
-import com.example.seniorfit.R.layout;
+import name.sunme.maindrawbar.R;
+import name.sunme.maindrawbar.R.layout;
 
 import android.app.Activity;
 import android.content.Intent;

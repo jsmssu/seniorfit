@@ -2,8 +2,8 @@ package name.sunme.maindrawbar;
 
 import name.bagi.levente.pedometer.Pedometer;
 
-import com.example.seniorfit.R;
-import com.example.seniorfit.R.layout;
+import name.sunme.maindrawbar.R;
+import name.sunme.maindrawbar.R.layout;
 
 import android.app.Activity;
 import android.app.Fragment;

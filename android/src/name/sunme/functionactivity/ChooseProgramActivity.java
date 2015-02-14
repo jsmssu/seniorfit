@@ -1,7 +1,7 @@
 package name.sunme.functionactivity;
 
-import com.example.seniorfit.R;
-import com.example.seniorfit.R.layout;
+import name.sunme.maindrawbar.R;
+import name.sunme.maindrawbar.R.layout;
 
 import android.app.Activity;
 import android.os.Bundle;

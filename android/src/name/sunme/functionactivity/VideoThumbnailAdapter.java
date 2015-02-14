@@ -2,7 +2,7 @@ package name.sunme.functionactivity;
  
 import name.sunme.seniorfit.FitApiDataClass;
 
-import com.example.seniorfit.R; 
+import name.sunme.maindrawbar.R; 
 
 import android.app.Activity;
 import android.content.Context;
