@@ -50,6 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="#ffffff"
+        android:layout_gravity="center_horizontal"
         android:gravity="center"
         android:paddingBottom="30dp"
         android:text="시니어"
@@ -64,6 +65,7 @@
         android:paddingLeft="16dp" >
 
         <LinearLayout
+            android:id="@+id/settingprofile_boxmin_stretcing"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@drawable/setting_bg_line"
@@ -89,16 +91,18 @@
                 android:gravity="center_vertical"
                 android:text="~분"
                 android:textSize="20sp" />
-
+ 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="16dp"
-                android:src="@drawable/setting_icn_next" />
+                android:visibility="invisible"
+                android:src="@drawable/setting_icn_next" /> 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/settingprofile_boxmin_walking"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@drawable/setting_bg_line"
@@ -130,14 +134,15 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="16dp"
+                android:visibility="invisible"
                 android:src="@drawable/setting_icn_next" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/settingprofile_boxweight"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:orientation="horizontal" 
-            android:id="@+id/settingprofile_weightbox">
+            android:orientation="horizontal" >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -156,10 +161,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="~(~체중)"
+                android:text="체중설정하기"
                 android:textSize="20sp" 
                 android:id="@+id/settingprofile_weight"/>
-
+ 
             <ImageView 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

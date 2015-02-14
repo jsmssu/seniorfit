@@ -89,10 +89,7 @@
             android:label="@string/title_activity_fit_detail__main_menu_title"
             android:theme="@style/AppThemeActionbarBack" >
         </activity>
-        <activity
-            android:name=".ChooseActivity"
-            android:label="@string/title_activity_choose" >
-        </activity>
+ 
         <activity
             android:name="name.sunme.functionactivity.ChooseProgramActivity"
             android:label="@string/title_activity_choose_program" >

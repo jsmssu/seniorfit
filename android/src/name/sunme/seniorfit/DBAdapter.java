@@ -32,7 +32,6 @@ public class DBAdapter {
             Log.d(TAG, "open Error");
         }
     }
-
     public int get_settingCount(String key) {
     	Cursor cur = db.query(DBHelper.SETTING_TABLE_NAME, null, "key=?", new String[] { key }, null, null, null);
         return cur.getCount();

@@ -45,7 +45,7 @@ public class MainActivity extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-        
+        Log.d(TAG, "oncreate");
 		helper = new DBHelper(getBaseContext());
 		dbadapter = new DBAdapter(getBaseContext());
         Log.d(TAG,"start home");
@@ -55,13 +55,14 @@ public class MainActivity extends Activity {
             startActivity(intent);
             finish();
         }
-            
+ 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.drawer_activity_main);           
+        Log.d(TAG, "db check pass");
 
       
       
       
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.drawer_activity_main);
+
 		
 		
 		
@@ -86,6 +87,7 @@ public class MainActivity extends Activity {
 		drawerItem[1] = new ObjectDrawerItem(R.drawable.sidebar_timer, "운동하기");
 		drawerItem[2] = new ObjectDrawerItem(R.drawable.sidebar_graph, "기록보기");
 		drawerItem[3] = new ObjectDrawerItem(R.drawable.sidebar_gear, "설정");
+		Log.d(TAG, "created menu drawbar's list");
 		
 		DrawerItemCustomAdapter dradapter = new DrawerItemCustomAdapter(this, R.layout.drawer_activity_item_row, drawerItem);
 		

@@ -1,5 +1,10 @@
 package name.sunme.functionactivity;
 
+import java.io.File;
+
+import name.sunme.maindrawbar.MainActivity;
+import name.sunme.seniorfit.Utils;
+
 import com.example.seniorfit.R;
 import com.example.seniorfit.R.id;
 import com.example.seniorfit.R.layout;
@@ -10,6 +15,8 @@ import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +36,7 @@ public class VideoShowActivity extends Activity {
 	
 	
 	private String path_myapp;
+	private File file_video;
 	private TextView testtext;
 	private String videoname;
 	
@@ -44,21 +52,19 @@ public class VideoShowActivity extends Activity {
 		
 		Intent myintent = getIntent(); // 값을 받기 위한 Intent 생성
 		Log.d(TAG, "onCreate FitDetail_MainMenuTitleActivity");
+		
+		
 		if (myintent != null) {
 			videoname = myintent.getStringExtra("videoname");
 			
 			videopath = path_myapp + "/" + videoname;
-			Log.d(TAG, videopath);
-			videoview.setVideoPath(videopath);
-			videoview.start();
-			videoview.setOnCompletionListener(new OnCompletionListener(){
-				@Override
-				public void onCompletion(MediaPlayer mp) {
-					// TODO Auto-generated method stub
-					finish();
-				} 
-		    });
-			
+			file_video = new File(videopath);
+			if (!file_video.isFile()) {
+				Log.d(TAG, "there is not the file.");
+				Utils.showDialog_downloadResource(VideoShowActivity.this, videohandler);
+			} else {
+				videohandler.sendEmptyMessage(1);
+			} 
 			
 		} else {
 			finish();
@@ -73,5 +79,31 @@ public class VideoShowActivity extends Activity {
 			}
 		});
 		
+		videoview.setOnCompletionListener(new OnCompletionListener(){
+			@Override
+			public void onCompletion(MediaPlayer mp) {
+				// TODO Auto-generated method stub
+				setResult(1);
+				//노프라블람
+				finish();
+			} 
+	    });
+		
 	}
+	
+	
+	private final Handler videohandler = new Handler()
+	{
+		@Override
+		public void handleMessage(Message msg)
+		{
+			if (msg.what == 0) {
+				videoview.setVideoPath(videopath);
+				videoview.start();
+			}
+			if (msg.what == -1) {
+				Toast.makeText (getApplicationContext(), "다운로드 실패", 1).show();
+			}  
+		}
+	};
 }

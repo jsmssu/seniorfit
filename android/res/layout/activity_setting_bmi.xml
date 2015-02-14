@@ -62,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="연세"
+                android:text="비밀"
                 android:id="@+id/settingbmi_age"
                 android:textSize="20sp" />
 
@@ -98,7 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="여성"
+                android:text="비밀"
                 android:id="@+id/settingbmi_sex"
                 android:textSize="20sp" />
 
@@ -134,7 +134,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="169cm"
+                android:text="비밀cm"
                 android:id="@+id/settingbmi_height"
                 android:textSize="20sp" />
 

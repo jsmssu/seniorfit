@@ -113,7 +113,7 @@ public class Setup3Activity extends Activity {
 				Intent intent = new Intent(getApplicationContext(),
 						Setup4Activity.class);
 				startActivity(intent);
-				finish();
+				Setup3Activity.this.finish();
 			}
 		});
 		loadValues();
@@ -141,7 +141,7 @@ public class Setup3Activity extends Activity {
 		Intent intent = new Intent(getApplicationContext(),
 				Setup2Activity.class);
 		startActivity(intent);
-		finish();
+		Setup3Activity.this.finish();
 		return true;
 	}
 }

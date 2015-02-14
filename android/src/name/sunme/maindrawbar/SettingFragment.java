@@ -1,5 +1,6 @@
 package name.sunme.maindrawbar;
 
+import name.sunme.seniorfit.DBHelper;
 import name.sunme.setting.SettingBMIActivity;
 import name.sunme.setting.SettingGoalActivity;
 import name.sunme.setting.SettingProfileActivity;
@@ -61,6 +62,14 @@ public class SettingFragment extends Fragment {
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(), SettingGoalActivity.class);
                 startActivity(intent); 
+			}
+		});
+        setting_btn_logout.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				DBHelper dbhelper = new DBHelper(getActivity());
+				dbhelper.dropSettingTable();
+				dbhelper.createFitDataTable();
 			}
 		});
         return rootView;

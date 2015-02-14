@@ -3,6 +3,7 @@ package name.sunme.setting;
 import name.sunme.firstexecution.Setup3Activity;
 import name.sunme.seniorfit.DBAdapter;
 import name.sunme.seniorfit.DBHelper;
+import name.sunme.seniorfit.Utils;
 
 import com.example.seniorfit.R;
 import com.example.seniorfit.R.layout;
@@ -163,8 +164,8 @@ public class SettingBMIActivity extends Activity {
 		loadValues();
 	}
 	 
-	float t_weight;
-	float t_height;
+	float t_weight=0;
+	float t_height=0;
 	private void loadValues() { 
 		loadAge();
 		loadSex();
@@ -177,46 +178,37 @@ public class SettingBMIActivity extends Activity {
 	}
 	private void loadSex() {
 		String sex = adapter.get_setting("sex");
-		if (sex.equals("woman")) {settingbmi_sex.setText("여성");}
-		if (sex.equals("man")) {settingbmi_sex.setText("남성");}
+		if (sex !=null && sex.equals("woman")) {settingbmi_sex.setText("여성");}
+		if (sex !=null && sex.equals("man")) {settingbmi_sex.setText("남성");}
 	}
 	private void loadHeight() {
 		String height = adapter.get_setting("height");
-		if (height != null) {settingbmi_height.setText(height+"cm");t_height = Float.parseFloat(height);}
-		setBMI();
+		if (height != null) {settingbmi_height.setText(height+"cm");t_height = Float.parseFloat(height);setBMI();}
+		
 	}
 	private void loadWeight() {
 		String weight = adapter.get_setting("weight");
-		if (weight != null) {settingbmi_weight.setText(weight+"kg");t_weight = Float.parseFloat(weight);}
-		setBMI();
+		if (weight != null) {settingbmi_weight.setText(weight+"kg");t_weight = Float.parseFloat(weight);setBMI();}
 	}
 	private void setBMI() {
+		float bmi = Utils.getBMI_number(t_weight, t_height);
+		String bmi_string = Utils.getBMI_string(bmi);
+		Log.d(TAG, "bmi : "+ bmi);
+		 
+		if (bmi<=18.5) { 
+			settingbmi_bmicolor.setBackgroundColor(Color.rgb(0xD4, 0xD4, 0xD4));
+		} else if (bmi<23) { 
+			settingbmi_bmicolor.setBackgroundColor(Color.rgb(0x90, 0xE3, 0xCB));
+		} else if (bmi<25) { 
+			settingbmi_bmicolor.setBackgroundColor(Color.rgb(0x37, 0xB7, 0xBB));
+		} else if (bmi<30) { 
+			settingbmi_bmicolor.setBackgroundColor(Color.rgb(0x4C, 0x3D, 0x8F)); 
+		} else { 
+			settingbmi_bmicolor.setBackgroundColor(Color.rgb(0xC8, 0x30, 0x44)); 
+		}
 		
-		try {
-			float bmi = t_weight/(t_height/100)/(t_height/100); 
-			Log.d(TAG, "bmi : "+ bmi);
-			String bmitext = String.format("%.2f", bmi)+"(";
-			if (bmi<=18.5) {
-				bmitext = bmitext + "저체중";
-				settingbmi_bmicolor.setBackgroundColor(Color.rgb(0xD4, 0xD4, 0xD4));
-			} else if (bmi<23) {
-				bmitext = bmitext + "정상체중";
-				settingbmi_bmicolor.setBackgroundColor(Color.rgb(0x90, 0xE3, 0xCB));
-			} else if (bmi<25) {
-				bmitext = bmitext + "과체중";
-				settingbmi_bmicolor.setBackgroundColor(Color.rgb(0x37, 0xB7, 0xBB));
-			} else if (bmi<30) {
-				bmitext = bmitext + "비만";
-				settingbmi_bmicolor.setBackgroundColor(Color.rgb(0x4C, 0x3D, 0x8F)); 
-			} else {
-				bmitext = bmitext + "고도비만";
-				settingbmi_bmicolor.setBackgroundColor(Color.rgb(0xC8, 0x30, 0x44)); 
-			}
-			bmitext = bmitext+")";
-			settingbmi_bmitext.setText(bmitext);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} 
+		String bmitext = String.format("%.2f", bmi)+"("+bmi_string+")";
+		settingbmi_bmitext.setText(bmitext);
 	}
 
 	@Override

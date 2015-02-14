@@ -1,9 +1,10 @@
-package name.sunme.seniorfit;
+package name.sunme.functionactivity;
  
-import name.sunme.functionactivity.VideoShowActivity;
+import name.sunme.seniorfit.FitApiDataClass;
 
 import com.example.seniorfit.R; 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
@@ -61,7 +62,7 @@ public class VideoThumbnailAdapter extends PagerAdapter {
 					// TODO Auto-generated method stub
 					Intent intent = new Intent(context, VideoShowActivity.class);
 					intent.putExtra("videoname", fd._nameVideo);
-					context.startActivity(intent);
+					((Activity) context).startActivityForResult(intent, 0);
 				}
 			});
 		} else {

@@ -93,7 +93,7 @@ public class Setup2Activity extends Activity {
 				}
 				Intent intent = new Intent(getApplicationContext(), Setup3Activity.class);
 				startActivity(intent);
-				finish();
+				Setup2Activity.this.finish();
 			}
 		});
 		
@@ -133,7 +133,7 @@ public class Setup2Activity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
 		Intent intent = new Intent(getApplicationContext(), Setup1Activity.class);
         startActivity(intent);
-        finish();
+        Setup2Activity.this.finish();
         return false;
     }
 }

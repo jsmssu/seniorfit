@@ -126,36 +126,24 @@ public class Setup4Activity extends Activity {
 		Log.d(TAG, "만들어진 스트링 : "+seledctedDay);
 		setup4_seledctedDay.setText(seledctedDay);
 	}
-	public void showDialog_downloadResource() {
-		new AlertDialog.Builder(this).setMessage("리소스를 다운받겠습니다. 데이터를 많이 사용하니 와이파이를 연결하고 확인을 눌러주세요.")
-	    .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-	        @Override
-	        public void onClick(DialogInterface dialog, int which) {
-	            Log.d(TAG, "확인 클릭");
-	            Utils.downloadResource(Setup4Activity.this, downloadendhandler);
-	            dialog.dismiss();
-	        }
-	    })
-	    .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-	        @Override
-	        public void onClick(DialogInterface dialog, int which) {
-	            Log.d(TAG, "취소 클릭");
-	            dialog.dismiss();
-				Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-				startActivity(intent);
-				finish();
-	        }
-	    })
-	    .show();
-	} 
+	
 	private final Handler downloadendhandler = new Handler()
 	{
 		@Override
 		public void handleMessage(Message msg)
 		{
-			Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-			startActivity(intent);
-			finish();
+			if (msg.what == 0) {
+				Log.d(TAG, "정상 다운로드 완료");
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+    			startActivity(intent);
+    			Setup4Activity.this.finish();
+			}
+			if (msg.what == -1) {
+				Log.d(TAG, "비정상 다운로드 완료");
+            	Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+    			startActivity(intent);
+    			Setup4Activity.this.finish();
+			}  
 		}
 	};
 	private final Handler responsehandler = new Handler()
@@ -167,7 +155,7 @@ public class Setup4Activity extends Activity {
 			String result = bundle.getString("result");
 			Log.d(TAG, "got api json data");
 			Utils.saveFitApiData(getApplicationContext(), result);
-			showDialog_downloadResource();
+			Utils.showDialog_downloadResource(Setup4Activity.this, downloadendhandler);
 			adapter.put_setting("firstsetting", "true");
 		}
 	};
@@ -176,7 +164,7 @@ public class Setup4Activity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
 		Intent intent = new Intent(getApplicationContext(), Setup3Activity.class);
         startActivity(intent);
-        finish();
+        Setup4Activity.this.finish();
         return true;
     }
 }

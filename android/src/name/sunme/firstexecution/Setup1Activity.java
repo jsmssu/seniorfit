@@ -192,7 +192,7 @@ public class Setup1Activity extends Activity {
 			public void onClick(View v) {  
 				Intent intent = new Intent(getApplicationContext(), Setup2Activity.class);
 				startActivity(intent);
-				finish();
+				Setup1Activity.this.finish();
 			}
 		});  
 		setInputValues();
@@ -224,7 +224,7 @@ public class Setup1Activity extends Activity {
 	
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
-		finish();
+		Setup1Activity.this.finish();
         return true;
     }
 	

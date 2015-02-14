@@ -17,6 +17,7 @@ import com.example.seniorfit.R.layout;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
@@ -50,17 +51,15 @@ public class FitDetail_MainMenuTitleActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_fit_detail__main_menu_title);
-		
-		
+
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
-		
-		
+
 		Intent myintent = getIntent(); // 값을 받기 위한 Intent 생성
 		Log.d(TAG, "onCreate FitDetail_MainMenuTitleActivity");
 		list = (ListView) findViewById(R.id.fitdetail_submenu_listview);
 		listdata = new ArrayList<HashMap<String, String>>();
-		fitdetail_mainmenu_programstart = (Button)findViewById(R.id.fitdetail_mainmenu_programstart);
+		fitdetail_mainmenu_programstart = (Button) findViewById(R.id.fitdetail_mainmenu_programstart);
 		if (myintent != null) {
 			mainMenuId = myintent.getStringExtra("mainMenuId");
 			subMenuId = myintent.getStringExtra("subMenuId");
@@ -83,8 +82,6 @@ public class FitDetail_MainMenuTitleActivity extends Activity {
 			helper = new DBHelper(getApplicationContext());
 			dbadapter = new DBAdapter(getApplicationContext());
 
-			
-
 			// 동영상 리스트 보여줌
 			int idx = 0;
 			if (mainMenuId != null) {
@@ -93,14 +90,14 @@ public class FitDetail_MainMenuTitleActivity extends Activity {
 				for (final FitApiDataClass fad : re) {
 					HashMap<String, String> dt = new HashMap<String, String>();
 					dt.put("number", Integer.toString(idx));
-					dt.put("title", fad._subMenuTitle); 
+					dt.put("title", fad._subMenuTitle);
 					dt.put("subMenuId", fad._subMenuId);
 					listdata.add(dt);
 					idx = idx + 1;
 				}
-				
-			} 
-			
+
+			}
+
 		} else {
 			Toast.makeText(getApplicationContext(), "mainMenuId를 확인해주세요", 3)
 					.show();
@@ -112,12 +109,13 @@ public class FitDetail_MainMenuTitleActivity extends Activity {
 				Intent intent = new Intent(getApplicationContext(),
 						VideoShowActivity.class);
 				Log.d(TAG, "setOnItemClickListener");
- 
-				String videoname = (dbadapter.get_fitapidata_fromSubMenuId(listdata.get(position).get("subMenuId")))._nameVideo;
-					
- 
-					intent.putExtra("videoname", videoname);
-				startActivity(intent); 
+
+				String videoname = (dbadapter
+						.get_fitapidata_fromSubMenuId(listdata.get(position)
+								.get("subMenuId")))._nameVideo;
+
+				intent.putExtra("videoname", videoname);
+				startActivity(intent);
 
 			}
 		});
@@ -126,39 +124,37 @@ public class FitDetail_MainMenuTitleActivity extends Activity {
 			simpleadapter = new SimpleAdapter(
 					FitDetail_MainMenuTitleActivity.this, listdata,
 					R.layout.activity_fit_detail__sub_menu_title_row,
-					new String[] { "number", "title", "subMenuId" },
-					new int[] { R.id.subtitlerow_number,
-							R.id.subtitlerow_title});
+					new String[] { "number", "title", "subMenuId" }, new int[] {
+							R.id.subtitlerow_number, R.id.subtitlerow_title });
 			list.setAdapter(simpleadapter);
 			listUpdate();
 		}
-		
-		//시작하기 버튼을 누르면, 리스트를 전체 동영상을 보여주게 됨.
-		fitdetail_mainmenu_programstart.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) { 
-				if (listdata != null) {
-					JSONObject set = new JSONObject();
-					JSONArray fdsJson = new JSONArray();
-					for(int i=0; i<listdata.size(); i++) {
-						JSONObject fdJson = new JSONObject();
-						try { 
-							fdJson.put("subMenuId", listdata.get(i).get("subMenuId"));
-							fdJson.put("thumbnails", drawable.temp_thumbnail+"-"+drawable.temp_thumbnail+"-"+drawable.temp_thumbnail);
-							fdsJson.put(fdJson);
-						} catch (JSONException e) { e.printStackTrace(); }
+
+		// 시작하기 버튼을 누르면, 리스트를 전체 동영상을 보여주게 됨.
+		fitdetail_mainmenu_programstart
+				.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						if (listdata != null) { 
+							JSONArray fdsJson = new JSONArray();
+							for (int i = 0; i < listdata.size(); i++) {
+								JSONObject fdJson = new JSONObject();
+								try {
+									fdJson.put("subMenuId", listdata.get(i)
+											.get("subMenuId"));
+									fdsJson.put(fdJson);
+								} catch (JSONException e) {
+									e.printStackTrace();
+								}
+							}  
+							Intent intent = new Intent(getApplicationContext(),
+									VideoDetailActivity.class);
+							intent.putExtra("json", fdsJson.toString());
+							startActivity(intent);
+
+						}
 					}
-					
-					try { set.put("idx", "1"); } catch (JSONException e) { e.printStackTrace(); }
-					try { set.put("maxIndex", listdata.size()+""); } catch (JSONException e) { e.printStackTrace(); }
-					try { set.put("fdsJson", fdsJson); } catch (JSONException e) { e.printStackTrace(); }
-					Intent intent = new Intent(getApplicationContext(),
-							VideoDetailActivity.class);
-					intent.putExtra("json", set.toString());
-					startActivity(intent); 
-				}				
-			}
-		});
+				});
 	}
 
 	private final Handler mhandler = new Handler() {
@@ -172,12 +168,13 @@ public class FitDetail_MainMenuTitleActivity extends Activity {
 		// adapter.refresh_data();
 		simpleadapter.notifyDataSetChanged();
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		Intent intent = new Intent(getApplicationContext(), OtherProgramActivity.class);
+		Intent intent = new Intent(getApplicationContext(),
+				OtherProgramActivity.class);
 		startActivity(intent);
 		finish();
 		return false;
-	}
+	} 
 }

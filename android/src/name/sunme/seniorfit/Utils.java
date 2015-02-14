@@ -3,6 +3,9 @@ package name.sunme.seniorfit;
 import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
 
+import name.sunme.firstexecution.Setup4Activity;
+import name.sunme.maindrawbar.MainActivity;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -10,6 +13,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -22,9 +26,6 @@ import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 
 public class Utils {
-	public static void downlaodFiles(Context constext, String... paths) {
-		new DownloadFileAsync(constext).execute(paths);
-	}
 	
 	public static void saveFitApiData(Context context, String input_data) {
 		String TAG = "saveFitApiData";
@@ -43,16 +44,7 @@ public class Utils {
 			e.printStackTrace();
 		} 
 	}
-	public static void downloadResource(Context context, Handler downloadendhandler) {
-		String TAG = "downloadResource";
-		DBHelper helper = new DBHelper(context);
-		DBAdapter adapter = new DBAdapter(context);
-		String[] urls = adapter.get_fitapiUrls();
-		for (String url_str : urls) {
-			Log.d(TAG, "download start : " + url_str);
-		}
-		new DownloadFileAsync(context, downloadendhandler).execute(urls);		
-	}
+	
 	
 	public static Bitmap getSquareBitmap(Bitmap srcBmp) {
         Bitmap dstBmp;
@@ -108,4 +100,78 @@ public class Utils {
 		return t;
     } 
     
+    
+    
+    
+    
+    public static float getBMI_number(float weight, float height_cm) {
+    	if (height_cm < 10) {return 0;}
+    	float bmi = weight/(height_cm/100)/(height_cm/100);
+    	return  bmi;
+    }
+    
+    
+    public static String getBMI_string(float bmi) {
+		if (bmi<=18.5) {
+			return "저체중"; 
+		} else if (bmi<23) {
+			return "정상체중"; 
+		} else if (bmi<25) {
+			return "과체중";
+		} else if (bmi<30) {
+			return "비만"; 
+		} else {
+			return "고도비만"; 
+		} 
+		 
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    public static void downloadResource(Context context, Handler downloadendhandler) {
+		String TAG = "downloadResource";
+		DBHelper helper = new DBHelper(context);
+		DBAdapter adapter = new DBAdapter(context);
+		String[] urls = adapter.get_fitapiUrls();
+		for (String url_str : urls) {
+			Log.d(TAG, "download start : " + url_str);
+		}
+		new DownloadFileAsync(context, downloadendhandler).execute(urls);		
+	}
+    public static void showDialog_downloadResource(final Context context, final Handler downloadendhandler) {
+    	final String TAG = "showDialog_downloadResource";
+		new AlertDialog.Builder(context).setMessage("리소스를 다운받겠습니다. 데이터를 많이 사용하니 와이파이를 연결하고 확인을 눌러주세요.")
+	    .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+	        @Override
+	        public void onClick(DialogInterface dialog, int which) {
+	            Log.d(TAG, "확인 클릭");
+	            downloadResource(context, downloadendhandler);
+	            dialog.dismiss();
+	        }
+	    })
+	    .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+	        @Override
+	        public void onClick(DialogInterface dialog, int which) {
+	            Log.d(TAG, "취소 클릭");
+	            downloadendhandler.sendEmptyMessage(-1);
+	            dialog.dismiss();
+	        }
+	    })
+	    .show();
+	} 
 }

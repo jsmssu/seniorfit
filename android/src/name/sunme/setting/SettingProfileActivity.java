@@ -30,6 +30,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,38 +44,57 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class SettingProfileActivity extends Activity {
-
+	String TAG ="SettingProfileActivity";
 	final int REQUEST_CODE_IMAGE = 1;
 	ImageView settingprofile_photo;
-	LinearLayout settingprofile_weightbox;
+	
 	TextView settingprofile_name;
 	
-	private DBHelper helper;
+	LinearLayout settingprofile_boxweight;
+	LinearLayout settingprofile_boxmin_stretcing;
+	LinearLayout settingprofile_boxmin_walking;
+	
+	TextView settingprofile_min_stretcing;
+	TextView settingprofile_min_walking;
+	TextView settingprofile_weight;
 	private DBAdapter adapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Log.d(TAG, "onCreate");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_setting_profile);
 		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
-        
-		helper = new DBHelper(getApplicationContext());
+         
 		adapter = new DBAdapter(getApplicationContext());
 		
         
         settingprofile_photo = (ImageView)findViewById(R.id.settingprofile_photo);
         settingprofile_name = (TextView)findViewById(R.id.settingprofile_name);
-        settingprofile_weightbox = (LinearLayout)findViewById(R.id.settingprofile_weightbox);
-        settingprofile_weightbox.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(getApplicationContext(), SettingBMIActivity.class);
-				startActivity(intent);
-			}
-		});
+        
+        
+        settingprofile_boxweight = (LinearLayout)findViewById(R.id.settingprofile_boxweight);
+    	settingprofile_boxmin_stretcing = (LinearLayout)findViewById(R.id.settingprofile_boxmin_stretcing);
+    	settingprofile_boxmin_walking = (LinearLayout)findViewById(R.id.settingprofile_boxmin_walking);
+        
+    	
+    	settingprofile_min_stretcing = (TextView)findViewById(R.id.settingprofile_min_stretcing);
+    	settingprofile_min_walking = (TextView)findViewById(R.id.settingprofile_min_walking);
+    	settingprofile_weight = (TextView)findViewById(R.id.settingprofile_weight);
+    	Log.d(TAG, "set elements");
+    	try {
+    		int weight = Integer.parseInt(adapter.get_setting("weight"));
+        	int height = Integer.parseInt(adapter.get_setting("height"));
+        	float bmi = Utils.getBMI_number(weight, height);
+        	String bmi_string = Utils.getBMI_string(bmi);
+        	settingprofile_weight.setText(bmi+"("+bmi_string+")");	
+        	Log.d(TAG, "bmi : " + bmi);
+    	} catch (Exception e) {
+    		Log.d(TAG, "failed to get bmi");
+    	}
+    	
         
         settingprofile_photo.setOnClickListener(new OnClickListener() {
 			
@@ -105,6 +125,32 @@ public class SettingProfileActivity extends Activity {
                 InputDialog.show();
             }
         });
+        
+        settingprofile_boxweight.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getApplicationContext(), SettingBMIActivity.class);
+				startActivity(intent);
+			}
+		});
+        
+        settingprofile_boxmin_stretcing.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				
+			}
+		});
+        settingprofile_boxmin_walking.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				
+			}
+		});
         
         loadValues();
 	}
