@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.seniorfit"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="21" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="name.bagi.levente.pedometer.Pedometer"
+            android:label="@string/title_activity_walking" >
+        </activity>
+
+        <service android:name="name.bagi.levente.pedometer.StepService" />
+
+        <activity
+            android:name="name.sunme.firstexecution.TutorialActivity"
+            android:label="@string/title_activity_tutorial"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="name.sunme.firstexecution.Setup1Activity"
+            android:label="@string/title_activity_setup1"
+            android:theme="@style/AppThemeActionbarBack" >
+        </activity>
+        <activity
+            android:name="name.sunme.firstexecution.Setup2Activity"
+            android:label="@string/title_activity_setup2"
+            android:theme="@style/AppThemeActionbarBack" >
+        </activity>
+        <activity
+            android:name="name.sunme.firstexecution.Setup3Activity"
+            android:label="@string/title_activity_setup3"
+            android:theme="@style/AppThemeActionbarBack" >
+        </activity>
+        <activity
+            android:name="name.sunme.firstexecution.Setup4Activity"
+            android:label="@string/title_activity_setup4"
+            android:theme="@style/AppThemeActionbarBack" >
+        </activity>
+        <activity
+            android:name="name.sunme.maindrawbar.MainActivity"
+            android:label="Senior Fit"
+            android:theme="@style/AppThemeActionbarMenu" >
+
+        </activity>
+        <activity
+            android:name="name.sunme.maindrawbar.WorkingoutFragment"
+            android:label="@string/title_activity_workingout" >
+        </activity>
+        <activity
+            android:name="name.sunme.maindrawbar.RecordingFragment"
+            android:label="@string/title_activity_recording" >
+        </activity>
+        <activity
+            android:name="name.sunme.maindrawbar.SettingFragment"
+            android:label="@string/title_activity_setting" >
+        </activity>
+        <activity
+            android:name="name.sunme.maindrawbar.StretchingActivity"
+            android:label="@string/title_activity_stretching"
+            android:theme="@style/AppThemeActionbarBack" >
+        </activity>
+        <activity
+            android:name="name.sunme.functionactivity.OtherProgramActivity"
+            android:label="@string/title_activity_other_program"
+            android:theme="@style/AppThemeActionbarBack" >
+        </activity>
+        <activity
+            android:name="name.sunme.functionactivity.FitDetail_MainMenuTitleActivity"
+            android:label="@string/title_activity_fit_detail__main_menu_title"
+            android:theme="@style/AppThemeActionbarBack" >
+        </activity>
+        <activity
+            android:name=".ChooseActivity"
+            android:label="@string/title_activity_choose" >
+        </activity>
+        <activity
+            android:name="name.sunme.functionactivity.ChooseProgramActivity"
+            android:label="@string/title_activity_choose_program" >
+        </activity>
+        <activity
+            android:name="name.sunme.functionactivity.VideoDetailActivity"
+            android:label="@string/title_activity_video_detail" >
+        </activity>
+        <activity
+            android:name="name.sunme.functionactivity.SeniorClubActivity"
+            android:label="@string/title_activity_senior_club" >
+        </activity>
+        <activity
+            android:name="name.sunme.seniorfit.FacebookLoginActivity"
+            android:label="@string/title_activity_facebook_login" >
+        </activity>
+        <activity
+            android:name="com.facebook.LoginActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/app_id" />
+
+        <activity
+            android:name="name.sunme.setting.SettingProfileActivity"
+            android:label="@string/title_activity_setting_profile"
+            android:theme="@style/AppThemeActionbarBack" >
+        </activity>
+        <activity
+            android:name="name.sunme.setting.SettingGoalActivity"
+            android:label="@string/title_activity_setting_goal"
+            android:theme="@style/AppThemeActionbarBack" >
+        </activity>
+        <activity
+            android:name="name.sunme.setting.SettingBMIActivity"
+            android:label="@string/title_activity_setting_bmi"
+            android:theme="@style/AppThemeActionbarBack" >
+        </activity>
+        <activity
+            android:name="name.sunme.functionactivity.MyWorkingoutActivity"
+            android:label="@string/title_activity_my_workingout" >
+                        <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

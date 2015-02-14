@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <LinearLayout 
+        android:id="@+id/myworkingout_a"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:background="#000000">
+        <ImageView 
+            android:id="@+id/myworkingout_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="18dp"
+            android:src="@drawable/myworkingout_uncheckedcircle"
+            android:visibility="gone"
+            />
+        <TextView 
+            android:id="@+id/myworkingout_title"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textSize="18dp"
+            android:text="준비 운동"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:id="@+id/myworkingout_fold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="18dp" 
+            android:src="@drawable/myworkingout_folded"
+            />
+    </LinearLayout>
+    <ListView 
+        android:id="@+id/myworkingout_sub_a"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+    </ListView>
+    
+
+</LinearLayout>

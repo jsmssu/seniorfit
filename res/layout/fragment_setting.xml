@@ -1,0 +1,222 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f2f2f2"
+    android:orientation="vertical"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="32dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:orientation="vertical"
+        android:paddingLeft="16dp" >
+
+        <LinearLayout
+            android:id="@+id/setting_btn_profile"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/setting_bg_line" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="프로필 설정"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="16dp"
+                android:src="@drawable/setting_icn_next" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/setting_btn_goal"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/setting_bg_line" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="운동 목표 설정"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="16dp"
+                android:src="@drawable/setting_icn_next" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/setting_btn_alarm"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/setting_bg_line" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="알람 설정"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="16dp"
+                android:src="@drawable/setting_icn_next" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/setting_btn_changeWorkingout"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/setting_bg_line" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="오늘의 운동 프로그램 바꾸기"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="16dp"
+                android:src="@drawable/setting_icn_next" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="32dp" />
+
+    <LinearLayout
+        android:id="@+id/setting_btn_sendmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:orientation="vertical"
+        android:paddingLeft="16dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/setting_bg_line" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="피드백 메일 보내기"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="16dp"
+                android:src="@drawable/setting_icn_next" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/setting_btn_help"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/setting_bg_line" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="도움말"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="16dp"
+                android:src="@drawable/setting_icn_next" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/setting_btn_logout"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/setting_bg_line" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="로그아웃"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="16dp"
+                android:src="@drawable/setting_icn_next" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,69 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="${relativePackage}.${activityClass}" 
+    android:orientation="vertical" >
+
+
+
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+        <TextView
+	        android:id="@+id/otherprogram_listrow_title"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="10px"
+	        android:layout_marginTop="10dp"
+	        android:text="title"
+	        android:textSize="50dp" >
+	    </TextView>
+	 
+	
+	    <LinearLayout
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignRight="@+id/imageView1"
+	        android:layout_below="@+id/otherprogram_listrow_title"
+	        android:layout_marginRight="29dp" >
+	        
+		    <ImageView 
+		        android:layout_width="70dp"
+		        android:layout_height="70dp"  
+		        android:gravity="center"/>
+		
+		    <TextView
+		        android:id="@+id/otherprogram_listrow_time"
+		        android:layout_width="100dp"
+		        android:layout_height="70dp" 
+		        android:text="2시간"
+		        android:textSize="20dp" 
+		        android:gravity="center"/>
+		 
+		    <ImageView 
+		        android:layout_width="70dp"
+		        android:layout_height="70dp" 
+		        android:gravity="center"/>
+		    <TextView
+		        android:id="@+id/otherprogram_listrow_kind"
+		        android:layout_width="100dp"
+		        android:layout_height="70dp"  
+		        android:text="매일운동"
+		        android:textSize="20dp" 
+		        android:gravity="center"/>
+	    </LinearLayout>
+	
+	    <ImageView
+	        android:id="@+id/otherprogram_listrow_bg"
+	        android:layout_width="match_parent"
+	        android:layout_height="fill_parent"/>
+    </RelativeLayout>
+        
+    <ListView
+        android:id="@+id/fitdetail_submenu_listview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+    </ListView>
+</LinearLayout>

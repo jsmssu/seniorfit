@@ -1,0 +1,119 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="${relativePackage}.${activityClass}" 
+    android:background="#ffffff">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="bottom|center_horizontal"
+        android:text="2/3"
+        android:textSize="30sp"
+        android:textColor="#000000"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="bottom|center_horizontal"
+        android:text="운동 목표 설정"
+        android:textSize="30sp"
+        android:textColor="#000000"
+        android:textStyle="bold" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="48dp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginBottom="16dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="84dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="하루"
+            android:textColor="#000000"
+            android:textSize="21sp" />
+
+        <TextView
+            style="@android:style/Widget.EditText"
+            android:id="@+id/setup3_goalMinutes"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="6dp"
+            android:gravity="right"
+            android:textSize="21sp" 
+            android:layout_marginRight="6dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="분 이상"
+            android:textColor="#000000"
+            android:textSize="21sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="84dp" >
+
+        <TextView
+            style="@android:style/Widget.EditText"
+            android:id="@+id/setup3_atTime"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="right"
+            android:textSize="21sp" 
+            android:text="      "
+            android:layout_marginRight="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="에"
+            android:textColor="#000000"
+            android:textSize="21sp" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="84dp"
+        android:gravity="center"
+        android:text="운동하겠습니다."
+        android:textColor="#000000"
+        android:textSize="21sp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/button_setup3_next"
+        android:layout_width="match_parent"
+             android:layout_height="90dp"
+     android:textStyle="bold"
+     android:textColor="#ffffff"
+     android:background="#37B7BB"
+     android:text="다음"
+     android:textSize="24dp"/>
+
+</LinearLayout>

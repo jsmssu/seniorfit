@@ -1,0 +1,88 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="bottom|center_horizontal"
+        android:text="3/3"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="bottom|center_horizontal"
+        android:text="알림 설정"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/setup4_seledctedDay"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="bottom|center_horizontal"
+        android:text="월,화,수,목,금 주 ~회"
+        android:textColor="#000000"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/setup4_goalMinutes"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="bottom|center_horizontal"
+        android:text="하루 ~분 이상"
+        android:textColor="#000000"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/setup4_atTime"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="bottom|center_horizontal"
+        android:text="아침 00:00시에 운동"
+        android:textColor="#000000"
+        android:textSize="24sp" />
+
+    <Switch
+            android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginBottom="16dp"
+        android:layout_gravity="bottom|center_horizontal" 
+            android:id="@+id/setup4_alarm"
+            android:text="시간 맞춰 알람" 
+            android:textStyle="bold"
+            android:textSize="24sp"/>
+    
+     
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/button_setup4_next"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="#37B7BB"
+        android:text="운동시작"
+        android:textColor="#ffffff"
+        android:textSize="24dp"
+        android:textStyle="bold" />
+
+</LinearLayout>
