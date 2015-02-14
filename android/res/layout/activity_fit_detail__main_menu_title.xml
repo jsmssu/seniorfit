@@ -2,68 +2,87 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="${relativePackage}.${activityClass}" 
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    tools:context="${relativePackage}.${activityClass}" >
 
-
-
-    <RelativeLayout 
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="166dp">
+
+        <ImageView
+            android:id="@+id/fitdetail_mainmenu_topbg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/otherprogram_bg1" />
+
         <TextView
-	        android:id="@+id/otherprogram_listrow_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_marginLeft="10px"
-	        android:layout_marginTop="10dp"
-	        android:text="title"
-	        android:textSize="50dp" >
-	    </TextView>
-	 
-	
-	    <LinearLayout
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignRight="@+id/imageView1"
-	        android:layout_below="@+id/otherprogram_listrow_title"
-	        android:layout_marginRight="29dp" >
-	        
-		    <ImageView 
-		        android:layout_width="70dp"
-		        android:layout_height="70dp"  
-		        android:gravity="center"/>
-		
-		    <TextView
-		        android:id="@+id/otherprogram_listrow_time"
-		        android:layout_width="100dp"
-		        android:layout_height="70dp" 
-		        android:text="2시간"
-		        android:textSize="20dp" 
-		        android:gravity="center"/>
-		 
-		    <ImageView 
-		        android:layout_width="70dp"
-		        android:layout_height="70dp" 
-		        android:gravity="center"/>
-		    <TextView
-		        android:id="@+id/otherprogram_listrow_kind"
-		        android:layout_width="100dp"
-		        android:layout_height="70dp"  
-		        android:text="매일운동"
-		        android:textSize="20dp" 
-		        android:gravity="center"/>
-	    </LinearLayout>
-	
-	    <ImageView
-	        android:id="@+id/otherprogram_listrow_bg"
-	        android:layout_width="match_parent"
-	        android:layout_height="fill_parent"/>
+            android:id="@+id/fitdetail_mainmenu_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="90dp"
+            android:text="Title"
+            android:textStyle="bold"
+            android:textSize="30dp" >
+        </TextView>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fitdetail_mainmenu_title"
+            android:layout_marginLeft="16dp" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/otherprogram_timer"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/otherprogram_listrow_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:layout_gravity="center_vertical" 
+                android:text="2시간"
+                android:layout_marginRight="15dp"
+                android:textSize="16dp" />
+
+            <ImageView
+                android:src="@drawable/otherprogram_calendar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/otherprogram_listrow_kind"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:layout_gravity="center_vertical"
+                android:text="매일운동"
+                android:textSize="16dp" />
+        </LinearLayout>
     </RelativeLayout>
-        
+
     <ListView
         android:id="@+id/fitdetail_submenu_listview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" >
     </ListView>
+    <Button 
+        android:id="@+id/fitdetail_mainmenu_programstart"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:text="프로그램 시작하기"
+        android:textSize="24sp"
+        android:background="#37B7BB"
+        android:textColor="#ffffff"
+        android:textStyle="bold"/>
+
 </LinearLayout>

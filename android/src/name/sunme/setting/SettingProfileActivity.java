@@ -39,13 +39,14 @@ import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class SettingProfileActivity extends Activity {
 
 	final int REQUEST_CODE_IMAGE = 1;
 	ImageView settingprofile_photo;
-	ImageView settingprofile_weight;
+	LinearLayout settingprofile_weightbox;
 	TextView settingprofile_name;
 	
 	private DBHelper helper;
@@ -65,8 +66,8 @@ public class SettingProfileActivity extends Activity {
         
         settingprofile_photo = (ImageView)findViewById(R.id.settingprofile_photo);
         settingprofile_name = (TextView)findViewById(R.id.settingprofile_name);
-        settingprofile_weight = (ImageView)findViewById(R.id.settingprofile_weight);
-        settingprofile_weight.setOnClickListener(new OnClickListener() {
+        settingprofile_weightbox = (LinearLayout)findViewById(R.id.settingprofile_weightbox);
+        settingprofile_weightbox.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {

@@ -74,7 +74,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:text="스트레칭"
-                android:textSize="30sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <Space
@@ -83,11 +83,12 @@
                 android:layout_weight="1" />
 
             <TextView
+                android:id="@+id/settingprofile_min_stretcing"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:text="~분"
-                android:textSize="30sp" />
+                android:textSize="20sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -108,7 +109,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:text="걷기"
-                android:textSize="30sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <Space
@@ -117,11 +118,12 @@
                 android:layout_weight="1" />
 
             <TextView
+                android:id="@+id/settingprofile_min_walking"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:text="~분"
-                android:textSize="30sp" />
+                android:textSize="20sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -134,14 +136,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal" 
+            android:id="@+id/settingprofile_weightbox">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:text="BMI"
-                android:textSize="30sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <Space
@@ -154,10 +157,10 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:text="~(~체중)"
-                android:textSize="30sp" />
+                android:textSize="20sp" 
+                android:id="@+id/settingprofile_weight"/>
 
-            <ImageView
-                android:id="@+id/settingprofile_weight"
+            <ImageView 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"

@@ -91,7 +91,7 @@ public class MainActivity extends Activity {
 		
 		{
 			FragmentManager fragmentManager = getFragmentManager();
-		    fragmentManager.beginTransaction().replace(R.id.content_frame, new RecordingFragment()).commit();
+		    fragmentManager.beginTransaction().replace(R.id.content_frame, new WorkingoutFragment()).commit();
 		}
 		
 		mDrawerList.setAdapter(dradapter);

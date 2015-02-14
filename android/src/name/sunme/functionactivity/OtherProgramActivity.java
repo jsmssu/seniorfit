@@ -34,6 +34,9 @@ public class OtherProgramActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_other_program);
 		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setHomeButtonEnabled(true);
+		
 		Log.d("TAG", "start");
 		list = (ListView)findViewById(R.id.otherprogram_listview);
 		Log.d("TAG", "findViewById");
@@ -95,7 +98,7 @@ public class OtherProgramActivity extends Activity {
 				listdata,
         		R.layout.activity_other_program_row,
         		new String[]{"title","time", "day", "background"}, 
-        		new int[]{R.id.otherprogram_listrow_title, R.id.otherprogram_listrow_time, R.id.otherprogram_listrow_kind, R.id.otherprogram_listrow_bg});
+        		new int[]{R.id.otherprogram_listrow_title, R.id.otherprogram_listrow_time, R.id.otherprogram_listrow_day, R.id.otherprogram_listrow_bg});
 		list.setAdapter(simpleadapter); 
 		Log.d(TAG, "setAdapter");
 		list.setOnItemClickListener(new OnItemClickListener() {
@@ -106,10 +109,12 @@ public class OtherProgramActivity extends Activity {
 		    	  
 		      } else {
 		    	  Intent intent = new Intent(getApplicationContext(), FitDetail_MainMenuTitleActivity.class);
+		    	  intent.putExtra("title", listdata.get(position).get("title"));
 			      intent.putExtra("mainMenuId", listdata.get(position).get("mainMenuId"));
 			      intent.putExtra("background", listdata.get(position).get("background"));
 			      Log.d(TAG, "putExtra :" + listdata.get(position).get("mainMenuId"));
 			      startActivity(intent);  
+			      finish();
 		      }
 		    }
 		});
@@ -132,4 +137,10 @@ public class OtherProgramActivity extends Activity {
     	//adapter.refresh_data();
     	simpleadapter.notifyDataSetChanged();
     }
+    
+    @Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		finish();
+		return false;
+	}
 }
