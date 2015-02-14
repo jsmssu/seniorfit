@@ -189,27 +189,7 @@ public class FacebookLoginActivity extends Activity {
 
 			Log.d(TAG, "postParams : " + postParams);
 
-			/*
-			 * Request.Callback callback= new Request.Callback() { public void
-			 * onCompleted(Response response) { Log.d(TAG,
-			 * "response : "+response); JSONObject graphResponse =
-			 * response.getGraphObject().getInnerJSONObject(); Log.d(TAG,
-			 * "graphResponse : "+graphResponse); String postId = null; try {
-			 * postId = graphResponse.getString("id"); Toast.makeText(
-			 * FacebookLoginActivity.this, "등록성공", Toast.LENGTH_SHORT).show(); }
-			 * catch (JSONException e) { //Log.i(TAG, "JSON error "+
-			 * e.getMessage()); }
-			 * 
-			 * FacebookRequestError error = response.getError(); if (error !=
-			 * null) { Toast.makeText(FacebookLoginActivity.this,
-			 * error.getErrorMessage(), Toast.LENGTH_SHORT).show(); } else {
-			 * Toast.makeText(FacebookLoginActivity.this, postId,
-			 * Toast.LENGTH_LONG).show(); } } };
-			 * 
-			 * Request request = new Request(session, "me/feed", postParams,
-			 * HttpMethod.POST, callback); RequestAsyncTask task = new
-			 * RequestAsyncTask(request); task.execute();
-			 */
+			 
 			new Request(session, "me/feed", postParams, HttpMethod.POST,
 					new Request.Callback() {
 						public void onCompleted(Response response) {
