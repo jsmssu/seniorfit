@@ -4,29 +4,32 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity" >
 
-     <TextView
-         android:id="@+id/lblEmail"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignParentTop="true"
-         android:layout_centerHorizontal="true"
-         android:layout_marginTop="144dp"
-         android:text="Email ID : "
-         android:textAppearance="?android:attr/textAppearanceLarge" />
-
 <com.facebook.widget.LoginButton
-         android:id="@+id/authButton"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignParentTop="true"
-         android:layout_centerHorizontal="true"
-         android:layout_marginTop="45dp" />
-<Button 
-    android:id="@+id/login_writebutton"
-             android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:text="글쓰기버튼"
-    />
+    android:id="@+id/authButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"
+    android:layout_marginBottom="38dp" />
 
+<TextView
+    android:id="@+id/lblEmail"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/authButton"
+    android:layout_alignParentLeft="true"
+    android:layout_marginBottom="24dp"
+    android:layout_marginLeft="30dp"
+    android:text="Email ID : "
+    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+<Button
+    android:id="@+id/login_writebutton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignBaseline="@+id/lblEmail"
+    android:layout_alignBottom="@+id/lblEmail"
+    android:layout_alignParentRight="true"
+    android:text="글쓰기버튼" />
 
 </RelativeLayout>

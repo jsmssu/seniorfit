@@ -424,7 +424,7 @@ containing a value of this type.
     }
     public static final class id {
         public static final int action_settings=0x7f0a00a0;
-        public static final int authButton=0x7f0a000d;
+        public static final int authButton=0x7f0a000c;
         public static final int bottom=0x7f0a0006;
         public static final int box_calories=0x7f0a0030;
         public static final int box_count=0x7f0a0003;
@@ -489,7 +489,7 @@ containing a value of this type.
         public static final int inline=0x7f0a0007;
         public static final int large=0x7f0a0000;
         public static final int layout_root=0x7f0a008b;
-        public static final int lblEmail=0x7f0a000c;
+        public static final int lblEmail=0x7f0a000d;
         public static final int left=0x7f0a000a;
         public static final int left_drawer=0x7f0a0093;
         public static final int left_listview=0x7f0a0096;
