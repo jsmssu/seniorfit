@@ -38,7 +38,7 @@ import android.widget.AdapterView.OnItemClickListener;
 public class FitDetail_MainMenuTitleActivity extends Activity {
 	String TAG = "FitDetail_MainMenuTitleActivity";
 	private DBHelper helper;
-	private DBAdapter adapter;
+	private DBAdapter dbadapter;
 	private ListView list;
 	private String mainMenuId = null;
 	private String subMenuId = null;
@@ -81,14 +81,14 @@ public class FitDetail_MainMenuTitleActivity extends Activity {
 			}
 
 			helper = new DBHelper(getApplicationContext());
-			adapter = new DBAdapter(getApplicationContext());
+			dbadapter = new DBAdapter(getApplicationContext());
 
 			
 
 			// 동영상 리스트 보여줌
 			int idx = 0;
 			if (mainMenuId != null) {
-				FitApiDataClass[] re = adapter
+				FitApiDataClass[] re = dbadapter
 						.get_fitapidata_fromMainMenuId(mainMenuId);// adapter.get_fitapidata_fromMainMenuId(mainMenuId);
 				for (final FitApiDataClass fad : re) {
 					HashMap<String, String> dt = new HashMap<String, String>();
@@ -110,22 +110,14 @@ public class FitDetail_MainMenuTitleActivity extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				Intent intent = new Intent(getApplicationContext(),
-						VideoDetailActivity.class);
+						VideoShowActivity.class);
 				Log.d(TAG, "setOnItemClickListener");
-				try {
-					// 동영상에 대한 데이터를 넘겨줌.
-					// 나중에 업데이트 하기 편하게 제이쓴을 썼을뿐!
-					JSONArray ja = new JSONArray();
-					JSONObject jo = new JSONObject();
-					jo.put("subMenuId", listdata.get(position).get("subMenuId"));
-					ja.put(jo);
-					Log.d(TAG, "putExtra : " + ja.toString());
-					intent.putExtra("json", ja.toString());
-					startActivity(intent);
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+ 
+				String videoname = (dbadapter.get_fitapidata_fromSubMenuId(listdata.get(position).get("subMenuId")))._nameVideo;
+					
+ 
+					intent.putExtra("videoname", videoname);
+				startActivity(intent); 
 
 			}
 		});
