@@ -5,6 +5,7 @@ import java.io.File;
 import name.sunme.firstexecution.TutorialActivity;
 import name.sunme.seniorfit.DBAdapter;
 import name.sunme.seniorfit.DBHelper; 
+import name.sunme.setting.SettingGoalActivity;
 import name.sunme.setting.SettingProfileActivity;
 import name.sunme.maindrawbar.R;
 import android.app.ActionBar;
@@ -42,6 +43,7 @@ public class MainActivity extends Activity {
 	private DBHelper helper;
 	private DBAdapter dbadapter;
 	private ImageView sidebar_profile_image;
+	final MyDrawerItem[] drawerItem = new MyDrawerItem[4];
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +78,7 @@ public class MainActivity extends Activity {
 		mDrawer = (LinearLayout) findViewById(R.id.left_drawer);
 		sidebar_profile_name = (TextView)findViewById(R.id.sidebar_profile_name);
 		sidebar_profile_image = (ImageView)findViewById(R.id.sidebar_profile_image);
-		final MyDrawerItem[] drawerItem = new MyDrawerItem[4];
+		
 		
 		String aims = "주 ";
 		if (dbadapter.get_setting("dayN")!=null) {aims = aims + dbadapter.get_setting("dayN");}
@@ -110,12 +112,13 @@ public class MainActivity extends Activity {
 			}
 			private void selectItem(int position) {
 				Log.d(TAG, "selectItem : " +position);
-			    
 			    Fragment fragment = null;
 			    
 			    /* do modify*/
 			    switch (position) {
 			    case 0:
+			    	mDrawerLayout.closeDrawer(mDrawer);
+			    	startActivity(new Intent(getApplicationContext(),SettingGoalActivity.class));
 			    	break;
 			    case 1:
 			        fragment = new WorkingoutFragment();
@@ -171,6 +174,7 @@ public class MainActivity extends Activity {
 		    	
 		    	loadName();
 		    	loadProfilePicture();
+		    	loadGoal();
 		        super.onDrawerOpened(drawerView);
 		    }
 		};
@@ -203,6 +207,16 @@ public class MainActivity extends Activity {
 		   } 
 		   return super.onOptionsItemSelected(item);
 	} 
+	private void loadGoal() {
+		String aims = "주 ";
+		if (dbadapter.get_setting("dayN")!=null) {aims = aims + dbadapter.get_setting("dayN");}
+		else {aims = aims + "~";}
+		aims = aims + "회 하루 ";
+		if (dbadapter.get_setting("goalMinutes")!=null) {aims = aims + dbadapter.get_setting("goalMinutes");}
+		else {aims = aims + "~";}
+		aims = aims + "분";  
+		drawerItem[0] = new MyDrawerItem(R.drawable.sidebar_aim, aims);
+	}
 	
 	private void loadName() {
 		String name = dbadapter.get_setting("name");
