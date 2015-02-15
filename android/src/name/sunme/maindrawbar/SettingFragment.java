@@ -67,9 +67,7 @@ public class SettingFragment extends Fragment {
         setting_btn_logout.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				DBHelper dbhelper = new DBHelper(getActivity());
-				dbhelper.dropSettingTable();
-				dbhelper.createFitDataTable();
+				
 			}
 		});
         return rootView;

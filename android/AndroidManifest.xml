@@ -98,7 +98,8 @@
         </activity>
         <activity
             android:name="name.sunme.functionactivity.VideoDetailActivity"
-            android:label="@string/title_activity_video_detail" >
+            android:label="@string/title_activity_video_detail" 
+            android:theme="@style/AppThemeActionbarBack">
         </activity>
         <activity
             android:name="name.sunme.seniorfit.FacebookLoginActivity"

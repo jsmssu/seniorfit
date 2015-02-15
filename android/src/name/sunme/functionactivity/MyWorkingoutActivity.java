@@ -149,12 +149,7 @@ public class MyWorkingoutActivity extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				selectItem(position);
-				Log.d(TAG, "mwiListLen : "+mwiListLen);
-				for(int i=0; i<mwiListLen; i++) {
-					if(i == position) {mwiList.get(i).setCheck();}
-					else {mwiList.get(i).resetCheck();}
-				}
-				//mwiList.get(index)
+				 
 				
 			}
 			private void selectItem(int position) {

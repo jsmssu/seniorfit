@@ -49,7 +49,7 @@ public class MyWorkingoutListCustomAdapter extends ArrayAdapter<MyWorkingoutItem
 	
 	
 	@Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
  
         View listItem = convertView;
  
@@ -110,6 +110,19 @@ public class MyWorkingoutListCustomAdapter extends ArrayAdapter<MyWorkingoutItem
         ImageView myworkingout_check = (ImageView)listItem.findViewById(R.id.myworkingout_check); 
         data.get(position).radioImage = myworkingout_check;
         
+        
+        myworkingout_check.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+		        Log.d(TAG, "mwiListLen : "+data.size());
+				for(int i=0; i<data.size(); i++) {
+					if(i == position) {data.get(i).setCheck();}
+					else {data.get(i).resetCheck();}
+				} 
+			}
+		});
+
         /*
         String myworkingout = adapter.get_setting("myworkingout");
         if (myworkingout == null) {

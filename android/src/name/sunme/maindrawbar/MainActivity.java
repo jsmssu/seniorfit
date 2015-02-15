@@ -5,9 +5,8 @@ import java.io.File;
 import name.sunme.firstexecution.TutorialActivity;
 import name.sunme.seniorfit.DBAdapter;
 import name.sunme.seniorfit.DBHelper; 
-
+import name.sunme.setting.SettingProfileActivity;
 import name.sunme.maindrawbar.R;
-
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
@@ -24,6 +23,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewParent;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -38,7 +38,7 @@ public class MainActivity extends Activity {
 	private TextView sidebar_profile_name;
 	ActionBarDrawerToggle mDrawerToggle;
 	private LinearLayout mDrawer;
-	
+	private LinearLayout left_profile;
 	private DBHelper helper;
 	private DBAdapter dbadapter;
 	private ImageView sidebar_profile_image;
@@ -48,6 +48,9 @@ public class MainActivity extends Activity {
         Log.d(TAG, "oncreate");
 		helper = new DBHelper(getBaseContext());
 		dbadapter = new DBAdapter(getBaseContext());
+		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setHomeButtonEnabled(true);
         Log.d(TAG,"start home");
         if (dbadapter.get_setting("firstsetting") == null) {
         	Log.d(TAG,"Go to get apidata");
@@ -65,7 +68,7 @@ public class MainActivity extends Activity {
 
 		
 		
-		
+        left_profile = (LinearLayout)findViewById(R.id.left_profile);
 
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		//mDrawerList = (ListView) findViewById(R.id.left_drawer);
@@ -173,8 +176,17 @@ public class MainActivity extends Activity {
 		};
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 		 
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-		getActionBar().setHomeButtonEnabled(true);
+		
+		left_profile.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(getApplicationContext(), SettingProfileActivity.class);
+				startActivity(intent);
+				mDrawerLayout.closeDrawer(mDrawer);
+			}
+		}); 
 	}
 
 	@Override

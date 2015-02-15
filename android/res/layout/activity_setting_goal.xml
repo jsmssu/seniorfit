@@ -36,6 +36,7 @@
         android:paddingLeft="16dp" >
 
         <LinearLayout
+            android:id="@+id/settinggoal_boxnumber"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@drawable/setting_bg_line"
@@ -55,6 +56,7 @@
                 android:layout_weight="1" />
 
             <TextView
+                android:id="@+id/settinggoal_number"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
@@ -70,6 +72,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/settinggoal_boxmin"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@drawable/setting_bg_line"
@@ -89,6 +92,7 @@
                 android:layout_weight="1" />
 
             <TextView
+                android:id="@+id/settinggoal_min"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
