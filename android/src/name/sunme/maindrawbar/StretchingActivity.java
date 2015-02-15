@@ -21,7 +21,7 @@ import android.widget.ImageView;
 public class StretchingActivity extends Activity {
 	String TAG = "StretchingActivity";
 	private Button stretcing_otherprogram;
-	private Button stretcing_chooseprogram;
+	private Button stretcing_myworkingout; 
 	private ImageView stretcing_startmyworkingout;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class StretchingActivity extends Activity {
         
         Log.d(TAG, "set actioinbar");
         stretcing_otherprogram = (Button)findViewById(R.id.stretcing_otherprogram);
-        stretcing_chooseprogram = (Button)findViewById(R.id.stretcing_chooseprogram);
+        stretcing_myworkingout = (Button)findViewById(R.id.stretcing_myworkingout);
         stretcing_startmyworkingout = (ImageView)findViewById(R.id.stretcing_startmyworkingout);
         stretcing_otherprogram.setOnClickListener(new OnClickListener() { 
 			@Override
@@ -45,11 +45,11 @@ public class StretchingActivity extends Activity {
 				finish();
 			}
 		});
-        stretcing_chooseprogram.setOnClickListener(new OnClickListener() { 
+        stretcing_myworkingout.setOnClickListener(new OnClickListener() { 
 			@Override
 			public void onClick(View v) {
 				Log.d(TAG, "button_chooseprogram");
-				Intent intent = new Intent(getApplicationContext(), ChooseProgramActivity.class);
+				Intent intent = new Intent(getApplicationContext(), MyWorkingoutActivity.class);
 				startActivity(intent);
 				finish();
 			}
@@ -58,8 +58,8 @@ public class StretchingActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Log.d(TAG, "button_chooseprogram");
-				Intent intent = new Intent(getApplicationContext(), MyWorkingoutActivity.class);
-				startActivity(intent);
+				
+				//startActivity(intent);
 				finish();
 			}
 		});

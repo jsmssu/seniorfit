@@ -31,7 +31,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class MyWorkingoutActivity extends Activity {
 	String TAG = "MyWorkingoutActivity";
-	private ListView list;
+	private ListView myworkingout_maintitle;
 	private static ArrayList<HashMap<String, String>> listdata;
 	
 	private DBHelper helper;
@@ -51,14 +51,34 @@ public class MyWorkingoutActivity extends Activity {
 		
 		Log.d(TAG, "listdata");
 		listdata = new ArrayList<HashMap<String, String>>(); 
-		listdata.add(new HashMap<String, String>() {{put("title", "준비 운동");put("mainMenuId", "a");}});
-		listdata.add(new HashMap<String, String>() {{put("title", "근력 강화");put("mainMenuId", "b");}});
-		listdata.add(new HashMap<String, String>() {{put("title", "심폐 지구력 강화");put("mainMenuId", "c");}});
-		listdata.add(new HashMap<String, String>() {{put("title", "유연성강화");put("mainMenuId", "d");}});
-		listdata.add(new HashMap<String, String>() {{put("title", "평행성/체력강화");put("mainMenuId", "e");}});
-		listdata.add(new HashMap<String, String>() {{put("title", "정리운동");put("mainMenuId", "f");}});
 		
-		list = (ListView) findViewById(R.id.workingout_listview);
+		String programs = "[{\"title\":\"하루 운동\", \"list\":[[{\"mainMenuId\":\"b\"},{\"mainMenuId\":\"c\"},{\"mainMenuId\":\"d\"},{\"mainMenuId\":\"e\"}]]},{\"title\":\"주5회 세트\", \"list\":[[{\"mainMenuId\":\"b\"},{\"mainMenuId\":\"c\"}],[{\"mainMenuId\":\"d\"},{\"mainMenuId\":\"c\"}],[{\"mainMenuId\":\"b\"},{\"mainMenuId\":\"c\"}],[{\"mainMenuId\":\"d\"},{\"mainMenuId\":\"c\"}],[{\"mainMenuId\":\"a\"},{\"mainMenuId\":\"b\"},{\"mainMenuId\":\"c\"},{\"mainMenuId\":\"d\"},{\"mainMenuId\":\"e\"}],[],[]]},{\"title\":\"주3회 세트\", \"list\":[[{\"mainMenuId\":\"b\"},{\"mainMenuId\":\"c\"}],[],[{\"mainMenuId\":\"d\"},{\"mainMenuId\":\"c\"}],[],[{\"mainMenuId\":\"a\"},{\"mainMenuId\":\"b\"},{\"mainMenuId\":\"c\"},{\"mainMenuId\":\"d\"},{\"mainMenuId\":\"e\"}],[],[]]},{\"title\":\"다쓰기귀찮다\", \"list\":[[{\"subMenuId\":\"a_1\"},{\"subMenuId\":\"c_1\"},{\"subMenuId\":\"b_3\"},{\"subMenuId\":\"e_3\"},{\"subMenuId\":\"e_5\"}]]}]";
+		
+		JSONArray jprograms;
+		JSONArray jmainmenus;
+		try {
+			jprograms = new JSONArray(programs);
+			Log.d(TAG, "programs : "+jprograms.toString());
+			for(int i=0; i<jprograms.length(); i++) {
+				HashMap<String, String> elem = new HashMap<String, String>();
+				elem.put("title", jprograms.getJSONObject(i).getString("title"));
+				listdata.add(elem);
+			}
+			Log.d(TAG, "mainmenu : "+adapter.get_setting("mainMenus"));
+			jmainmenus = new JSONArray(adapter.get_setting("mainMenus")); //메인타이틀 목록을 뽑니다.
+			for(int i=0; i<jmainmenus.length(); i++) {
+				HashMap<String, String> elem = new HashMap<String, String>();
+				elem.put("title", jmainmenus.getJSONObject(i).getString("mainMenuTitle")); //추가한다.
+				listdata.add(elem);
+			}
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		 
+		
+		myworkingout_maintitle = (ListView) findViewById(R.id.myworkingout_maintitle);
 		//View child = getLayoutInflater().inflate(R.layout.row);
 		if (listdata != null) {
 			Log.d(TAG, "listdata != null");
@@ -67,11 +87,11 @@ public class MyWorkingoutActivity extends Activity {
 					R.layout.activity_my_workingout_row,
 					new String[] { "title"},
 					new int[] { R.id.myworkingout_title});
-			list.setAdapter(simpleadapter);
+			myworkingout_maintitle.setAdapter(simpleadapter);
 			listUpdate();
 		}
 		
-		
+		/*
 		for(int i=0; i<listdata.size(); i++) {
 			 ArrayList<HashMap<String, String>> sublistdata = new ArrayList<HashMap<String, String>>();
 			 FitApiDataClass[] fad = adapter.get_fitapidata_fromMainMenuId(listdata.get(i).get("mainMenuId"));
@@ -90,7 +110,7 @@ public class MyWorkingoutActivity extends Activity {
 				//listdata.get(position).get("listdata"); 
 				//http://stackoverflow.com/questions/9817165/how-to-add-listview-in-listview-in-android
 			}
-		});
+		});*/
 	}
 	
 	

@@ -5,7 +5,7 @@
     tools:context="${relativePackage}.${activityClass}" >
     
     <ListView
-        android:id="@+id/workingout_listview" 
+        android:id="@+id/myworkingout_maintitle" 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"> 
     </ListView> 

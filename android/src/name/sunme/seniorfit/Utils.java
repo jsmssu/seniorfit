@@ -1,6 +1,7 @@
 package name.sunme.seniorfit;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import name.sunme.firstexecution.Setup4Activity;
@@ -8,6 +9,7 @@ import name.sunme.maindrawbar.MainActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -32,12 +34,38 @@ public class Utils {
 		DBHelper helper = new DBHelper(context);
 		DBAdapter adapter = new DBAdapter(context);
 		JSONArray jsonarray;
+		
+		ArrayList<String> mainMenuIds = new ArrayList<String>();
+		JSONArray jmainMenuIds = new JSONArray();
+		ArrayList<String> subMenuIds = new ArrayList<String>();
+		JSONArray jsubMenuIds = new JSONArray();
 		try {
 			jsonarray = new JSONArray(input_data);
 			for (int i=0; i<jsonarray.length(); i++) {
 				FitApiDataClass fitapidata = FitApiDataClass.parseObject(jsonarray.getJSONObject(i));
+				
+				if (mainMenuIds.contains(fitapidata._mainMenuId)==false) {
+					mainMenuIds.add(fitapidata._mainMenuId);
+					JSONObject jo = new JSONObject();
+					jo.put("mainMenuId", fitapidata._mainMenuId);
+					jo.put("mainMenuTitle", fitapidata._mainMenuTitle);
+					jmainMenuIds.put(jo);
+				}
+				if (subMenuIds.contains(fitapidata._subMenuId)==false) {
+					subMenuIds.add(fitapidata._subMenuId);
+					JSONObject jo = new JSONObject();
+					jo.put("subMenuId", fitapidata._subMenuId);
+					jo.put("subMenuTitle", fitapidata._subMenuTitle);
+					jsubMenuIds.put(jo);
+				}
 				adapter.put_fitapidata(fitapidata.getContentValues());
+				
 			}
+			Log.d(TAG, "subMenus" + jsubMenuIds.toString());
+			Log.d(TAG, "mainMenus" + jmainMenuIds.toString());
+			adapter.put_setting("subMenus", jsubMenuIds.toString());
+			adapter.put_setting("mainMenus", jmainMenuIds.toString());
+			
 			Log.d(TAG, "put api data");
 			adapter.put_setting("firstsetting", "true");
 		} catch (JSONException e) {
