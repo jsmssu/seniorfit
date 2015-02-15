@@ -7,6 +7,10 @@ import java.util.HashMap;
 
 
 
+
+
+
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,9 +31,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.SimpleAdapter;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -53,7 +60,8 @@ public class MyWorkingoutActivity extends Activity {
 		helper = new DBHelper(getApplicationContext());
 		adapter = new DBAdapter(getApplicationContext());
 		
-
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setHomeButtonEnabled(true);
 		
 		String programs = "[{\"title\":\"하루 운동\", \"list\":[[{\"mainMenuId\":\"b\"},{\"mainMenuId\":\"c\"},{\"mainMenuId\":\"d\"},{\"mainMenuId\":\"e\"}]]},{\"title\":\"주5회 세트\", \"list\":[[{\"mainMenuId\":\"b\"},{\"mainMenuId\":\"c\"}],[{\"mainMenuId\":\"d\"},{\"mainMenuId\":\"c\"}],[{\"mainMenuId\":\"b\"},{\"mainMenuId\":\"c\"}],[{\"mainMenuId\":\"d\"},{\"mainMenuId\":\"c\"}],[{\"mainMenuId\":\"a\"},{\"mainMenuId\":\"b\"},{\"mainMenuId\":\"c\"},{\"mainMenuId\":\"d\"},{\"mainMenuId\":\"e\"}],[],[]]},{\"title\":\"주3회 세트\", \"list\":[[{\"mainMenuId\":\"b\"},{\"mainMenuId\":\"c\"}],[],[{\"mainMenuId\":\"d\"},{\"mainMenuId\":\"c\"}],[],[{\"mainMenuId\":\"a\"},{\"mainMenuId\":\"b\"},{\"mainMenuId\":\"c\"},{\"mainMenuId\":\"d\"},{\"mainMenuId\":\"e\"}],[],[]]},{\"title\":\"다쓰기귀찮다\", \"list\":[[{\"subMenuId\":\"a_1\"},{\"subMenuId\":\"c_1\"},{\"subMenuId\":\"b_3\"},{\"subMenuId\":\"e_3\"},{\"subMenuId\":\"e_5\"}]]}]";
 		
@@ -67,7 +75,7 @@ public class MyWorkingoutActivity extends Activity {
 		
 		int today = 0;
 		
-		ArrayList<MyWorkingoutItem> mwiList = new ArrayList<MyWorkingoutItem>();
+		final ArrayList<MyWorkingoutItem> mwiList = new ArrayList<MyWorkingoutItem>();
 		try {
 			jprograms = new JSONArray(programs);
 			Log.d(TAG, "programs : "+jprograms.toString());
@@ -128,22 +136,34 @@ public class MyWorkingoutActivity extends Activity {
 		}
 		
 		
-		ListView myworkingout_title_row = (ListView) findViewById(R.id.myworkingout_maintitle); 
-		Log.d(TAG, "myworkingout_title_row " + myworkingout_title_row);
+		ListView myworkingout_maintitle = (ListView) findViewById(R.id.myworkingout_maintitle); 
+		Log.d(TAG, "myworkingout_title_row " + myworkingout_maintitle);
 		MyWorkingoutListCustomAdapter mwoAdapter = new MyWorkingoutListCustomAdapter
 				(this, R.layout.activity_my_workingout_row, mwiList);
 		Log.d(TAG, "mwoAdapter " + mwoAdapter);
-		myworkingout_title_row.setAdapter(mwoAdapter);
-		myworkingout_title_row.setOnItemClickListener(new ListView.OnItemClickListener() {
+		myworkingout_maintitle.setAdapter(mwoAdapter);
+		
+		final int mwiListLen = mwiList.size();
+		myworkingout_maintitle.setOnItemClickListener(new ListView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				selectItem(position); 
+				selectItem(position);
+				Log.d(TAG, "mwiListLen : "+mwiListLen);
+				for(int i=0; i<mwiListLen; i++) {
+					if(i == position) {mwiList.get(i).setCheck();}
+					else {mwiList.get(i).resetCheck();}
+				}
+				//mwiList.get(index)
+				
 			}
 			private void selectItem(int position) {
+				
+				
 				Log.d(TAG, "selectItem : " +position);
 			}
 		});
+		
 	}
 	
 	
@@ -157,5 +177,11 @@ public class MyWorkingoutActivity extends Activity {
 	private void listUpdate() {
 		// adapter.refresh_data();
 		simpleadapter.notifyDataSetChanged();
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		finish();
+		return false;
 	}
 }

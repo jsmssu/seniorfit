@@ -14,7 +14,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="18dp"
             android:src="@drawable/myworkingout_uncheckedcircle"
-            android:visibility="gone"
             />
         <TextView 
             android:id="@+id/myworkingout_title_row"
@@ -37,7 +36,7 @@
         android:id="@+id/myworkingout_subtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:transcriptMode = "alwaysScroll">
+        android:visibility="gone">
     </ListView>
     
 

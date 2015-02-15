@@ -5,33 +5,46 @@ import java.util.HashMap;
 
 import name.sunme.maindrawbar.MyDrawerItem;
 import name.sunme.maindrawbar.R;
+import name.sunme.seniorfit.DBAdapter;
 import name.sunme.seniorfit.FitApiDataClass;
+import name.sunme.seniorfit.Utils;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.webkit.WebView.FindListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class MyWorkingoutListCustomAdapter extends ArrayAdapter<MyWorkingoutItem>{
 	String TAG = "MyWorkingoutListCustomAdapter";
 	Context context;
 	int resource;
 	ArrayList<MyWorkingoutItem> data;
+	
+	private DBAdapter adapter;
+	
+	
 	public MyWorkingoutListCustomAdapter(Context context, int resource, ArrayList<MyWorkingoutItem> data) {
 		super(context, resource, data);
 		this.context = context;
 		this.resource = resource;
 		this.data = data;
 		// TODO Auto-generated constructor stub
+		
+		adapter = new DBAdapter(context);
 	}
 	
 	
@@ -48,8 +61,10 @@ public class MyWorkingoutListCustomAdapter extends ArrayAdapter<MyWorkingoutItem
         
         
         
+        
+        
         //리스트뷰 인 리스트뷰를 위해!
-        ListView listview = (ListView)listItem.findViewById(R.id.myworkingout_subtitle);
+        final ListView listview = (ListView)listItem.findViewById(R.id.myworkingout_subtitle);
         ArrayList<HashMap<String, String>> listdata = new ArrayList<HashMap<String, String>>(); 
         ArrayList<FitApiDataClass> fads = data.get(position).fads;
         Log.d(TAG, "타이틀 : "+title + ", 하위메뉴 : "+fads.size() + "개");
@@ -69,32 +84,38 @@ public class MyWorkingoutListCustomAdapter extends ArrayAdapter<MyWorkingoutItem
         listview.setAdapter(simpleadapter);
         
         
-        setListViewHeightBasedOnChildren(listview);
-        //listview.getLayoutParams().height = listdata.size() * 90;
-        //listview.requestLayout();
-		
-		////////
+        Utils.setListViewHeightBasedOnChildren(listview); 
+        
+        
+         
+        
+        
+        final ImageView myworkingout_fold = (ImageView)listItem.findViewById(R.id.myworkingout_fold); 
+        myworkingout_fold.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if (listview.getVisibility() == View.GONE) {
+					listview.setVisibility(View.VISIBLE);
+					myworkingout_fold.setImageResource(R.drawable.myworkingout_unfolded);
+				} 
+				else if (listview.getVisibility() == View.VISIBLE) {
+					listview.setVisibility(View.GONE);
+					myworkingout_fold.setImageResource(R.drawable.myworkingout_folded);
+				} 
+			}
+		});
+        
+        
+        ImageView myworkingout_check = (ImageView)listItem.findViewById(R.id.myworkingout_check); 
+        data.get(position).radioImage = myworkingout_check;
+        
+        /*
+        String myworkingout = adapter.get_setting("myworkingout");
+        if (myworkingout == null) {
+        	myworkingout = "0";
+        	adapter.put_setting("myworkingout", myworkingout);
+        }*/
         return listItem;
     }
-	
-	public void setListViewHeightBasedOnChildren(ListView listView) {
-        ListAdapter listAdapter = listView.getAdapter(); 
-        if (listAdapter == null) {
-            // pre-condition
-            return;
-        }
-
-        int totalHeight = 0;
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            View listItem = listAdapter.getView(i, null, listView);
-            listItem.measure(0, 0);
-            totalHeight += listItem.getMeasuredHeight();
-        }
-
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        listView.setLayoutParams(params);
-        listView.requestLayout();
-    }
-
 }
