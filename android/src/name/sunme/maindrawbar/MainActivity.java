@@ -73,7 +73,7 @@ public class MainActivity extends Activity {
 		mDrawer = (LinearLayout) findViewById(R.id.left_drawer);
 		sidebar_profile_name = (TextView)findViewById(R.id.sidebar_profile_name);
 		sidebar_profile_image = (ImageView)findViewById(R.id.sidebar_profile_image);
-		final ObjectDrawerItem[] drawerItem = new ObjectDrawerItem[4];
+		final MyDrawerItem[] drawerItem = new MyDrawerItem[4];
 		
 		String aims = "주 ";
 		if (dbadapter.get_setting("dayN")!=null) {aims = aims + dbadapter.get_setting("dayN");}
@@ -83,13 +83,13 @@ public class MainActivity extends Activity {
 		else {aims = aims + "~";}
 		aims = aims + "분"; 
 		
-		drawerItem[0] = new ObjectDrawerItem(R.drawable.sidebar_aim, aims);
-		drawerItem[1] = new ObjectDrawerItem(R.drawable.sidebar_timer, "운동하기");
-		drawerItem[2] = new ObjectDrawerItem(R.drawable.sidebar_graph, "기록보기");
-		drawerItem[3] = new ObjectDrawerItem(R.drawable.sidebar_gear, "설정");
+		drawerItem[0] = new MyDrawerItem(R.drawable.sidebar_aim, aims);
+		drawerItem[1] = new MyDrawerItem(R.drawable.sidebar_timer, "운동하기");
+		drawerItem[2] = new MyDrawerItem(R.drawable.sidebar_graph, "기록보기");
+		drawerItem[3] = new MyDrawerItem(R.drawable.sidebar_gear, "설정");
 		Log.d(TAG, "created menu drawbar's list");
 		
-		DrawerItemCustomAdapter dradapter = new DrawerItemCustomAdapter(this, R.layout.drawer_activity_item_row, drawerItem);
+		MyDrawerListCustomAdapter dradapter = new MyDrawerListCustomAdapter(this, R.layout.drawer_activity_item_row, drawerItem);
 		
 		{
 			FragmentManager fragmentManager = getFragmentManager();

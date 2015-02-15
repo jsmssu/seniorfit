@@ -1,62 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-    
-    
-    <LinearLayout 
-        android:layout_width="match_parent"
-        android:layout_height="166dp"
-        android:orientation="vertical"
-        android:background="@drawable/myworkingout_bg1">
-        <Space 
-            android:layout_width="match_parent"
-            android:layout_height="50.67dp"/>
-        <TextView 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:layout_gravity="center_horizontal"
-            android:text="준비운동"
-            android:gravity="center"
-            android:textColor="#000000"
-            android:textSize="30sp"/>
-        <LinearLayout 
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_gravity="center_horizontal">
-            <Space 
-                android:layout_height="match_parent"
-                android:layout_width="6dp"/>
-            <ImageView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content" 
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/otherprogram_timer"
-                />
-            <TextView
-                android:layout_height="match_parent"
-                android:layout_width="72dp"
-                android:text="~분" 
-                android:gravity="center_vertical"
-                android:textColor="#000000"
-                />
-            <Space 
-                android:layout_height="match_parent"
-                android:layout_width="6dp"/>
-            <ImageView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content" 
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/otherprogram_calendar"
-                />
-            <TextView
-                android:layout_height="match_parent"
-                android:layout_width="72dp" 
-                android:gravity="center_vertical"
-                android:text="매일" 
-                android:textColor="#000000"
-                />
-        </LinearLayout>
-    </LinearLayout>
-</ListView>
+    android:layout_height="wrap_content" 
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/myworkingout_title_row_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:text="준비운동"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+</LinearLayout>
