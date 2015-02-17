@@ -3,9 +3,11 @@ package name.sunme.seniorfit;
 import java.util.ArrayList;
 import java.util.List;
 
+import name.sunme.firstexecution.Setup1Activity;
 import name.sunme.maindrawbar.R;
 import name.sunme.maindrawbar.R.id;
 import name.sunme.maindrawbar.R.layout;
+
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.Session.NewPermissionsRequest;
@@ -52,6 +54,7 @@ import org.json.JSONObject;
 public class FacebookLoginActivity extends Activity {
 	String TAG = "FacebookLoginActivity";
 	LoginButton authButton;
+	Button facebook_next;
 	TextView lblEmail;
 	private static final List<String> PERMISSIONS = new ArrayList<String>() {
 		{
@@ -75,19 +78,33 @@ public class FacebookLoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_facebook_login);
 
-		Button t = (Button) findViewById(R.id.login_writebutton);
+		/*Button t = (Button) findViewById(R.id.login_writebutton);
 		t.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				publishStory();
 			}
-		});
+		});*/
 
-		authButton = (LoginButton) findViewById(R.id.authButton);
+		//authButton = (LoginButton) findViewById(R.id.authButton);
 		lblEmail = (TextView) findViewById(R.id.lblEmail); 
-	 
+		facebook_next = (Button)findViewById(R.id.facebook_next);
 
+		
+		facebook_next.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(getApplicationContext(), Setup1Activity.class);
+				startActivity(intent);
+				FacebookLoginActivity.this.fileList();
+			}
+		});
+		
+		
+		
 		lifecycleHelper = new UiLifecycleHelper(this,
 				new Session.StatusCallback() {
 					@Override
@@ -97,7 +114,7 @@ public class FacebookLoginActivity extends Activity {
 					}
 				});
 		lifecycleHelper.onCreate(savedInstanceState);
-		ensureOpenSession();
+		//ensureOpenSession();
 	}
 
 	private boolean ensureOpenSession() {

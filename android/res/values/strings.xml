@@ -12,13 +12,13 @@
     <string name="title_activity_exercise_list_view">ExerciseListView</string>
     <string name="title_activity_exercise_category_list_view">ExerciseCategoryListView</string>
     <string name="title_activity_start">StartActivity</string>
-    <string name="title_activity_walking">WalkingActivity</string>
+    <string name="title_activity_walking">걷기</string>
 
     <!-- for walking -->
-    <string name="notification_subtitle">Counting your steps</string>
-    <string name="started">Pedometer started.</string>
-    <string name="stopped">Pedometer stopped.</string>
-    <string name="steps">steps</string>
+    <string name="pedometer_notification_subtitle">뚜벅뚜벅</string>
+    <string name="pedometer_started">만보기 시작</string>
+    <string name="pedometer_stopped">만보기 종료</string>
+    <string name="steps">걸음</string>
     <string name="kilometers">kilometers</string>
     <string name="miles">miles</string>
     <string name="steps_per_minute">steps / minute</string>

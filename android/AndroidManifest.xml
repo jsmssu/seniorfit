@@ -25,7 +25,8 @@
             android:value="@integer/google_play_services_version" />
         <activity
             android:name="name.bagi.levente.pedometer.Pedometer"
-            android:label="@string/title_activity_walking" >
+            android:label="@string/title_activity_walking"
+            android:theme="@style/AppThemeActionbarBack" >
         </activity>
 
         <service android:name="name.bagi.levente.pedometer.StepService" />

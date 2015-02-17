@@ -4,32 +4,33 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity" >
 
-<com.facebook.widget.LoginButton
-    android:id="@+id/authButton"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:layout_centerHorizontal="true"
-    android:layout_marginBottom="38dp" />
-
 <TextView
     android:id="@+id/lblEmail"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_above="@+id/authButton"
-    android:layout_alignParentLeft="true"
-    android:layout_marginBottom="24dp"
-    android:layout_marginLeft="30dp"
+    android:layout_marginBottom="69dp"
     android:text="Email ID : "
-    android:textAppearance="?android:attr/textAppearanceLarge" />
+    android:textAppearance="?android:attr/textAppearanceLarge" 
+    android:visibility="gone"/>
 
-<Button
-    android:id="@+id/login_writebutton"
+<com.facebook.widget.LoginButton
+    android:id="@+id/facebook_authButton"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_alignBaseline="@+id/lblEmail"
-    android:layout_alignBottom="@+id/lblEmail"
-    android:layout_alignParentRight="true"
-    android:text="글쓰기버튼" />
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"
+    android:layout_marginBottom="106dp" />
+
+<Button
+    android:id="@+id/facebook_next"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignLeft="@+id/facebook_authButton"
+    android:layout_alignParentBottom="true"
+    android:layout_alignRight="@+id/facebook_authButton"
+    android:layout_marginBottom="34dp"
+    android:background="#37b7bb"
+    android:text="설정시작하기"
+    android:textColor="#ffffff" />
 
 </RelativeLayout>

@@ -5,6 +5,7 @@ import java.io.File;
 import name.sunme.firstexecution.TutorialActivity;
 import name.sunme.seniorfit.DBAdapter;
 import name.sunme.seniorfit.DBHelper; 
+import name.sunme.seniorfit.FacebookLoginActivity;
 import name.sunme.setting.SettingGoalActivity;
 import name.sunme.setting.SettingProfileActivity;
 import name.sunme.maindrawbar.R;
@@ -48,15 +49,15 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "oncreate");
-		helper = new DBHelper(getBaseContext());
-		dbadapter = new DBAdapter(getBaseContext());
+		helper = new DBHelper(getApplicationContext());
+		dbadapter = new DBAdapter(getApplicationContext());
 		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
         Log.d(TAG,"start home");
         if (dbadapter.get_setting("firstsetting") == null) {
         	Log.d(TAG,"Go to get apidata");
-        	Intent intent = new Intent(getApplicationContext(), TutorialActivity.class);
+        	Intent intent = new Intent(getApplicationContext(), FacebookLoginActivity.class);
             startActivity(intent);
             finish();
         }
