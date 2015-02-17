@@ -1,5 +1,6 @@
 package name.sunme.seniorfit;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -48,6 +49,15 @@ public class DBHelper extends SQLiteOpenHelper{
         // TODO Auto-generated method stub
     	db.execSQL(sql_setting);
         db.execSQL(sql_fitdata);
+    }
+    void initData() {
+    	if (db == null) {
+    		db = getWritableDatabase();
+    	}
+    	ContentValues values = new ContentValues();
+    	values.put("key", "myProgram");
+    	values.put("value", "하루 운동");
+    	db.insert(DBHelper.SETTING_TABLE_NAME, null, values);
     }
     
     void createSettingTable() {

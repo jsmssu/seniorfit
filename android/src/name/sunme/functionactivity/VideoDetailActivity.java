@@ -13,7 +13,6 @@ import org.json.JSONObject;
 import name.sunme.maindrawbar.R;
 import name.sunme.maindrawbar.R.drawable;
 import name.sunme.maindrawbar.R.layout;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,13 +31,12 @@ public class VideoDetailActivity extends Activity {
 	
 	 
 	
-	private String myjson;
 	private DBHelper helper;
 	private DBAdapter adapter;
 	 
 	int idx = 0;
 	int maxIndex = 0;
-	JSONArray fdsJson = null;
+	JSONArray subMenuIds = null;
 	
 	TextView videodetail_exerciseintensity;
 	TextView videodetail_submenutitle; 
@@ -51,7 +49,8 @@ public class VideoDetailActivity extends Activity {
 		setContentView(R.layout.activity_video_detail);
 		Log.d(TAG, "VideoDetailActivity");
 		
-		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setHomeButtonEnabled(true);
 		
 		videodetail_submenutitle = (TextView)findViewById(R.id.videodetail_submenutitle);
 		videodetail_exerciseintensity = (TextView)findViewById(R.id.videodetail_exerciseintensity);
@@ -68,8 +67,8 @@ public class VideoDetailActivity extends Activity {
 		 
 		
 		try {
-			fdsJson =  new JSONArray(myintent.getStringExtra("json"));
-			maxIndex = fdsJson.length();
+			subMenuIds =  new JSONArray(myintent.getStringExtra("subMenuIds"));
+			maxIndex = subMenuIds.length();
 			showNextVideo();
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -100,9 +99,9 @@ public class VideoDetailActivity extends Activity {
 		try {
 			if (idx + 1 > maxIndex) { return; }
 			idx = idx + 1;
-			JSONObject fdJson = fdsJson.getJSONObject(idx);
-		
-			FitApiDataClass fd = adapter.get_fitapidata_fromSubMenuId(fdJson.getString("subMenuId"));
+			String subMenuId = subMenuIds.getString(idx);
+			Log.d(TAG, "subMenuId : " + subMenuId);
+			FitApiDataClass fd = adapter.get_fitapidata_fromSubMenuId(subMenuId);
 			videodetail_submenutitle.setText(fd._subMenuTitle);
 			videodetail_exerciseintensity.setText(fd._exerciseIntensity);
 			videodetail_idxindicator.setText(idx+"/"+maxIndex);
@@ -151,5 +150,11 @@ public class VideoDetailActivity extends Activity {
 			
 		}
 			
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		finish();
+		return false;
 	}
 }

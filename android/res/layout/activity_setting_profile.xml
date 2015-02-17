@@ -53,7 +53,7 @@
         android:layout_gravity="center_horizontal"
         android:gravity="center"
         android:paddingBottom="30dp"
-        android:text="시니어"
+        android:text="이름"
         android:textSize="18sp"
         android:textStyle="bold" />
 

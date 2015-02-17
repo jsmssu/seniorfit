@@ -24,7 +24,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/otherprogram_listrow_title"
+        android:layout_below="@id/otherprogram_listrow_title"
         android:layout_marginLeft="16dp" >
         
 	    <ImageView 
@@ -55,6 +55,14 @@
 	        android:gravity="center_vertical"/>
     </LinearLayout>
 
-
+    <ImageView
+        android:id="@+id/otherprogram_listrow_today"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/otherprogram_listrow_title"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="32dp"
+        android:visibility="gone"
+        android:src="@drawable/otherprogram_icn_today" />
 
 </RelativeLayout>

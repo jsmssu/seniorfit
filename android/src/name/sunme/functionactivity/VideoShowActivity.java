@@ -56,14 +56,14 @@ public class VideoShowActivity extends Activity {
 		
 		if (myintent != null) {
 			videoname = myintent.getStringExtra("videoname");
-			
+			Log.d(TAG, "videoname : "+videoname);
 			videopath = path_myapp + "/" + videoname;
 			file_video = new File(videopath);
 			if (!file_video.isFile()) {
 				Log.d(TAG, "there is not the file.");
 				Utils.showDialog_downloadResource(VideoShowActivity.this, videohandler);
 			} else {
-				videohandler.sendEmptyMessage(1);
+				videohandler.sendEmptyMessage(0);
 			} 
 			
 		} else {

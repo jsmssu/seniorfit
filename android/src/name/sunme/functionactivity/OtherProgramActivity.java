@@ -5,11 +5,10 @@ import java.util.HashMap;
 
 import name.sunme.seniorfit.DBAdapter;
 import name.sunme.seniorfit.DBHelper;
+import name.sunme.seniorfit.FitApiDataClass;
 import name.sunme.seniorfit.GlobalData;
-
 import name.sunme.maindrawbar.R;
 import name.sunme.maindrawbar.R.layout;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,119 +25,71 @@ import android.widget.SimpleAdapter;
 
 public class OtherProgramActivity extends Activity {
 	String TAG = "OtherProgramActivity";
-	private SimpleAdapter simpleadapter; 
+	private SimpleAdapter simpleadapter;
 	private ListView list;
 	private static ArrayList<HashMap<String, String>> listdata;
+	private DBAdapter dbAdapter;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_other_program);
-		
+
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
-		
-		Log.d("TAG", "start");
-		list = (ListView)findViewById(R.id.otherprogram_listview);
-		Log.d("TAG", "findViewById");
-		listdata = new ArrayList<HashMap<String, String>>(); 
-		listdata.add(new HashMap<String, String>() {{
-	         put("title", "하루 운동");
-	          put("time", "2시간");
-	          put("day", "주 1-2회");
-	          put("mainMenuId", "DayWorkingout");
-	          put("background", R.drawable.otherprogram_bg1+"");
-	          
-	      }});
-	      listdata.add(new HashMap<String, String>() {{
-	         put("title", "준비운동");
-	          put("time", "15분");
-	          put("day", "운동 전");
-	          put("mainMenuId", "a");
-	          put("background", R.drawable.otherprogram_bg2+"");
-	          
-	      }});
-	      listdata.add(new HashMap<String, String>() {{
-	         put("title", "근력강화");
-	          put("time", "25분");
-	          put("day", "주 2-3회");
-	          put("mainMenuId", "b");
-	          put("background", R.drawable.otherprogram_bg3+"");
-	      }});
-	      listdata.add(new HashMap<String, String>() {{
-	         put("title", "심폐 지구력 강화");
-	          put("time", "45분");
-	          put("day", "주 2-3회");
-	          put("mainMenuId", "c");
-	          put("background", R.drawable.otherprogram_bg4+"");
-	      }});
-	      listdata.add(new HashMap<String, String>() {{
-	         put("title", "유연성강화");
-	          put("time", "15분");
-	          put("day", "주 2-3회");
-	          put("mainMenuId", "d");
-	          put("background", R.drawable.otherprogram_bg5+"");
-	      }});
-	      listdata.add(new HashMap<String, String>() {{
-	         put("title", "평행성/체력강화");
-	          put("time", "25분");
-	          put("day", "주 2-3회");
-	          put("mainMenuId", "e");
-	          put("background", R.drawable.otherprogram_bg6+"");
-	      }});
-	      listdata.add(new HashMap<String, String>() {{
-	         put("title", "정리운동");
-	          put("time", "15분");
-	          put("day", "운동 후");
-	          put("mainMenuId", "f");
-	          put("background", R.drawable.otherprogram_bg7+"");
-	      }});
-		Log.d("TAG", "simpleadapter");
-		simpleadapter = new SimpleAdapter(
-				OtherProgramActivity.this,  
-				listdata,
-        		R.layout.activity_other_program_row,
-        		new String[]{"title","time", "day", "background"}, 
-        		new int[]{R.id.otherprogram_listrow_title, R.id.otherprogram_listrow_time, R.id.otherprogram_listrow_day, R.id.otherprogram_listrow_bg});
-		list.setAdapter(simpleadapter); 
-		Log.d(TAG, "setAdapter");
+
+		dbAdapter = new DBAdapter(getApplicationContext());
+
+		list = (ListView) findViewById(R.id.otherprogram_listview);
+		final ArrayList<OtherProgramItem> opis = new ArrayList<OtherProgramItem>();
+
+		FitApiDataClass[] fads1 = dbAdapter
+				.get_fitapidata_fromMainMenuId("DayWorkingout");
+		opis.add(new OtherProgramItem("하루 운동", "2시간", "주 1-2회", fads1,
+				R.drawable.otherprogram_bg1, true));
+
+		FitApiDataClass[] fads2 = dbAdapter.get_fitapidata_fromMainMenuId("a");
+		opis.add(new OtherProgramItem("준비운동", "15분", "주 1-2회", fads2,
+				R.drawable.otherprogram_bg2, false));
+
+		FitApiDataClass[] fads3 = dbAdapter.get_fitapidata_fromMainMenuId("b");
+		opis.add(new OtherProgramItem("근력강화", "25분", "주 2-3회", fads3,
+				R.drawable.otherprogram_bg3, false));
+
+		FitApiDataClass[] fads4 = dbAdapter.get_fitapidata_fromMainMenuId("c");
+		opis.add(new OtherProgramItem("심폐 지구력 강화", "45분", "주 2-3회", fads4,
+				R.drawable.otherprogram_bg4, false));
+
+		FitApiDataClass[] fads5 = dbAdapter.get_fitapidata_fromMainMenuId("d");
+		opis.add(new OtherProgramItem("유연성강화", "15분", "주 2-3회", fads5,
+				R.drawable.otherprogram_bg5, false));
+
+		FitApiDataClass[] fads6 = dbAdapter.get_fitapidata_fromMainMenuId("e");
+		opis.add(new OtherProgramItem("평행성/체력강화", "25분", "주 2-3회", fads6,
+				R.drawable.otherprogram_bg6, false));
+
+		FitApiDataClass[] fads7 = dbAdapter.get_fitapidata_fromMainMenuId("f");
+		opis.add(new OtherProgramItem("정리운동", "15분", "운동 후", fads7,
+				R.drawable.otherprogram_bg7, false));
+
+		OtherProgramListCustomAdapter oplca = new OtherProgramListCustomAdapter(
+				this, R.layout.activity_other_program_row, opis);
+		list.setAdapter(oplca);
+		Log.d(TAG, "oplca");
 		list.setOnItemClickListener(new OnItemClickListener() {
-		    public void onItemClick(AdapterView<?> parent, View view,
-		            int position, long id) {
-		    	
-		      if (listdata.get(position).get("mainMenuId").equals("DayWorkingout")) {
-		    	  
-		      } else {
-		    	  Intent intent = new Intent(getApplicationContext(), FitDetail_MainMenuTitleActivity.class);
-		    	  intent.putExtra("title", listdata.get(position).get("title"));
-			      intent.putExtra("mainMenuId", listdata.get(position).get("mainMenuId"));
-			      intent.putExtra("background", listdata.get(position).get("background"));
-			      Log.d(TAG, "putExtra :" + listdata.get(position).get("mainMenuId"));
-			      startActivity(intent);  
-			      finish();
-		      }
-		    }
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Intent intent = new Intent(getApplicationContext(),
+						FitDetail_MainMenuTitleActivity.class);
+				intent.putExtra("json", opis.get(position).toJson());
+				startActivity(intent);
+				finish();
+			}
 		});
 		Log.d("TAG", "listUpdate");
-		listUpdate();
 	}
-	
-	
-	
-	private final Handler mhandler = new Handler()
-	{
-		@Override
-		public void handleMessage(Message msg)
-		{
-			listUpdate();
-		}
-	}; 
-    private void listUpdate()
-    {
-    	//adapter.refresh_data();
-    	simpleadapter.notifyDataSetChanged();
-    }
-    
-    @Override
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		finish();
 		return false;

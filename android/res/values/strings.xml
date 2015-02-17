@@ -121,7 +121,7 @@
     <string name="title_activity_fit_detail__main_menu_title"></string>
     <string name="title_activity_choose">나만의운동?</string>
     <string name="title_activity_choose_program">ChooseProgramActivity</string>
-    <string name="title_activity_video_detail">비디오엑티비티</string>
+    <string name="title_activity_video_detail"></string>
     <string name="title_activity_facebook_login">페이스북로그인</string>
     <string name="title_activity_setting_goal">운동 목표 설정</string>
     <string name="title_activity_setting_bmi">신체질량지수(BMI)</string>
