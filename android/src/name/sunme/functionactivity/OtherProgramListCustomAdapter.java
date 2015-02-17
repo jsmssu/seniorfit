@@ -17,10 +17,10 @@ public class OtherProgramListCustomAdapter extends ArrayAdapter<OtherProgramItem
 	String TAG = "OtherProgramListCustomAdapter";
 	Context context;
 	int resource;
-	ArrayList<OtherProgramItem> data;
+	OtherProgramItem[] data;
 	
 	
-	public OtherProgramListCustomAdapter(Context context, int resource, ArrayList<OtherProgramItem> data) {
+	public OtherProgramListCustomAdapter(Context context, int resource, OtherProgramItem[] data) {
 		super(context, resource, data);
 		this.context = context;
 		this.resource = resource;
@@ -44,15 +44,15 @@ public class OtherProgramListCustomAdapter extends ArrayAdapter<OtherProgramItem
         TextView otherprogram_listrow_day = (TextView) listItem.findViewById(R.id.otherprogram_listrow_day);
         
         
-        otherprogram_listrow_bg.setImageResource(data.get(position).background);
+        otherprogram_listrow_bg.setImageResource(data[position].background);
         
-        if (data.get(position).isTodays) {
+        if (data[position].isTodays) {
         	otherprogram_listrow_today.setVisibility(View.VISIBLE);
         }
         
-        otherprogram_listrow_title.setText(data.get(position).title);
-        otherprogram_listrow_time.setText(data.get(position).time);
-        otherprogram_listrow_day.setText(data.get(position).day);
+        otherprogram_listrow_title.setText(data[position].title);
+        otherprogram_listrow_time.setText(data[position].time);
+        otherprogram_listrow_day.setText(data[position].day);
         
         return listItem;
     }

@@ -97,11 +97,11 @@ public class MyWorkingoutListCustomAdapter extends ArrayAdapter<MyWorkingoutItem
 				// TODO Auto-generated method stub
 				if (listview.getVisibility() == View.GONE) {
 					listview.setVisibility(View.VISIBLE);
-					myworkingout_fold.setImageResource(R.drawable.myworkingout_unfolded);
+					myworkingout_fold.setImageResource(R.drawable.myworkingout_folded);
 				} 
 				else if (listview.getVisibility() == View.VISIBLE) {
 					listview.setVisibility(View.GONE);
-					myworkingout_fold.setImageResource(R.drawable.myworkingout_folded);
+					myworkingout_fold.setImageResource(R.drawable.myworkingout_unfolded);
 				} 
 			}
 		});

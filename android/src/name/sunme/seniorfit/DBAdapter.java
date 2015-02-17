@@ -192,11 +192,9 @@ public class DBAdapter {
     	values.put("value", value);
     	if (get_settingCount(key) == 0) {
     		values.put("key", key);
-    		db.insert(DBHelper.SETTING_TABLE_NAME, null, values);
-    		Log.d(TAG, "insert key : " + key + " value : " + value);
+    		db.insert(DBHelper.SETTING_TABLE_NAME, null, values); 
     	} else {
-    		db.update(DBHelper.SETTING_TABLE_NAME, values, "key=?", new String[] { key } ); // new String[]{name}
-    		Log.d(TAG, "update key : " + key + " value : " + value);
+    		db.update(DBHelper.SETTING_TABLE_NAME, values, "key=?", new String[] { key } ); // new String[]{name} 
     	} 
     }
     public void put_fitapidata(ContentValues values) {//subMenuId
@@ -214,10 +212,6 @@ public class DBAdapter {
     	Cursor cur = db.query(DBHelper.SETTING_TABLE_NAME, null, "key=?", new String[] { key }, null, null, null);
     	if(cur.getCount() == 0){
     		Log.d(TAG, "Din't search anything About " + key);
-    		Cursor cur2 = db.query(DBHelper.SETTING_TABLE_NAME, null, null, null, null, null, null);
-    		while(cur2.moveToNext()) {
-    			Log.d(TAG, "key : "+ cur2.getString(1) + ", value : "+ cur2.getString(2));
-    		}
             return null;
         } 
     	Log.d(TAG, "Searched something About " + key);

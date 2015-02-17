@@ -49,6 +49,7 @@ public class DBHelper extends SQLiteOpenHelper{
         // TODO Auto-generated method stub
     	db.execSQL(sql_setting);
         db.execSQL(sql_fitdata);
+        initData();
     }
     void initData() {
     	if (db == null) {

@@ -15,10 +15,11 @@
 	    android:layout_alignParentBottom="true"
 	    android:layout_alignParentLeft="true"
 	    android:gravity="center"
-	    android:id="@+id/otherprogram_todays_workingout"
 	    android:background="#99000000"
 	    android:textColor="#ffffff"
 	    android:focusable="false"
+	    android:visibility="gone"
+	    android:id="@+id/otherprogram_settinghelp"
 	    android:text="자주 하고 싶은 프로그램을 선택하여\n&apos;오늘의 운동 프로그램&apos;으로 설정해주세요." />
 
 </RelativeLayout>
