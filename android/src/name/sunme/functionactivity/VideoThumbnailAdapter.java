@@ -20,10 +20,10 @@ public class VideoThumbnailAdapter extends PagerAdapter {
 	// Declare Variables
 
 	Context context;
-	int[] drawimages;  
+	Integer[] drawimages;  
 	LayoutInflater inflater;
 	FitApiDataClass fd;
-	public VideoThumbnailAdapter(Context context, FitApiDataClass fd, int[] drawimages) {
+	public VideoThumbnailAdapter(Context context, FitApiDataClass fd, Integer[] drawimages) {
 		this.fd = fd;
 		this.context = context;
 		this.drawimages = drawimages;

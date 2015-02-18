@@ -11,6 +11,8 @@ import java.util.HashMap;
 
 
 
+
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,6 +35,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -48,9 +51,10 @@ public class MyWorkingoutActivity extends Activity {
 	private DBHelper helper;
 	private DBAdapter adapter;
 	
+	Button myworkingout_next;
 	LinearLayout MyWorkingoutLayout;
 	private SimpleAdapter simpleadapter;
-	
+	MyWorkingoutItem[] mwiList = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,72 +67,27 @@ public class MyWorkingoutActivity extends Activity {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
 		
-		String programs = "[{\"title\":\"하루 운동\", \"list\":[[{\"mainMenuId\":\"b\"},{\"mainMenuId\":\"c\"},{\"mainMenuId\":\"d\"},{\"mainMenuId\":\"e\"}]]},{\"title\":\"주5회 세트\", \"list\":[[{\"mainMenuId\":\"b\"},{\"mainMenuId\":\"c\"}],[{\"mainMenuId\":\"d\"},{\"mainMenuId\":\"c\"}],[{\"mainMenuId\":\"b\"},{\"mainMenuId\":\"c\"}],[{\"mainMenuId\":\"d\"},{\"mainMenuId\":\"c\"}],[{\"mainMenuId\":\"a\"},{\"mainMenuId\":\"b\"},{\"mainMenuId\":\"c\"},{\"mainMenuId\":\"d\"},{\"mainMenuId\":\"e\"}],[],[]]},{\"title\":\"주3회 세트\", \"list\":[[{\"mainMenuId\":\"b\"},{\"mainMenuId\":\"c\"}],[],[{\"mainMenuId\":\"d\"},{\"mainMenuId\":\"c\"}],[],[{\"mainMenuId\":\"a\"},{\"mainMenuId\":\"b\"},{\"mainMenuId\":\"c\"},{\"mainMenuId\":\"d\"},{\"mainMenuId\":\"e\"}],[],[]]},{\"title\":\"다쓰기귀찮다\", \"list\":[[{\"subMenuId\":\"a_1\"},{\"subMenuId\":\"c_1\"},{\"subMenuId\":\"b_3\"},{\"subMenuId\":\"e_3\"},{\"subMenuId\":\"e_5\"}]]}]";
 		
+		myworkingout_next = (Button)findViewById(R.id.myworkingout_next);
+		myworkingoutList= (ListView)findViewById(R.id.left_listview);
 		
-		
-		myworkingoutList= (ListView) findViewById(R.id.left_listview);
-		
-		
-		JSONArray jprograms;
 		JSONArray jmainmenus;
 		
-		int today = 0;
 		
-		final ArrayList<MyWorkingoutItem> mwiList = new ArrayList<MyWorkingoutItem>();
 		try {
-			jprograms = new JSONArray(programs);
-			Log.d(TAG, "programs : "+jprograms.toString());
-			for(int i=0; i<jprograms.length(); i++) { 
-				
-				JSONObject jo = jprograms.getJSONObject(i);
-				
-				String title = jo.getString("title");
-				JSONArray jlist = jo.getJSONArray("list"); 
-				Log.d(TAG, "title : " + title);
-				
-				JSONArray todaysWorkingout = jlist.getJSONArray(today%jo.length());
-				Log.d(TAG, "raw list : " + todaysWorkingout.toString());
-				
-				ArrayList<FitApiDataClass> fads = new ArrayList<FitApiDataClass>();
-				for(int j=0; j<todaysWorkingout.length(); j++) {
-					JSONObject mainOrSub = todaysWorkingout.getJSONObject(j);
-					try { 
-						String mmid = mainOrSub.getString("mainMenuId");
-						FitApiDataClass[] tfad = adapter.get_fitapidata_fromMainMenuId(mmid);
-						for(int k=0; k<tfad.length; k++) { //어뎁터에 어레이리스트로 출력해주는거있으면 좋을듯... 나중에 해야지
-							fads.add(tfad[k]);
-							Log.d(TAG, "succ main added :"+tfad[k]._subMenuTitle);
-						}
-					} catch (Exception e) {};
-					try {
-						String smid = mainOrSub.getString("subMenuId");
-						FitApiDataClass fad = adapter.get_fitapidata_fromSubMenuId(smid);
-						fads.add(fad);
-						Log.d(TAG, "succ sub added :"+fad._subMenuTitle);
-					} catch (Exception e) {};  
-				}
-				
-				MyWorkingoutItem mwItem = new MyWorkingoutItem(title, fads);
-				mwiList.add(mwItem);  
-			}
-			
 			Log.d(TAG, "mainmenu : "+adapter.get_setting("mainMenus"));
 			jmainmenus = new JSONArray(adapter.get_setting("mainMenus")); //메인타이틀 목록을 뽑니다.
+			mwiList = new MyWorkingoutItem[jmainmenus.length()];
 			for(int i=0; i<jmainmenus.length(); i++) {
 				JSONObject jmainmenu = jmainmenus.getJSONObject(i);
 				
 				String title = jmainmenu.getString("mainMenuTitle");
 				String mmid = jmainmenu.getString("mainMenuId");
 				
-				ArrayList<FitApiDataClass> fads = new ArrayList<FitApiDataClass>();
-				FitApiDataClass[] tfad = adapter.get_fitapidata_fromMainMenuId(mmid);
-				for(int k=0; k<tfad.length; k++) { //어뎁터에 어레이리스트로 출력해주는거있으면 좋을듯... 나중에 해야지
-					fads.add(tfad[k]);
-				}
+				FitApiDataClass[] fads = adapter.get_fitapidata_fromMainMenuId(mmid);
+				MyWorkingoutItem mwItem = new MyWorkingoutItem(title, mmid, fads);
 				
-				MyWorkingoutItem mwItem = new MyWorkingoutItem(title, fads);
-				mwiList.add(mwItem);    
+				mwiList[i] = mwItem;    
 			}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -143,7 +102,7 @@ public class MyWorkingoutActivity extends Activity {
 		Log.d(TAG, "mwoAdapter " + mwoAdapter);
 		myworkingout_maintitle.setAdapter(mwoAdapter);
 		
-		final int mwiListLen = mwiList.size();
+		
 		myworkingout_maintitle.setOnItemClickListener(new ListView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
@@ -156,6 +115,26 @@ public class MyWorkingoutActivity extends Activity {
 				
 				
 				Log.d(TAG, "selectItem : " +position);
+			}
+		});
+		myworkingout_next.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				int mwiListLen = mwiList.length;
+				JSONArray jo = new JSONArray();
+				for(int i=0; i<mwiList.length; i++) {
+					for(int j=0; j<mwiList[i].setting_subMenuIds.length; j++){
+						if(mwiList[i].setting_subMenuIds[j]==true) {
+							jo.put(mwiList[i].fads[j]._subMenuId);
+						}
+					}
+				}
+				Intent intent = new Intent(getApplicationContext(),
+						VideoDetailActivity.class);
+				intent.putExtra("subMenuIds",
+						jo.toString());
+				startActivity(intent);
 			}
 		});
 		

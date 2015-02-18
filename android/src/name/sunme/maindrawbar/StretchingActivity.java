@@ -1,16 +1,20 @@
 package name.sunme.maindrawbar;
 
 import name.sunme.functionactivity.ChooseProgramActivity;
+import name.sunme.functionactivity.FitDetail_MainMenuTitleActivity;
 import name.sunme.functionactivity.MyWorkingoutActivity;
 import name.sunme.functionactivity.OtherProgramActivity;
  
 
 
+import name.sunme.functionactivity.OtherProgramItem;
+import name.sunme.functionactivity.VideoDetailActivity;
 import name.sunme.maindrawbar.R;
-
+import name.sunme.seniorfit.GlobalData;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings.Global;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -54,13 +58,22 @@ public class StretchingActivity extends Activity {
 				finish();
 			}
 		});
-        stretcing_startmyworkingout.setOnClickListener(new OnClickListener() { 
+		stretcing_startmyworkingout.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Log.d(TAG, "button_chooseprogram");
-				
-				//startActivity(intent);
-				finish();
+				OtherProgramItem[] opis = GlobalData
+						.getOtherProgramItem(getApplicationContext());
+				for (int i = 0; i < opis.length; i++) {
+					if (opis[i].isTodays == true) {
+						Intent intent = new Intent(getApplicationContext(),
+								VideoDetailActivity.class);
+						intent.putExtra("subMenuIds",
+								opis[i].getJson_submenuids());
+						startActivity(intent);
+						finish();
+					}
+				}
 			}
 		});
         

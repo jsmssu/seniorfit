@@ -2,6 +2,7 @@ package name.sunme.seniorfit;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -49,12 +50,9 @@ public class DBHelper extends SQLiteOpenHelper{
         // TODO Auto-generated method stub
     	db.execSQL(sql_setting);
         db.execSQL(sql_fitdata);
-        initData();
+        initData(db);
     }
-    void initData() {
-    	if (db == null) {
-    		db = getWritableDatabase();
-    	}
+    void initData(SQLiteDatabase db) {
     	ContentValues values = new ContentValues();
     	values.put("key", "myProgram");
     	values.put("value", "하루 운동");

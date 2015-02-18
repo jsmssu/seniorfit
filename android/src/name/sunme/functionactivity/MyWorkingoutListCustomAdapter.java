@@ -27,24 +27,29 @@ import android.widget.RadioButton;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 
 public class MyWorkingoutListCustomAdapter extends ArrayAdapter<MyWorkingoutItem>{
 	String TAG = "MyWorkingoutListCustomAdapter";
 	Context context;
 	int resource;
-	ArrayList<MyWorkingoutItem> data;
+	MyWorkingoutItem[] data;
 	
-	private DBAdapter adapter;
+	private DBAdapter dbApter;
 	
+	String dbkey_m_fold = "m_fold_";
+	String dbkey_s_fold = "s_fold_";
 	
-	public MyWorkingoutListCustomAdapter(Context context, int resource, ArrayList<MyWorkingoutItem> data) {
+	boolean[] row_folded;
+	
+	public MyWorkingoutListCustomAdapter(Context context, int resource, MyWorkingoutItem[] data) {
 		super(context, resource, data);
 		this.context = context;
 		this.resource = resource;
 		this.data = data;
 		// TODO Auto-generated constructor stub
-		
-		adapter = new DBAdapter(context);
+		row_folded = new boolean[data.length];
+		dbApter = new DBAdapter(context);
 	}
 	
 	
@@ -57,37 +62,30 @@ public class MyWorkingoutListCustomAdapter extends ArrayAdapter<MyWorkingoutItem
         listItem = inflater.inflate(resource, parent, false);
   
         TextView title = (TextView) listItem.findViewById(R.id.myworkingout_title_row);
-        title.setText(data.get(position).title);  
+        title.setText(data[position].title);  
         
         
         
         
         
-        //리스트뷰 인 리스트뷰를 위해!
+        
+        
+        final ImageView myworkingout_check = (ImageView)listItem.findViewById(R.id.myworkingout_check); 
+        updateCheckImage(position, myworkingout_check);	
+        myworkingout_check.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				data[position].reverse_check_mainMenuTitle();
+				updateCheckImage(position, myworkingout_check);		
+			}
+		});
+        
+        
+        
+        
+        
+      //리스트뷰 인 리스트뷰를 위해!
         final ListView listview = (ListView)listItem.findViewById(R.id.myworkingout_subtitle);
-        ArrayList<HashMap<String, String>> listdata = new ArrayList<HashMap<String, String>>(); 
-        ArrayList<FitApiDataClass> fads = data.get(position).fads;
-        Log.d(TAG, "타이틀 : "+title + ", 하위메뉴 : "+fads.size() + "개");
-        for(int i=0 ; i<fads.size(); i++) {
-        	HashMap<String, String> hm = new HashMap<String, String>();
-        	hm.put("title", fads.get(i)._subMenuTitle);
-        	listdata.add(hm);
-        	Log.d(TAG, "하위메뉴 : "+fads.get(i)._subMenuTitle);
-        	//데이터에서 타이틀만뽑아야지 일단.
-        }
-        SimpleAdapter simpleadapter = new SimpleAdapter(
-				context,  
-				listdata,
-        		R.layout.activity_my_workingout_row_row,
-        		new String[]{"title"}, 
-        		new int[]{R.id.myworkingout_title_row_row});
-        listview.setAdapter(simpleadapter);
-        
-        
-        Utils.setListViewHeightBasedOnChildren(listview); 
-        
-        
-         
         
         
         final ImageView myworkingout_fold = (ImageView)listItem.findViewById(R.id.myworkingout_fold); 
@@ -96,39 +94,47 @@ public class MyWorkingoutListCustomAdapter extends ArrayAdapter<MyWorkingoutItem
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				if (listview.getVisibility() == View.GONE) {
+					row_folded[position] = true;
 					listview.setVisibility(View.VISIBLE);
 					myworkingout_fold.setImageResource(R.drawable.myworkingout_folded);
 				} 
 				else if (listview.getVisibility() == View.VISIBLE) {
+					row_folded[position] = false;
 					listview.setVisibility(View.GONE);
 					myworkingout_fold.setImageResource(R.drawable.myworkingout_unfolded);
 				} 
 			}
-		});
+		}); 
+         
+        if (row_folded[position] == true) {
+        	listview.setVisibility(View.VISIBLE);
+        }
         
-        
-        ImageView myworkingout_check = (ImageView)listItem.findViewById(R.id.myworkingout_check); 
-        data.get(position).radioImage = myworkingout_check;
-        
-        
-        myworkingout_check.setOnClickListener(new OnClickListener() {
-			
+        MyWorkingoutRowCustomAdapter mwca= new MyWorkingoutRowCustomAdapter(context, R.layout.activity_my_workingout_row_row, data[position].fads,  data, position); 
+        data[position].loadSetting(context);
+        listview.setAdapter(mwca);
+        listview.setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public void onClick(View v) {
-		        Log.d(TAG, "mwiListLen : "+data.size());
-				for(int i=0; i<data.size(); i++) {
-					if(i == position) {data.get(i).setCheck();}
-					else {data.get(i).resetCheck();}
-				} 
+			public void onItemClick(AdapterView<?> parent, View view,
+					int subPosition, long id) {
+				data[position].setting_subMenuIds[subPosition] = !data[position].setting_subMenuIds[subPosition];
+				if (data[position].setting_subMenuIds[subPosition]) {
+					((ImageView)view.findViewById(R.id.myworkingout_row_row_bg_selected)).setVisibility(View.VISIBLE);;	
+				} else {
+					((ImageView)view.findViewById(R.id.myworkingout_row_row_bg_selected)).setVisibility(View.GONE);;
+				}
 			}
 		});
-
-        /*
-        String myworkingout = adapter.get_setting("myworkingout");
-        if (myworkingout == null) {
-        	myworkingout = "0";
-        	adapter.put_setting("myworkingout", myworkingout);
-        }*/
+        Utils.setListViewHeightBasedOnChildren(listview);  
         return listItem;
     }
+	
+	public void updateCheckImage(int position, ImageView mainMenuCheckImg) {
+		boolean mainMenuCheck = data[position].setting_checked; 
+    	if (mainMenuCheck == true) {
+    		mainMenuCheckImg.setImageResource(R.drawable.myworkingout_checkedcircle);
+    	} else {
+    		mainMenuCheckImg.setImageResource(R.drawable.myworkingout_uncheckedcircle);
+    	}
+	}
 }

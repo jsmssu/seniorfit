@@ -502,11 +502,11 @@ public class Pedometer extends Activity {
 		pedometer_today_walkingcircle.removeSlices();
 		slice = new PieSlice();
 		slice.setColor(Color.parseColor("#3ec2c7"));
-		slice.setValue(mStepValue);
+		slice.setValue(mStepValue%100);
 		pedometer_today_walkingcircle.addSlice(slice);
 		slice = new PieSlice();
 		slice.setColor(Color.parseColor("#eeeeee"));
-		slice.setValue(100 - mStepValue);
+		slice.setValue(100 - (mStepValue%100));
 		pedometer_today_walkingcircle.addSlice(slice); 
 		 
 		

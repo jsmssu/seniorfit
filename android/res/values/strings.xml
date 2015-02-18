@@ -118,6 +118,7 @@
     <string name="title_activity_setting">세팅</string>
     <string name="title_activity_stretching">스트레칭</string>
     <string name="title_activity_other_program">다른 프로그램</string>
+    <string name="title_activity_other_program_setting">오늘의 운동 프로그램 바꾸기</string>
     <string name="title_activity_fit_detail__main_menu_title"></string>
     <string name="title_activity_choose">나만의운동?</string>
     <string name="title_activity_choose_program">ChooseProgramActivity</string>

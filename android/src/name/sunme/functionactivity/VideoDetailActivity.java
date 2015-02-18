@@ -4,6 +4,7 @@ import name.sunme.firstexecution.Setup1Activity;
 import name.sunme.seniorfit.DBAdapter;
 import name.sunme.seniorfit.DBHelper;
 import name.sunme.seniorfit.FitApiDataClass;
+import name.sunme.seniorfit.GlobalData;
 import name.sunme.seniorfit.ImageAdapter;
 
 import org.json.JSONArray;
@@ -69,6 +70,11 @@ public class VideoDetailActivity extends Activity {
 		try {
 			subMenuIds =  new JSONArray(myintent.getStringExtra("subMenuIds"));
 			maxIndex = subMenuIds.length();
+			for(int i=0; i<subMenuIds.length(); i++) {
+				String subMenuId = subMenuIds.getString(idx);
+				FitApiDataClass fd = adapter.get_fitapidata_fromSubMenuId(subMenuId);
+				Log.d(TAG, "submenu title : " + fd._subMenuTitle);
+			}
 			showNextVideo();
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -98,21 +104,14 @@ public class VideoDetailActivity extends Activity {
 	void showNextVideo() { 
 		try {
 			if (idx + 1 > maxIndex) { return; }
-			idx = idx + 1;
 			String subMenuId = subMenuIds.getString(idx);
 			Log.d(TAG, "subMenuId : " + subMenuId);
 			FitApiDataClass fd = adapter.get_fitapidata_fromSubMenuId(subMenuId);
 			videodetail_submenutitle.setText(fd._subMenuTitle);
 			videodetail_exerciseintensity.setText(fd._exerciseIntensity);
-			videodetail_idxindicator.setText(idx+"/"+maxIndex);
-			String[] t_thumbnails = (drawable.temp_thumbnail + "-" + drawable.temp_thumbnail + "-" + drawable.temp_thumbnail).split("-");  
+			videodetail_idxindicator.setText((idx+1)+"/"+maxIndex);
 			
-			final int[] thumbnails = new int[t_thumbnails.length];
-			for(int i=0; i<t_thumbnails.length; i++) {
-				Log.d(TAG, "Thumbnamil " + i + " : " + t_thumbnails[i]);
-				thumbnails[i] =  Integer.parseInt(t_thumbnails[i]);
-			}
-			
+			final Integer[] thumbnails = GlobalData.getThumbnail(fd._subMenuId);
 	
 			VideoThumbnailAdapter pageadapter = new VideoThumbnailAdapter(this, fd, thumbnails);
 			ViewPager viewPager = (ViewPager) findViewById(R.id.videodetail_pager);
@@ -146,6 +145,7 @@ public class VideoDetailActivity extends Activity {
 					
 				} 
 			});
+			idx = idx + 1;
 		}catch (Exception e) {
 			
 		}

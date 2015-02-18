@@ -55,8 +55,8 @@ public class DBAdapter {
     public FitApiDataClass[] get_fitapidata_fromMainMenuId(String mainMenuId) {
     	String selectQuery = "SELECT * FROM " + DBHelper.FITDATA_TABLE_NAME + " Where mainMenuId = ?"; 
         Cursor cur = db.rawQuery(selectQuery, new String[]{mainMenuId});
+        FitApiDataClass[] result = new FitApiDataClass[cur.getCount()];
     	if (cur.getCount() > 0) {
-    		FitApiDataClass[] result = new FitApiDataClass[cur.getCount()];
     		for(int i=0; cur.moveToNext(); i++) {
     			result[i] = new FitApiDataClass();
     			result[i]._exerciseIntensity = cur.getString(0); 
@@ -79,10 +79,9 @@ public class DBAdapter {
     			result[i]._nextSubMenuId = cur.getString(17); 
     			result[i]._nameVideo = cur.getString(18); 
     			result[i]._nameThumbnail = cur.getString(19);  
-    		}	
-    		return result;
+    		}	 
     	}
-    	return null;
+    	return result;
     }
     public FitApiDataClass get_fitapidata_fromSubMenuId(String subMenuId) {
     	String selectQuery = "SELECT * FROM " + DBHelper.FITDATA_TABLE_NAME + " Where subMenuId = ?"; 

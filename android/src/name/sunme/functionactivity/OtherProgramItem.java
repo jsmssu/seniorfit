@@ -10,12 +10,12 @@ import name.sunme.seniorfit.DBAdapter;
 import name.sunme.seniorfit.FitApiDataClass;
 
 public class OtherProgramItem {
-	String title = null;
-	String time = null;
-	String day = null;
-	boolean isTodays = false;
-	Integer background = null;
-	FitApiDataClass[] fads = null;
+	public String title = null;
+	public String time = null;
+	public String day = null;
+	public boolean isTodays = false;
+	public Integer background = null;
+	public FitApiDataClass[] fads = null;
 	
 	public OtherProgramItem() {
 		
