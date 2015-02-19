@@ -69,11 +69,19 @@ public class MyWorkingoutListCustomAdapter extends ArrayAdapter<MyWorkingoutItem
         
         
         myworkingout_check.setOnTouchListener(new OnTouchListener() {
-			
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				data[position].reverse_setting_checked();
 				data[position].save_setting_checked(context);
+				for(int i=0; i<data[position].setting_checked_subMenuIds.length; i++) {
+					data[position].setting_checked_subMenuIds[i] = data[position].setting_checked;
+					
+				}
+				
+				if(data[position].setting_folded==false) {
+					MyWorkingoutRowCustomAdapter mwca = (MyWorkingoutRowCustomAdapter) submenu_listview.getAdapter();
+					if (mwca != null) mwca.notifyDataSetChanged();
+				}
 				showCheckImage(position, myworkingout_check);		
 				return false;
 			}
@@ -86,6 +94,24 @@ public class MyWorkingoutListCustomAdapter extends ArrayAdapter<MyWorkingoutItem
     			data[position].reverse_setting_folded();
 				data[position].save_setting_folded(context);
 				showCheckFolded(position, myworkingout_fold, submenu_listview);
+				
+				if (data[position].setting_folded == false) {
+					
+					MyWorkingoutRowCustomAdapter mwca= new MyWorkingoutRowCustomAdapter(context, R.layout.activity_my_workingout_row_row, data[position].fads,  data, position); 
+			        submenu_listview.setAdapter(mwca);
+			        submenu_listview.setOnItemClickListener(new OnItemClickListener() {
+						@Override
+						public void onItemClick(AdapterView<?> parent, View view,
+								int subPosition, long id) {
+							showSubMenus(position, subPosition, view);
+						}
+					});
+			        Utils.setListViewHeightBasedOnChildren(submenu_listview);
+					
+				} else {
+					//submenu_listview.getAdapter().
+				}
+				
 				return false;
 			}
 		}); 
@@ -93,16 +119,7 @@ public class MyWorkingoutListCustomAdapter extends ArrayAdapter<MyWorkingoutItem
         
 
         
-        MyWorkingoutRowCustomAdapter mwca= new MyWorkingoutRowCustomAdapter(context, R.layout.activity_my_workingout_row_row, data[position].fads,  data, position); 
-        submenu_listview.setAdapter(mwca);
-        submenu_listview.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int subPosition, long id) {
-				showSubMenus(position, subPosition, view);
-			}
-		});
-        Utils.setListViewHeightBasedOnChildren(submenu_listview);  
+          
         return listItem;
     }
 	public void showSubMenus(int position, int subPosition, View view) {

@@ -49,9 +49,9 @@ public class OtherProgramItem {
 		try {
 			JSONArray ja = new JSONArray();
 			for(int i=0; i<fads.length; i++) {
-				ja.put(fads[i]._subMenuId);	
+				ja.put(fads[i].toJSON());	
 			}
-			jo.put("subMenuIds", ja); 
+			jo.put("fads", ja); 
 		} catch (Exception e) {};
 		return jo.toString();
 	}
@@ -65,11 +65,10 @@ public class OtherProgramItem {
 		try { opi.isTodays = jo.getBoolean("isTodays"); } catch (JSONException e) {}
 		try { opi.background = jo.getInt("background"); } catch (JSONException e) {}
 		try {
-			JSONArray ja = jo.getJSONArray("subMenuIds");
+			JSONArray ja = jo.getJSONArray("fads");
 			opi.fads = new FitApiDataClass[ja.length()];
-			DBAdapter dbAdapter = new DBAdapter(context);
 			for(int i=0; i<ja.length(); i++) {
-				opi.fads[i] = dbAdapter.get_fitapidata_fromSubMenuId(ja.getString(i));
+				opi.fads[i] = FitApiDataClass.parseObject(ja.getJSONObject(i));
 			}
 		} catch (JSONException e) {}
 		return opi;

@@ -64,6 +64,7 @@ public class FitDetail_MainMenuTitleActivity extends Activity {
 		if (myintent != null) {
 			Log.d(TAG, "intent is not null");
 			JSONObject json;
+			Log.d(TAG,"t3");
 			try {
 				String jsonstr = myintent.getStringExtra("json");
 				opi = OtherProgramItem.fromJSON(getApplicationContext(),
@@ -73,40 +74,47 @@ public class FitDetail_MainMenuTitleActivity extends Activity {
 				e1.printStackTrace();
 			}
 			Log.d(TAG, "opi title : " + opi.title);
+
 			((ImageView) findViewById(R.id.fitdetail_mainmenu_topbg))
 					.setImageResource(opi.background);
 			((TextView) findViewById(R.id.fitdetail_mainmenu_title))
 					.setText(opi.title);
+
 			((TextView) findViewById(R.id.fitdetail_mainmenu_time))
 					.setText(opi.time);
+
 			((TextView) findViewById(R.id.fitdetail_mainmenu_day))
 					.setText(opi.day);
 
-			listdata = getSubListItems();
-		}
 
+			listdata = getSubListItems();
+		} 
 		if (listdata.size() > 0) {
 			Log.d(TAG, "listdata > 0 ");
 			simpleadapter = new SimpleAdapter(
 					FitDetail_MainMenuTitleActivity.this, listdata,
 					R.layout.activity_fit_detail__sub_menu_title_row,
-					new String[] { "number", "title", "subMenuId" }, new int[] {
+					new String[] { "number", "title"}, new int[] {
 							R.id.subtitlerow_number, R.id.subtitlerow_title });
+			Log.d(TAG,"tt2");
 			list.setAdapter(simpleadapter);
+			Log.d(TAG,"tt1");
 			list.setOnItemClickListener(new OnItemClickListener() {
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
-					Intent intent = new Intent(getApplicationContext(),
-							VideoShowActivity.class);
-					Log.d(TAG, "setOnItemClickListener");
-					String videoname = opi.fads[position]._nameVideo;
-					intent.putExtra("videoname", videoname);
-					startActivity(intent);
+					if (opi.fads[position]._subMenuId!=null) {
+						Intent intent = new Intent(getApplicationContext(),
+								VideoShowActivity.class);
+						Log.d(TAG, "setOnItemClickListener");
+						String videoname = opi.fads[position]._nameVideo;
+						intent.putExtra("videoname", videoname);
+						startActivity(intent);
+					}
 				}
 			});
 			listUpdate();
 		}
-
+		Log.d(TAG,"t2");
 		// 시작하기 버튼을 누르면, 리스트를 전체 동영상을 보여주게 됨.
 		fitdetail_mainmenu_programstart
 				.setOnClickListener(new OnClickListener() {
@@ -139,14 +147,18 @@ public class FitDetail_MainMenuTitleActivity extends Activity {
 	private ArrayList<HashMap<String, String>> getSubListItems() {
 		ArrayList<HashMap<String, String>> al = new ArrayList<HashMap<String, String>>();
 		if (opi != null && opi.fads != null) {
-			Log.d(TAG, "fads length : " + opi.fads.length);
+			Log.d(TAG, "fads lengtha : " + opi.fads.length);
 			int idx = 0;
 			for (final FitApiDataClass fad : opi.fads) {
+				Log.d(TAG, "fad : "+ fad);
 				HashMap<String, String> dt = new HashMap<String, String>();
 				dt.put("number", Integer.toString(idx));
+				Log.d(TAG, "sub title : "+ fad._subMenuTitle);
 				dt.put("title", fad._subMenuTitle);
-				Log.d(TAG, "sub title : " + fad._subMenuTitle);
-				dt.put("subMenuId", fad._subMenuId);
+				Log.d(TAG, "sub id : "+ fad._subMenuId);
+				if (fad._subMenuId != null) {
+					dt.put("subMenuId", fad._subMenuId);
+				}
 				al.add(dt);
 				idx = idx + 1;
 			}

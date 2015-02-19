@@ -55,7 +55,7 @@ public class MyWorkingoutItem {
     	dbAdapter.put_setting(dbkey_s_fold,Boolean.toString(setting_folded));
 	}
     public void loadSetting(Context context){
-    	DBAdapter dbAdapter = new DBAdapter(context);
+    	/*DBAdapter dbAdapter = new DBAdapter(context);
     	
     	String setting_checked_s = dbAdapter.get_setting(dbkey_checked);
     	if (setting_checked_s==null) {
@@ -81,6 +81,10 @@ public class MyWorkingoutItem {
     		} else {
     			setting_checked_subMenuIds[i] = Boolean.parseBoolean(setting_checked_subMenuId);
     		}
+    	} */
+    	setting_checked_subMenuIds = new boolean[fads.length];
+    	for(int i=0; i < fads.length; i++) {
+    		setting_checked_subMenuIds[i] = false; 
     	}
     }
     

@@ -75,7 +75,7 @@ public class OtherProgramActivity extends Activity {
 		public void onItemClick(AdapterView<?> parent, View view,
 				int position, long id) {
 			Intent intent = new Intent(getApplicationContext(),
-					FitDetail_MainMenuTitleActivity.class);
+					FitDetail_MainMenuTitleActivity.class); 
 			intent.putExtra("json", opis[position].toJson());
 			startActivity(intent);
 			finish();

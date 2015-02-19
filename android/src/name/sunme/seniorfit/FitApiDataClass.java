@@ -42,7 +42,32 @@ public class FitApiDataClass {
 	public String _nameThumbnail = null;
 	public String _haveThumbnail = null; 
 	
-	
+	public JSONObject toJSON() {
+		JSONObject result = new JSONObject();
+		try { result.put("exerciseIntensity", _exerciseIntensity); } catch (Exception e) {}
+		try { result.put("subMenuId", _subMenuId); } catch (Exception e) {}
+		try { result.put("exerciseVideosTime", _exerciseVideosTime); } catch (Exception e) {}
+		try { result.put("exerciseMethod", _exerciseMethod); } catch (Exception e) {}
+		try { result.put("mainMenuId", _mainMenuId); } catch (Exception e) {}
+		try { result.put("subMenuTitle", _subMenuTitle); } catch (Exception e) {}
+		try { result.put("exerciseFrequency", _exerciseFrequency); } catch (Exception e) {}
+		try { result.put("preSubMenuId", _preSubMenuId); } catch (Exception e) {}
+		try { result.put("thumbnailUrl", _thumbnailUrl); } catch (Exception e) {}
+		try { result.put("exerciseTime", _exerciseTime); } catch (Exception e) {}
+		try { result.put("mainMenuTitle", _mainMenuTitle); } catch (Exception e) {}
+		try { result.put("nextSubMenuId", _nextSubMenuId); } catch (Exception e) {}
+		try { result.put("exerciseVideosUrl", _exerciseVideosUrl); } catch (Exception e) {}
+		try { result.put("time", _time); } catch (Exception e) {}
+		try { result.put("new", _new); } catch (Exception e) {}
+		try { result.put("machine", _machine); } catch (Exception e) {}
+		try { result.put("timeSecond", _timeSecond); } catch (Exception e) {}
+		try { result.put("inc", _inc); } catch (Exception e) {}
+		try { result.put("nameVideo", _nameVideo); } catch (Exception e) {}
+		try { result.put("haveVideo", _haveVideo); } catch (Exception e) {}
+		try { result.put("nameThumbnail", _nameThumbnail); } catch (Exception e) {}
+		try { result.put("haveThumbnail", _haveThumbnail); } catch (Exception e) {}
+		return result;
+	}
 	public static FitApiDataClass parseObject(JSONObject fitdatajson){
 		FitApiDataClass fitapidataobj = new FitApiDataClass();
 		try { fitapidataobj._exerciseIntensity = fitdatajson.getString("exerciseIntensity"); } catch (JSONException e) { e.printStackTrace(); }
