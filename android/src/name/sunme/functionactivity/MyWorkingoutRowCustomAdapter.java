@@ -52,7 +52,7 @@ public class MyWorkingoutRowCustomAdapter extends ArrayAdapter<FitApiDataClass>{
         myworkingout_title_row_row.setText(data[position]._subMenuTitle);
         myworkingout_row_row_bg.setImageResource(GlobalData.getBackground(data[position]._subMenuId));
         
-        if(mainData[mainPosition].setting_subMenuIds[position]==true) {
+        if(mainData[mainPosition].setting_checked_subMenuIds[position]==true) {
         	myworkingout_row_row_bg_selected.setVisibility(View.VISIBLE);
         }
         

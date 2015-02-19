@@ -12,6 +12,7 @@
             android:id="@+id/myworkingout_check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_margin="18dp"
             android:src="@drawable/myworkingout_uncheckedcircle"
             />
@@ -28,7 +29,8 @@
             android:id="@+id/myworkingout_fold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="18dp" 
+            android:padding="18dp" 
+            android:layout_gravity="center_vertical"
             android:src="@drawable/myworkingout_unfolded"
             />
     </LinearLayout>

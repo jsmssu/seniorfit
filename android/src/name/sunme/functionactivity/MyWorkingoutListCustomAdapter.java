@@ -1,135 +1,130 @@
 package name.sunme.functionactivity;
-  
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import name.sunme.maindrawbar.MyDrawerItem;
+   
+ 
 import name.sunme.maindrawbar.R;
-import name.sunme.seniorfit.DBAdapter;
-import name.sunme.seniorfit.FitApiDataClass;
+import name.sunme.seniorfit.DBAdapter; 
 import name.sunme.seniorfit.Utils;
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
+import android.content.Context;  
+import android.os.Handler; 
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.webkit.WebView.FindListener;
+import android.view.MotionEvent;
+import android.view.View; 
+import android.view.View.OnTouchListener;
+import android.view.ViewGroup; 
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.SimpleAdapter;
+import android.widget.ImageView; 
+import android.widget.ListView; 
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener; 
 
 public class MyWorkingoutListCustomAdapter extends ArrayAdapter<MyWorkingoutItem>{
 	String TAG = "MyWorkingoutListCustomAdapter";
 	Context context;
 	int resource;
 	MyWorkingoutItem[] data;
-	
-	private DBAdapter dbApter;
+	 
 	
 	String dbkey_m_fold = "m_fold_";
 	String dbkey_s_fold = "s_fold_";
+	Handler mHandler;
 	
-	boolean[] row_folded;
+	int position;
 	
-	public MyWorkingoutListCustomAdapter(Context context, int resource, MyWorkingoutItem[] data) {
+	public MyWorkingoutListCustomAdapter(Context context, int resource, MyWorkingoutItem[] data, Handler mHandler) {
 		super(context, resource, data);
 		this.context = context;
 		this.resource = resource;
-		this.data = data;
-		// TODO Auto-generated constructor stub
-		row_folded = new boolean[data.length];
-		dbApter = new DBAdapter(context);
+		this.data = data; 
+		this.mHandler = mHandler;
 	}
 	
 	
 	@Override
     public View getView(final int position, View convertView, ViewGroup parent) {
- 
+		this.position = position;
+		
+		
         View listItem = convertView;
  
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
         listItem = inflater.inflate(resource, parent, false);
-  
-        TextView title = (TextView) listItem.findViewById(R.id.myworkingout_title_row);
-        title.setText(data[position].title);  
         
         
         
         
-        
-        
-        
-        final ImageView myworkingout_check = (ImageView)listItem.findViewById(R.id.myworkingout_check); 
-        updateCheckImage(position, myworkingout_check);	
-        myworkingout_check.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				data[position].reverse_check_mainMenuTitle();
-				updateCheckImage(position, myworkingout_check);		
-			}
-		});
-        
-        
-        
-        
-        
-      //리스트뷰 인 리스트뷰를 위해!
-        final ListView listview = (ListView)listItem.findViewById(R.id.myworkingout_subtitle);
-        
-        
+        final TextView title = (TextView) listItem.findViewById(R.id.myworkingout_title_row);
+        final ImageView myworkingout_check = (ImageView)listItem.findViewById(R.id.myworkingout_check);
         final ImageView myworkingout_fold = (ImageView)listItem.findViewById(R.id.myworkingout_fold); 
-        myworkingout_fold.setOnClickListener(new OnClickListener() {
+        final ListView submenu_listview = (ListView)listItem.findViewById(R.id.myworkingout_subtitle);
+        
+        
+        
+        
+        title.setText(data[position].title); 
+        showCheckImage(position, myworkingout_check);	
+        showCheckFolded(position, myworkingout_fold, submenu_listview);
+        
+        
+        myworkingout_check.setOnTouchListener(new OnTouchListener() {
+			
 			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				if (listview.getVisibility() == View.GONE) {
-					row_folded[position] = true;
-					listview.setVisibility(View.VISIBLE);
-					myworkingout_fold.setImageResource(R.drawable.myworkingout_folded);
-				} 
-				else if (listview.getVisibility() == View.VISIBLE) {
-					row_folded[position] = false;
-					listview.setVisibility(View.GONE);
-					myworkingout_fold.setImageResource(R.drawable.myworkingout_unfolded);
-				} 
+			public boolean onTouch(View v, MotionEvent event) {
+				data[position].reverse_setting_checked();
+				data[position].save_setting_checked(context);
+				showCheckImage(position, myworkingout_check);		
+				return false;
 			}
 		}); 
-         
-        if (row_folded[position] == true) {
-        	listview.setVisibility(View.VISIBLE);
-        }
+        
+        myworkingout_fold.setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+    			data[position].reverse_setting_folded();
+				data[position].save_setting_folded(context);
+				showCheckFolded(position, myworkingout_fold, submenu_listview);
+				return false;
+			}
+		}); 
+        
+        
+
         
         MyWorkingoutRowCustomAdapter mwca= new MyWorkingoutRowCustomAdapter(context, R.layout.activity_my_workingout_row_row, data[position].fads,  data, position); 
-        data[position].loadSetting(context);
-        listview.setAdapter(mwca);
-        listview.setOnItemClickListener(new OnItemClickListener() {
+        submenu_listview.setAdapter(mwca);
+        submenu_listview.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int subPosition, long id) {
-				data[position].setting_subMenuIds[subPosition] = !data[position].setting_subMenuIds[subPosition];
-				if (data[position].setting_subMenuIds[subPosition]) {
-					((ImageView)view.findViewById(R.id.myworkingout_row_row_bg_selected)).setVisibility(View.VISIBLE);;	
-				} else {
-					((ImageView)view.findViewById(R.id.myworkingout_row_row_bg_selected)).setVisibility(View.GONE);;
-				}
+				showSubMenus(position, subPosition, view);
 			}
 		});
-        Utils.setListViewHeightBasedOnChildren(listview);  
+        Utils.setListViewHeightBasedOnChildren(submenu_listview);  
         return listItem;
     }
-	
-	public void updateCheckImage(int position, ImageView mainMenuCheckImg) {
+	public void showSubMenus(int position, int subPosition, View view) {
+		data[position].setting_checked_subMenuIds[subPosition] = !data[position].setting_checked_subMenuIds[subPosition];
+		if (data[position].setting_checked_subMenuIds[subPosition]) {
+			((ImageView)view.findViewById(R.id.myworkingout_row_row_bg_selected)).setVisibility(View.VISIBLE);;	
+		} else {
+			((ImageView)view.findViewById(R.id.myworkingout_row_row_bg_selected)).setVisibility(View.GONE);;
+		}
+	}
+	public void showCheckFolded(int position, ImageView mainMenuFoldImg, ListView subMenu) {
+		boolean mainMenuFolded = data[position].setting_folded; 
+		Log.d(TAG, "updateCheckFolded : "+ mainMenuFolded);
+		if (mainMenuFolded == true) {
+			mainMenuFoldImg.setImageResource(R.drawable.myworkingout_folded);
+			subMenu.setVisibility(View.GONE);
+    	} else {
+    		mainMenuFoldImg.setImageResource(R.drawable.myworkingout_unfolded);
+    		subMenu.setVisibility(View.VISIBLE);
+    	}
+	}
+	public void showCheckImage(int position, ImageView mainMenuCheckImg) {
 		boolean mainMenuCheck = data[position].setting_checked; 
     	if (mainMenuCheck == true) {
     		mainMenuCheckImg.setImageResource(R.drawable.myworkingout_checkedcircle);
@@ -137,4 +132,5 @@ public class MyWorkingoutListCustomAdapter extends ArrayAdapter<MyWorkingoutItem
     		mainMenuCheckImg.setImageResource(R.drawable.myworkingout_uncheckedcircle);
     	}
 	}
+	
 }

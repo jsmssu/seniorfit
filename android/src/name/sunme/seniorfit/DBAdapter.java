@@ -13,6 +13,11 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import name.sunme.functionactivity.MyWorkingoutItem;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 
 
 public class DBAdapter {
@@ -43,8 +48,6 @@ public class DBAdapter {
         	String[] result = new String[cur.getCount()*2]; 
         	int i = 0;
     		while(cur.moveToNext()) {
-    			Log.d(TAG, "cur.getColumnIndex(thumbnailUrl) " + cur.getColumnIndex("thumbnailUrl"));
-    			Log.d(TAG, "cur.getColumnIndex(exerciseVideosUrl) " + cur.getColumnIndex("exerciseVideosUrl"));
         		result[i] = cur.getString(cur.getColumnIndex("thumbnailUrl")); i = i + 1;
         		result[i] = cur.getString(cur.getColumnIndex("exerciseVideosUrl")); i = i + 1;
     		}	
@@ -52,6 +55,7 @@ public class DBAdapter {
     	}
     	return null;
     }
+
     public FitApiDataClass[] get_fitapidata_fromMainMenuId(String mainMenuId) {
     	String selectQuery = "SELECT * FROM " + DBHelper.FITDATA_TABLE_NAME + " Where mainMenuId = ?"; 
         Cursor cur = db.rawQuery(selectQuery, new String[]{mainMenuId});

@@ -221,7 +221,6 @@ public class Utils {
             // pre-condition
             return;
         }
-
         int totalHeight = 0;
         for (int i = 0; i < listAdapter.getCount(); i++) {
             View listItem = listAdapter.getView(i, null, listView);
