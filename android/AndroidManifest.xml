@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="name.sunme.maindrawbar"
-    android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionCode="2"
+    android:versionName="1.2" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -20,9 +20,10 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        
-        <meta-data android:name="com.google.android.gms.version"
+        <meta-data
+            android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
         <activity
             android:name="name.bagi.levente.pedometer.Pedometer"
             android:label="@string/title_activity_walking"
@@ -57,28 +58,29 @@
             android:theme="@style/AppThemeActionbarBack" >
         </activity>
         <activity
-            android:name="name.sunme.maindrawbar.MainActivity"
-            android:label="Senior Fit"
+            android:name=".MainActivity"
+            android:label="SeniorFit"
             android:theme="@style/AppThemeActionbarMenu" >
-                        <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="name.sunme.maindrawbar.WorkingoutFragment"
+            android:name=".WorkingoutFragment"
             android:label="@string/title_activity_workingout" >
         </activity>
         <activity
-            android:name="name.sunme.maindrawbar.RecordingFragment"
+            android:name=".RecordingFragment"
             android:label="@string/title_activity_recording" >
         </activity>
         <activity
-            android:name="name.sunme.maindrawbar.SettingFragment"
+            android:name=".SettingFragment"
             android:label="@string/title_activity_setting" >
         </activity>
         <activity
-            android:name="name.sunme.maindrawbar.StretchingActivity"
+            android:name=".StretchingActivity"
             android:label="@string/title_activity_stretching"
             android:theme="@style/AppThemeActionbarBack" >
         </activity>
@@ -92,15 +94,14 @@
             android:label="@string/title_activity_fit_detail__main_menu_title"
             android:theme="@style/AppThemeActionbarBack" >
         </activity>
- 
         <activity
             android:name="name.sunme.functionactivity.ChooseProgramActivity"
             android:label="@string/title_activity_choose_program" >
         </activity>
         <activity
             android:name="name.sunme.functionactivity.VideoDetailActivity"
-            android:label="@string/title_activity_video_detail" 
-            android:theme="@style/AppThemeActionbarBack">
+            android:label="@string/title_activity_video_detail"
+            android:theme="@style/AppThemeActionbarBack" >
         </activity>
         <activity
             android:name="name.sunme.seniorfit.FacebookLoginActivity"
@@ -133,14 +134,30 @@
         </activity>
         <activity
             android:name="name.sunme.functionactivity.MyWorkingoutActivity"
-            android:label="@string/title_activity_my_workingout" 
-            android:theme="@style/AppThemeActionbarBack">
+            android:label="@string/title_activity_my_workingout"
+            android:theme="@style/AppThemeActionbarBack" >
         </activity>
         <activity
             android:name="name.sunme.functionactivity.VideoShowActivity"
-            android:label="@string/title_activity_video_show" 
+            android:label="@string/title_activity_video_show"
             android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="name.sunme.othersite.OtherSiteFragment"
+            android:label="@string/title_activity_other_site_fragment" >
+        </activity>
+        <activity
+            android:name="name.sunme.othersite.ContentListActivity"
+            android:label="@string/title_activity_content_list" >
+        </activity>
+        <activity
+            android:name="name.sunme.othersite.ContentActivity"
+            android:label="@string/title_activity_content" >
+        </activity>
+        <activity
+            android:name="name.sunme.othersite.ContentPageActivity"
+            android:label="@string/title_activity_content_page" >
         </activity>
     </application>
 

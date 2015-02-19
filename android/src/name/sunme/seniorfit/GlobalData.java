@@ -3,6 +3,8 @@ package name.sunme.seniorfit;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.json.JSONArray;
+
 import android.content.Context;
 import android.util.Log;
 import name.sunme.functionactivity.OtherProgramItem;
@@ -130,5 +132,10 @@ public class GlobalData {
 		put("e_2",new Integer[]{R.drawable.thumbnail_e_2});
 		put("e_3",new Integer[]{R.drawable.thumbnail_e_3});
 		put("f_1",new Integer[]{R.drawable.thumbnail_d_5});
+	}};
+	
+	public static JSONArray otherprogram_programjson = null;
+	
+	public static HashMap<String, Integer[]> otherprogram_programlist = new HashMap<String, Integer[]>(){{
 	}};
 }

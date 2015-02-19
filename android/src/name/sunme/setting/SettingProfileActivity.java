@@ -50,13 +50,15 @@ public class SettingProfileActivity extends Activity {
 	
 	TextView settingprofile_name;
 	
-	LinearLayout settingprofile_boxweight;
-	LinearLayout settingprofile_boxmin_stretcing;
-	LinearLayout settingprofile_boxmin_walking;
+	LinearLayout settingprofile_box_weight;
+	LinearLayout settingprofile_box_age;
+	LinearLayout settingprofile_box_sex;
+	LinearLayout settingprofile_box_height;
 	
-	TextView settingprofile_min_stretcing;
-	TextView settingprofile_min_walking;
 	TextView settingprofile_weight;
+	TextView settingprofile_age;
+	TextView settingprofile_sex;
+	TextView settingprofile_height;
 	private DBAdapter adapter;
 	
 	@Override
@@ -75,14 +77,25 @@ public class SettingProfileActivity extends Activity {
         settingprofile_name = (TextView)findViewById(R.id.settingprofile_name);
         
         
-        settingprofile_boxweight = (LinearLayout)findViewById(R.id.settingprofile_boxweight);
-    	settingprofile_boxmin_stretcing = (LinearLayout)findViewById(R.id.settingprofile_boxmin_stretcing);
-    	settingprofile_boxmin_walking = (LinearLayout)findViewById(R.id.settingprofile_boxmin_walking);
-        
+        settingprofile_box_weight = (LinearLayout)findViewById(R.id.settingprofile_box_weight);
+        settingprofile_box_age = (LinearLayout)findViewById(R.id.settingprofile_box_age);
+        settingprofile_box_sex = (LinearLayout)findViewById(R.id.settingprofile_box_sex);
+        settingprofile_box_height = (LinearLayout)findViewById(R.id.settingprofile_box_height);
     	
-    	settingprofile_min_stretcing = (TextView)findViewById(R.id.settingprofile_min_stretcing);
-    	settingprofile_min_walking = (TextView)findViewById(R.id.settingprofile_min_walking);
-    	settingprofile_weight = (TextView)findViewById(R.id.settingprofile_weight);
+    	
+        settingprofile_weight = (TextView)findViewById(R.id.settingprofile_weight);
+        settingprofile_age = (TextView)findViewById(R.id.settingprofile_age);
+        settingprofile_sex = (TextView)findViewById(R.id.settingprofile_sex);
+        settingprofile_height = (TextView)findViewById(R.id.settingprofile_height);
+        
+        settingprofile_box_weight.setOnClickListener(null);
+        settingprofile_box_age.setOnClickListener(null);
+        settingprofile_box_sex.setOnClickListener(null);
+        settingprofile_box_height.setOnClickListener(null);
+        
+        settingprofile_photo.setOnClickListener(null);
+        settingprofile_name.setOnClickListener(null);
+        
     	Log.d(TAG, "set elements");
     	try {
     		int weight = Integer.parseInt(adapter.get_setting("weight"));
@@ -96,19 +109,12 @@ public class SettingProfileActivity extends Activity {
     	}
     	
         
-        settingprofile_photo.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent (Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, REQUEST_CODE_IMAGE);
-			}
-		});
+
         
         settingprofile_name.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 final LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-                final View layout = inflater.inflate(R.layout.custom_textedit_dialog,(ViewGroup) findViewById(R.id.layout_root));
+                final View layout = inflater.inflate(R.layout.custom_textedit_dialog,null);
                 final EditText dialogEdit = (EditText)layout.findViewById(R.id.customEditText);
                 final AlertDialog.Builder InputDialogbuilder = new AlertDialog.Builder(SettingProfileActivity.this);
                 InputDialogbuilder.setTitle("이름 입력");
@@ -126,34 +132,27 @@ public class SettingProfileActivity extends Activity {
             }
         });
         
-        settingprofile_boxweight.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(getApplicationContext(), SettingBMIActivity.class);
-				startActivity(intent);
-			}
-		});
-        
-        settingprofile_boxmin_stretcing.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				
-				
-			}
-		});
-        settingprofile_boxmin_walking.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				
-				
-			}
-		});
-        
         loadValues();
 	}
+	
+	
+	
+	
+	OnClickListener listener_photoclick = new OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			showActivityToSelectPhoto();
+		}
+	}; 
+	
+	private void showActivityToSelectPhoto() {
+		Intent intent = new Intent (Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, REQUEST_CODE_IMAGE);
+	}
+	
+	
+	
+	
 	private void loadValues() {
 		loadProfilePicture();
 		loadName();
@@ -195,10 +194,6 @@ public class SettingProfileActivity extends Activity {
             Bitmap squareImg = Utils.getSquareBitmap(galleryImg);
             Bitmap scaledImg = Bitmap.createScaledBitmap(squareImg, 300, 300, true);
             Bitmap roundedImg = Utils.getRoundedBitmap(scaledImg);
-            
-            
-            
-            
             File newfile = new File(getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),"profilepicture.png");
             if (newfile.isFile()) {
             	newfile.delete();

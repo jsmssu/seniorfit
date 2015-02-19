@@ -42,7 +42,7 @@
             android:id="@+id/settingbmi_agebox"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@drawable/setting_bg_line"
+            android:background="@drawable/underline_list_row"
             android:orientation="horizontal" >
 
             <TextView
@@ -78,7 +78,7 @@
             android:id="@+id/settingbmi_sexbox"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@drawable/setting_bg_line"
+            android:background="@drawable/underline_list_row"
             android:orientation="horizontal" >
 
             <TextView
@@ -114,7 +114,7 @@
             android:id="@+id/settingbmi_heightbox"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@drawable/setting_bg_line"
+            android:background="@drawable/underline_list_row"
             android:orientation="horizontal" >
 
             <TextView

@@ -74,7 +74,8 @@ public class SettingBMIActivity extends Activity {
 
 				final View layout = inflater.inflate(
 						R.layout.custom_numberpicker_dialog,
-						(ViewGroup) findViewById(R.id.layout_root));
+						null);
+						//(ViewGroup) findViewById(R.id.layout_root));
 
 				final AlertDialog.Builder InputDialogbuilder = new AlertDialog.Builder(
 						SettingBMIActivity.this);
