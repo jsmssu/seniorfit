@@ -10,7 +10,7 @@
         android:layout_height="match_parent" />
 
     <LinearLayout
-        android:id="@+id/left_drawer"
+        android:id="@+id/sidebar_left_drawer"
         android:layout_width="280dp"
         android:layout_height="match_parent"
         android:background="#111"
@@ -20,7 +20,7 @@
         android:orientation="vertical" >
 
         <LinearLayout
-            android:id="@+id/left_profile"
+            android:id="@+id/drawer_left_profile"
             android:layout_width="match_parent"
             android:layout_height="133dp" 
             android:background="#efefef"
@@ -60,7 +60,7 @@
         </LinearLayout>
 
         <ListView
-            android:id="@+id/left_listview"
+            android:id="@+id/sidebar_left_listview"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"

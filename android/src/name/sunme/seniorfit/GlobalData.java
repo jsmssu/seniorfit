@@ -48,31 +48,31 @@ public class GlobalData {
 			FitApiDataClass[] fads1 = dbAdapter
 					.get_fitapidata_fromMainMenuId("DayWorkingout");
 			opis[0] = new OtherProgramItem("하루 운동", "2시간", "주 1-2회", fads1,
-					R.drawable.otherprogram_bg1, false);
+					R.drawable.otherprogram_bg_1d, false);
 
 			FitApiDataClass[] fads2 = dbAdapter.get_fitapidata_fromMainMenuId("a");
 			opis[1] = new OtherProgramItem("준비운동", "15분", "주 1-2회", fads2,
-					R.drawable.otherprogram_bg2, false);
+					R.drawable.otherprogram_bg_a, false);
 
 			FitApiDataClass[] fads3 = dbAdapter.get_fitapidata_fromMainMenuId("b");
 			opis[2] = new OtherProgramItem("근력강화", "25분", "주 2-3회", fads3,
-					R.drawable.otherprogram_bg3, false);
+					R.drawable.otherprogram_bg_b, false);
 
 			FitApiDataClass[] fads4 = dbAdapter.get_fitapidata_fromMainMenuId("c");
 			opis[3] = new OtherProgramItem("심폐 지구력 강화", "45분", "주 2-3회", fads4,
-					R.drawable.otherprogram_bg4, false);
+					R.drawable.otherprogram_bg_c, false);
 
 			FitApiDataClass[] fads5 = dbAdapter.get_fitapidata_fromMainMenuId("d");
 			opis[4] = new OtherProgramItem("유연성강화", "15분", "주 2-3회", fads5,
-					R.drawable.otherprogram_bg5, false);
+					R.drawable.otherprogram_bg_d, false);
 
 			FitApiDataClass[] fads6 = dbAdapter.get_fitapidata_fromMainMenuId("e");
 			opis[5] = new OtherProgramItem("평행성/체력강화", "25분", "주 2-3회", fads6,
-					R.drawable.otherprogram_bg6, false);
+					R.drawable.otherprogram_bg_e, false);
 
 			FitApiDataClass[] fads7 = dbAdapter.get_fitapidata_fromMainMenuId("f");
 			opis[6] = new OtherProgramItem("정리운동", "15분", "운동 후", fads7,
-					R.drawable.otherprogram_bg7, false);
+					R.drawable.otherprogram_bg_f, false);
 			
 			String myProgram = dbAdapter.get_setting("myProgram");
 			for (int i = 0; i < opis.length; i++) {

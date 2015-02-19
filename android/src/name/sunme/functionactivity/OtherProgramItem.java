@@ -29,7 +29,7 @@ public class OtherProgramItem {
 		this.background = background;
 		this.isTodays = isTodays;
 		if (background == null) {
-			background = R.drawable.otherprogram_bg1;
+			background = R.drawable.otherprogram_bg_1d;
 		}
 	}
 	public String getJson_submenuids(){ 

@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -40,6 +41,9 @@ public class ContentActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_content);
+		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setHomeButtonEnabled(true);
 
 		post_list = (ListView) this.findViewById(R.id.content_listview);
 
@@ -124,5 +128,11 @@ public class ContentActivity extends Activity {
 	private void listUpdate() {
 		// adapter.refresh_data();
 		postlist_adapter.notifyDataSetChanged();
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		finish();
+		return false;
 	}
 }

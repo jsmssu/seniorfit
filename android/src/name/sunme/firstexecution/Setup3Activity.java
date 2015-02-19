@@ -59,7 +59,7 @@ public class Setup3Activity extends Activity {
 
 				final View layout = inflater.inflate(
 						R.layout.custom_numberpicker_dialog,
-						(ViewGroup) findViewById(R.id.layout_root));
+						(ViewGroup) findViewById(R.id.layout_root_numberpicker));
 
 				final AlertDialog.Builder InputDialogbuilder = new AlertDialog.Builder(
 						Setup3Activity.this);

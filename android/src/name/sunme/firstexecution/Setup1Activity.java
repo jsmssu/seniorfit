@@ -84,7 +84,7 @@ public class Setup1Activity extends Activity {
 				
                 final LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
                 
-                final View layout = inflater.inflate(R.layout.custom_numberpicker_dialog,(ViewGroup) findViewById(R.id.layout_root));
+                final View layout = inflater.inflate(R.layout.custom_numberpicker_dialog,(ViewGroup) findViewById(R.id.layout_root_numberpicker));
  
                     
                 final AlertDialog.Builder InputDialogbuilder = new AlertDialog.Builder(Setup1Activity.this);
@@ -114,7 +114,7 @@ public class Setup1Activity extends Activity {
 			public void onClick(View v) {
                 final LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
                 
-                final View layout = inflater.inflate(R.layout.custom_numberpicker_dialog,(ViewGroup) findViewById(R.id.layout_root));
+                final View layout = inflater.inflate(R.layout.custom_numberpicker_dialog,(ViewGroup) findViewById(R.id.layout_root_numberpicker));
  
                     
                 final AlertDialog.Builder InputDialogbuilder = new AlertDialog.Builder(Setup1Activity.this);
@@ -145,7 +145,7 @@ public class Setup1Activity extends Activity {
 		        
                 final LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
                 
-                final View layout = inflater.inflate(R.layout.custom_numberpicker_dialog,(ViewGroup) findViewById(R.id.layout_root));
+                final View layout = inflater.inflate(R.layout.custom_numberpicker_dialog,(ViewGroup) findViewById(R.id.layout_root_numberpicker));
  
                     
                 final AlertDialog.Builder InputDialogbuilder = new AlertDialog.Builder(Setup1Activity.this);

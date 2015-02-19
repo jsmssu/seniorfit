@@ -148,16 +148,14 @@
             android:label="@string/title_activity_other_site_fragment" >
         </activity>
         <activity
-            android:name="name.sunme.othersite.ContentListActivity"
-            android:label="@string/title_activity_content_list" >
-        </activity>
-        <activity
             android:name="name.sunme.othersite.ContentActivity"
-            android:label="@string/title_activity_content" >
+            android:label="@string/title_activity_content" 
+            android:theme="@style/AppThemeActionbarBack">
         </activity>
         <activity
             android:name="name.sunme.othersite.ContentPageActivity"
-            android:label="@string/title_activity_content_page" >
+            android:label="@string/title_activity_content_page" 
+            android:theme="@style/AppThemeActionbarBack">
         </activity>
     </application>
 

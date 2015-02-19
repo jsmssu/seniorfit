@@ -45,11 +45,9 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class MyWorkingoutActivity extends Activity {
 	String TAG = "MyWorkingoutActivity";
-	private ListView myworkingoutList;
 	
 	
-	private DBHelper helper;
-	private DBAdapter adapter;
+	private DBAdapter dbAdapter;
 	
 	Button myworkingout_next;
 	LinearLayout MyWorkingoutLayout;
@@ -60,23 +58,21 @@ public class MyWorkingoutActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_workingout);
-		Log.d(TAG, "oncreate");
-		helper = new DBHelper(getApplicationContext());
-		adapter = new DBAdapter(getApplicationContext());
+		Log.d(TAG, "oncreate"); 
+		dbAdapter = new DBAdapter(getApplicationContext());
 		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
 		
 		
 		myworkingout_next = (Button)findViewById(R.id.myworkingout_next);
-		myworkingoutList= (ListView)findViewById(R.id.left_listview);
 		
 		JSONArray jmainmenus;
 		
 		
 		try {
-			Log.d(TAG, "mainmenu : "+adapter.get_setting("mainMenus"));
-			jmainmenus = new JSONArray(adapter.get_setting("mainMenus")); //메인타이틀 목록을 뽑니다.
+			Log.d(TAG, "mainmenu : "+dbAdapter.get_setting("mainMenus"));
+			jmainmenus = new JSONArray(dbAdapter.get_setting("mainMenus")); //메인타이틀 목록을 뽑니다.
 			mwiList = new MyWorkingoutItem[jmainmenus.length()];
 			for(int i=0; i<jmainmenus.length(); i++) {
 				JSONObject jmainmenu = jmainmenus.getJSONObject(i);
@@ -84,7 +80,7 @@ public class MyWorkingoutActivity extends Activity {
 				String title = jmainmenu.getString("mainMenuTitle");
 				String mmid = jmainmenu.getString("mainMenuId");
 				
-				FitApiDataClass[] fads = adapter.get_fitapidata_fromMainMenuId(mmid);
+				FitApiDataClass[] fads = dbAdapter.get_fitapidata_fromMainMenuId(mmid);
 				MyWorkingoutItem mwItem = new MyWorkingoutItem(title, mmid, fads);
 				
 				mwiList[i] = mwItem;    

@@ -43,6 +43,11 @@ public class ContentPageActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setHomeButtonEnabled(true);
+		
+		
 		setContentView(R.layout.activity_content_page);
 		contentpage_view = (WebView)findViewById(R.id.contentpage_view);
 		contentpage_videobutton = (ImageView)findViewById(R.id.contentpage_videobutton);
@@ -108,4 +113,10 @@ public class ContentPageActivity extends Activity {
 			}
 		}
 	};
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		finish();
+		return false;
+	}
 }

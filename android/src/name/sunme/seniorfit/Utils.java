@@ -7,7 +7,6 @@ import java.util.Calendar;
 import name.sunme.firstexecution.Setup4Activity;
 import name.sunme.maindrawbar.MainActivity;
 import name.sunme.maindrawbar.R;
-import name.sunme.setting.SettingBMIActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;

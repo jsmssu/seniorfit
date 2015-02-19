@@ -1,13 +1,10 @@
 package name.sunme.maindrawbar;
 
 import name.sunme.seniorfit.DBHelper;
-import name.sunme.setting.SettingBMIActivity;
 import name.sunme.setting.SettingGoalActivity;
 import name.sunme.setting.SettingProfileActivity;
-
 import name.sunme.maindrawbar.R;
 import name.sunme.maindrawbar.R.layout;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
@@ -21,8 +18,14 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 public class SettingFragment extends Fragment {
+	
+	
+	
+	String TAG = "SettingFragment";
+	
 	private LinearLayout setting_btn_profile;
 	private LinearLayout setting_btn_goal;
 	private LinearLayout setting_btn_alarm;
@@ -54,7 +57,7 @@ public class SettingFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(), SettingProfileActivity.class);
-                startActivity(intent); 
+				getActivity().startActivityForResult(intent, MainActivity.REQUEST_CODE_SETTING_PROFILE);
 			}
 		});
         setting_btn_goal.setOnClickListener(new OnClickListener() {			
@@ -72,5 +75,4 @@ public class SettingFragment extends Fragment {
 		});
         return rootView;
     }
- 
 }
