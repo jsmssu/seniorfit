@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:gravity="center"
-        android:text="1/20"
         android:textSize="24sp" />
 
     <TextView
@@ -18,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:gravity="center"
-        android:text="준비운동"
+        android:text="운동 선택해주세욥"
         android:textSize="30sp"
         android:textStyle="bold" />
 
@@ -26,7 +25,6 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:gravity="center"
-        android:text="10-15분"
         android:textSize="16sp" />
 
     <Space
@@ -42,6 +40,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal" 
-        android:text="강도를 설 명 한 다 " />
+        />
 
 </LinearLayout>

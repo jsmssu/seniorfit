@@ -99,7 +99,7 @@
             android:label="@string/title_activity_choose_program" >
         </activity>
         <activity
-            android:name="name.sunme.functionactivity.VideoDetailActivity"
+            android:name="name.sunme.video.VideoDetailActivity"
             android:label="@string/title_activity_video_detail"
             android:theme="@style/AppThemeActionbarBack" >
         </activity>
@@ -136,9 +136,9 @@
             android:name="name.sunme.functionactivity.MyWorkingoutActivity"
             android:label="@string/title_activity_my_workingout"
             android:theme="@style/AppThemeActionbarBack" >
-        </activity>
+        </activity> 
         <activity
-            android:name="name.sunme.functionactivity.VideoShowActivity"
+            android:name="name.sunme.video.VideoShowActivity"    
             android:label="@string/title_activity_video_show"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >

@@ -129,9 +129,9 @@
     <string name="title_activity_setting_profile">내 프로필</string>
     <string name="title_activity_my_workingout">나만의운동메뉴</string>
     <string name="title_activity_video_show">VideoShowActivity</string>
-    <string name="title_activity_other_site_fragment">OtherSiteFragment</string>
-    <string name="title_activity_content_list">ContentListActivity</string>
-    <string name="title_activity_content">ContentActivity</string>
-    <string name="title_activity_content_page">ContentPageActivity</string>
+    <string name="title_activity_other_site_fragment">운동정보</string>
+    <string name="title_activity_content_list">운동정보</string>
+    <string name="title_activity_content">운동정보</string>
+    <string name="title_activity_content_page">운동정보</string>
 
 </resources>

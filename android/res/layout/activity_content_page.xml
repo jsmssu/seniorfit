@@ -20,7 +20,7 @@
             android:id="@+id/contentpage_videobutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/tmp_video"
+            android:src="@drawable/contentpage_video_play"
             android:visibility="gone" />
     </LinearLayout>
 

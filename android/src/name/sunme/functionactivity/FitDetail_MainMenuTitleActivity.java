@@ -10,6 +10,8 @@ import org.json.JSONObject;
 import name.sunme.seniorfit.DBAdapter;
 import name.sunme.seniorfit.DBHelper;
 import name.sunme.seniorfit.FitApiDataClass;
+import name.sunme.video.VideoDetailActivity;
+import name.sunme.video.VideoShowActivity;
 import name.sunme.maindrawbar.R;
 import name.sunme.maindrawbar.R.drawable;
 import name.sunme.maindrawbar.R.layout;
@@ -62,9 +64,7 @@ public class FitDetail_MainMenuTitleActivity extends Activity {
 
 		fitdetail_mainmenu_programstart = (Button) findViewById(R.id.fitdetail_mainmenu_programstart);
 		if (myintent != null) {
-			Log.d(TAG, "intent is not null");
 			JSONObject json;
-			Log.d(TAG,"t3");
 			try {
 				String jsonstr = myintent.getStringExtra("json");
 				opi = OtherProgramItem.fromJSON(getApplicationContext(),
@@ -95,26 +95,35 @@ public class FitDetail_MainMenuTitleActivity extends Activity {
 					FitDetail_MainMenuTitleActivity.this, listdata,
 					R.layout.activity_fit_detail__sub_menu_title_row,
 					new String[] { "number", "title"}, new int[] {
-							R.id.subtitlerow_number, R.id.subtitlerow_title });
-			Log.d(TAG,"tt2");
-			list.setAdapter(simpleadapter);
-			Log.d(TAG,"tt1");
+							R.id.subtitlerow_number, R.id.subtitlerow_title }); 
+			list.setAdapter(simpleadapter); 
 			list.setOnItemClickListener(new OnItemClickListener() {
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
 					if (opi.fads[position]._subMenuId!=null) {
 						Intent intent = new Intent(getApplicationContext(),
 								VideoShowActivity.class);
-						Log.d(TAG, "setOnItemClickListener");
-						String videoname = opi.fads[position]._nameVideo;
-						intent.putExtra("videoname", videoname);
+						
+						JSONObject jo = new JSONObject();
+						try {
+							
+							JSONArray ja = new JSONArray();
+							for(int i=0; i<opi.fads.length; i++) {
+								ja.put(opi.fads[i].toJSON());
+							}
+							jo.put("fads", ja);
+							jo.put("position", Integer.toString(position));
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						intent.putExtra("json", jo.toString());
 						startActivity(intent);
 					}
 				}
 			});
 			listUpdate();
-		}
-		Log.d(TAG,"t2");
+		} 
 		// 시작하기 버튼을 누르면, 리스트를 전체 동영상을 보여주게 됨.
 		fitdetail_mainmenu_programstart
 				.setOnClickListener(new OnClickListener() {
@@ -122,11 +131,23 @@ public class FitDetail_MainMenuTitleActivity extends Activity {
 					public void onClick(View v) {
 						if (opi != null) {
 							Intent intent = new Intent(getApplicationContext(),
-									VideoDetailActivity.class);
-							intent.putExtra("subMenuIds",
-									opi.getJson_submenuids());
-							startActivity(intent);
-
+									VideoDetailActivity.class); 
+							
+							JSONObject jo = new JSONObject();
+							try {
+								
+								JSONArray ja = new JSONArray();
+								for(int i=0; i<opi.fads.length; i++) {
+									ja.put(opi.fads[i].toJSON());
+								}
+								jo.put("fads", ja);
+								jo.put("position", Integer.toString(0));
+							} catch (JSONException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							intent.putExtra("json", jo.toString()); 
+							startActivity(intent); 
 						}
 					}
 				});
@@ -147,15 +168,11 @@ public class FitDetail_MainMenuTitleActivity extends Activity {
 	private ArrayList<HashMap<String, String>> getSubListItems() {
 		ArrayList<HashMap<String, String>> al = new ArrayList<HashMap<String, String>>();
 		if (opi != null && opi.fads != null) {
-			Log.d(TAG, "fads lengtha : " + opi.fads.length);
 			int idx = 0;
-			for (final FitApiDataClass fad : opi.fads) {
-				Log.d(TAG, "fad : "+ fad);
+			for (final FitApiDataClass fad : opi.fads) { 
 				HashMap<String, String> dt = new HashMap<String, String>();
-				dt.put("number", Integer.toString(idx));
-				Log.d(TAG, "sub title : "+ fad._subMenuTitle);
-				dt.put("title", fad._subMenuTitle);
-				Log.d(TAG, "sub id : "+ fad._subMenuId);
+				dt.put("number", Integer.toString(idx)); 
+				dt.put("title", fad._subMenuTitle); 
 				if (fad._subMenuId != null) {
 					dt.put("subMenuId", fad._subMenuId);
 				}
@@ -176,11 +193,9 @@ public class FitDetail_MainMenuTitleActivity extends Activity {
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-	    // Inflate the menu items for use in the action bar
-		Log.d(TAG, "before onCreateOptionsMenu");
+	    // Inflate the menu items for use in the action bar 
 	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.custom_actionbar_bs, menu);
-	    Log.d(TAG, "after onCreateOptionsMenu");
+	    inflater.inflate(R.menu.custom_actionbar_bs, menu); 
 	    return super.onCreateOptionsMenu(menu);
 	}
 }

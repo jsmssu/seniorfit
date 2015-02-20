@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_videoshow"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
@@ -11,11 +12,53 @@
         android:layout_height="fill_parent"
         android:layout_centerInParent="true"
         android:layout_gravity="center" />
-    <TextView 
-        android:id="@+id/testtext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textSize="30sp"
-        android:text="글자를 띄 운 다"/>
+    
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/layout_videoshow_touch_control">
+        
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_videoshow_control"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        >
+
+        <ImageView
+            android:id="@+id/videoshow_play_intro_icn_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/videoshow_play_intro_icn_play" /> 
+        
+        
+        <ImageView
+            android:id="@+id/videoshow_play_intro_pre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/videoshow_play_intro_pre" />
+
+        <ImageView
+            android:id="@+id/videoshow_play_intro_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/videoshow_play_intro_next" />
+
+        <ImageView
+            android:id="@+id/videoshow_play_intro_exit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/videoshow_play_intro_exit" />
+    </RelativeLayout>
+
 </RelativeLayout>

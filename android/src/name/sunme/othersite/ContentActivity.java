@@ -54,6 +54,7 @@ public class ContentActivity extends Activity {
 			menuInfo = new JSONObject(myIntent.getStringExtra("menuInfo"));
 			menu_id = menuInfo.getString("id");
 			menu_title = menuInfo.getString("title");
+			setTitle(menu_title);
 		} catch (Exception e) {
 			finish();
 		}
@@ -95,8 +96,6 @@ public class ContentActivity extends Activity {
 	private final Handler postHandler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
-
-			Log.d(TAG, "msg : " + msg.what);
 			if (msg.what == -1) {
 				return;
 			} else if (msg.what == 1) {

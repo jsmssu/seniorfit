@@ -88,7 +88,7 @@ public class MainActivity extends Activity {
 		drawerItem[0] = new MyDrawerItem(R.drawable.sidebar_aim, "");
 		drawerItem[1] = new MyDrawerItem(R.drawable.sidebar_timer, "운동하기");
 		drawerItem[2] = new MyDrawerItem(R.drawable.sidebar_graph, "기록보기");
-		drawerItem[3] = new MyDrawerItem(R.drawable.sidebar_graph, "다른곳운동정보");
+		drawerItem[3] = new MyDrawerItem(R.drawable.sidebar_heart, "운동정보");
 		drawerItem[4] = new MyDrawerItem(R.drawable.sidebar_gear, "설정");
 		Log.d(TAG, "created menu drawbar's list");
 		

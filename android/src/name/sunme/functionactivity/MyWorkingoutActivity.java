@@ -2,14 +2,7 @@ package name.sunme.functionactivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
- 
-
-
-
-
-
-
-
+  
 
 
 
@@ -23,8 +16,8 @@ import org.json.JSONObject;
 import name.sunme.seniorfit.DBAdapter;
 import name.sunme.seniorfit.DBHelper;
 import name.sunme.seniorfit.FitApiDataClass;
-import name.sunme.seniorfit.TodaysWorkingoutList;
 import name.sunme.seniorfit.Utils;
+import name.sunme.video.VideoDetailActivity;
 import name.sunme.firstexecution.Setup4Activity;
 import name.sunme.maindrawbar.MyDrawerListCustomAdapter;
 import name.sunme.maindrawbar.R;
@@ -115,18 +108,25 @@ public class MyWorkingoutActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			JSONArray jo = new JSONArray();
+			JSONObject jo = new JSONObject();
+			JSONArray ja = new JSONArray();
 			for(int i=0; i<mwiList.length; i++) {
 				for(int j=0; j<mwiList[i].setting_checked_subMenuIds.length; j++){
 					if(mwiList[i].setting_checked_subMenuIds[j]==true) {
-						jo.put(mwiList[i].fads[j]._subMenuId);
+						ja.put(mwiList[i].fads[j].toJSON());
 					}
 				}
 			}
+			try {
+				jo.put("fads", ja);
+				jo.put("position", Integer.toString(0));
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			Intent intent = new Intent(getApplicationContext(),
 					VideoDetailActivity.class);
-			intent.putExtra("subMenuIds",
-					jo.toString());
+			intent.putExtra("json", jo.toString());
 			startActivity(intent);
 		}
 	};

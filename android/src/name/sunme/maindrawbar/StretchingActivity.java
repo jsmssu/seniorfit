@@ -1,5 +1,9 @@
 package name.sunme.maindrawbar;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import name.sunme.functionactivity.ChooseProgramActivity;
 import name.sunme.functionactivity.FitDetail_MainMenuTitleActivity;
 import name.sunme.functionactivity.MyWorkingoutActivity;
@@ -8,9 +12,11 @@ import name.sunme.functionactivity.OtherProgramActivity;
 
 
 import name.sunme.functionactivity.OtherProgramItem;
-import name.sunme.functionactivity.VideoDetailActivity;
 import name.sunme.maindrawbar.R;
+import name.sunme.seniorfit.DBAdapter;
 import name.sunme.seniorfit.GlobalData;
+import name.sunme.video.VideoDetailActivity;
+import name.sunme.video.VideoShowActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +27,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.VideoView;
 
 public class StretchingActivity extends Activity {
 	String TAG = "StretchingActivity";
@@ -61,19 +68,39 @@ public class StretchingActivity extends Activity {
 		stretcing_startmyworkingout.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Log.d(TAG, "button_chooseprogram");
-				OtherProgramItem[] opis = GlobalData
-						.getOtherProgramItem(getApplicationContext());
+				OtherProgramItem[] opis = GlobalData.getOtherProgramItem(getApplicationContext());
+				DBAdapter dbAdapter = new DBAdapter(getApplicationContext());
+				
+				String myProgram = dbAdapter.get_setting("myProgram");
+				Log.d(TAG, "myProgram : " + myProgram);
 				for (int i = 0; i < opis.length; i++) {
-					if (opis[i].isTodays == true) {
+					if (opis[i].title.equals(myProgram)) {
+						opis[i].isTodays = true;
 						Intent intent = new Intent(getApplicationContext(),
-								VideoDetailActivity.class);
-						intent.putExtra("subMenuIds",
-								opis[i].getJson_submenuids());
-						startActivity(intent);
-						finish();
+								VideoDetailActivity.class); 
+						JSONObject jo = new JSONObject();
+						
+						OtherProgramItem opi = opis[i];
+						///////////////////////////////
+						try {
+							
+							JSONArray ja = new JSONArray();
+							for(int j=0; j<opi.fads.length; j++) {
+								ja.put(opi.fads[j].toJSON());
+							}
+							jo.put("fads", ja);
+							jo.put("position", Integer.toString(0));
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						intent.putExtra("json", jo.toString()); 
+						startActivity(intent); 
+						////////////////////////////
 					}
 				}
+				
+				
 			}
 		});
         

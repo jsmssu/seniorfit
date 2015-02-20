@@ -48,18 +48,17 @@ public class ContentPageActivity extends Activity {
 		getActionBar().setHomeButtonEnabled(true);
 		
 		
+		
 		setContentView(R.layout.activity_content_page);
 		contentpage_view = (WebView)findViewById(R.id.contentpage_view);
 		contentpage_videobutton = (ImageView)findViewById(R.id.contentpage_videobutton);
 		Log.d(TAG, "oncreated");
 		Intent myIntent = getIntent();
-		try {
-			Log.d(TAG, "postid : "+myIntent.getStringExtra("postInfo"));
+		try {			
 			postInfo = new JSONObject(myIntent.getStringExtra("postInfo"));
-			
+
 			post_id = postInfo.getString("id");
-			
-			Log.d(TAG, "postid : "+post_id);
+			setTitle(postInfo.getString("title"));
 			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -94,10 +93,7 @@ public class ContentPageActivity extends Activity {
 				Bundle bundle = msg.getData();
 				try {
 					JSONObject jo = new JSONObject(bundle.getString("result"));  
-					postJson = jo.getJSONObject("post");
-					//contentpage_view.getSettings().setJavaScriptEnabled(true);
-					//contentpage_view.setWebChromeClient(new WebChromeClient());
-					//contentpage_view.setWebViewClient(new WebViewClient());		 
+					postJson = jo.getJSONObject("post");		 
 					
 					contentpage_view.loadData(postJson.getString("content"), "text/html; charset=UTF-8", null);
 					try {
@@ -120,3 +116,4 @@ public class ContentPageActivity extends Activity {
 		return false;
 	}
 }
+//http://sunme.name/api/get_search_results/?search=%EB%85%B8%EC%9D%B8
