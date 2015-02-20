@@ -58,14 +58,7 @@ public class Setup4Activity extends Activity {
 		
 		setup4_alarm = (Switch)findViewById(R.id.setup4_alarm);
 		
-		setup4_alarm.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				// TODO Auto-generated method stub
-				adapter.put_setting("alarmSwitch", Boolean.toString(isChecked));
-			}
-		});
+		setup4_alarm.setOnCheckedChangeListener(alarmSwitch_changelistener);
 		button_setup4_next.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -74,30 +67,42 @@ public class Setup4Activity extends Activity {
 		});
 		loadValues();
 	}
-	private void loadValues() {
-		chageDaynum();
-		changeGoalMinutes();
-		changeAtTime();
-		changeAlarmSwitch();
-	}
-	private void changeAlarmSwitch() {
-		if(adapter.get_setting("alarmSwitch")!=null) {
-			setup4_alarm.setChecked(Boolean.parseBoolean(adapter.get_setting("alarmSwitch")));
+	
+	OnCheckedChangeListener alarmSwitch_changelistener = new OnCheckedChangeListener() {
+		@Override
+		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+			// TODO Auto-generated method stub
+			adapter.put_setting("alarmSwitch", Boolean.toString(isChecked));
 		}
+	};
+	
+	private void loadValues() {
+		loadDaynum();
+		loadGoalMinutes();
+		loadAtTime();
+		loadAlarmSwitch();
+	}
+	private void loadAlarmSwitch() {
+		String alarmSwitch = adapter.get_setting("alarmSwitch"); 
+		if(alarmSwitch!=null) {
+			setup4_alarm.setChecked(Boolean.parseBoolean(alarmSwitch));
+		}
+	}
+	private void loadGoalMinutes() {
+		String goalMinutes = adapter.get_setting("goalMinutes");
+		if (goalMinutes!=null) { setup4_goalMinutes.setText("하루 "+goalMinutes+"분 이상"); }
 		
 	}
-	private void changeGoalMinutes() {
-		if (adapter.get_setting("goalMinutes")!=null) { setup4_goalMinutes.setText("하루 "+adapter.get_setting("goalMinutes")+"분 이상"); }
-		
-	}
-	private void changeAtTime() { 
-		if (adapter.get_setting("atTimeHour")!=null) { 
-			String t = Utils.timeToString(Integer.parseInt(adapter.get_setting("atTimeHour")),Integer.parseInt(adapter.get_setting("atTimeMin")));
+	private void loadAtTime() { 
+		String atTimeHour = adapter.get_setting("atTimeHour");
+		String atTimeMin = adapter.get_setting("atTimeMin");
+		if (atTimeHour!=null&&atTimeMin!=null) { 
+			String t = Utils.timeToString(Integer.parseInt(atTimeHour),Integer.parseInt(atTimeMin));
 			setup4_atTime.setText(t);
 		}
 	}
 	
-	private void chageDaynum() {
+	private void loadDaynum() {
 		Boolean[] bool_alarm;
 		bool_alarm = new Boolean[]{false,false,false,false,false,false,false};
 		for	(int i=0; i<7; i++) {

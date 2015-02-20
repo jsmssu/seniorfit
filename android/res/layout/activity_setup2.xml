@@ -37,52 +37,51 @@
         android:layout_marginBottom="16dp" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:gravity="center"
         android:orientation="horizontal" >
 
             <ImageView
                 android:id="@+id/setup2_alarm_Monday"
-                android:layout_width="wrap_content"
+				android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/setup_mon_black"/>
 
             <ImageView
                 android:id="@+id/setup2_alarm_Tuesday"
-                android:layout_width="wrap_content"
+				android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/setup_tue_black"/>
             
 
             <ImageView
                 android:id="@+id/setup2_alarm_Wednesday"
-                android:layout_width="wrap_content"
+				android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/setup_wed_black"/>
 
             <ImageView
                 android:id="@+id/setup2_alarm_Thursday"
-                android:layout_width="wrap_content"
+				android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/setup_thu_black"/>
 
             <ImageView
                 android:id="@+id/setup2_alarm_Friday"
-                android:layout_width="wrap_content"
+				android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="금" 
                 android:src="@drawable/setup_fri_black"/>
 
             <ImageView
                 android:id="@+id/setup2_alarm_Saturday"
-                android:layout_width="wrap_content"
+				android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/setup_sat_black"/>
 
             <ImageView
                 android:id="@+id/setup2_alarm_Sunday"
-                android:layout_width="wrap_content"
+				android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/setup_sun_black"/>
     </LinearLayout>

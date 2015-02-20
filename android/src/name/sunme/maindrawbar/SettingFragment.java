@@ -1,6 +1,7 @@
 package name.sunme.maindrawbar;
 
 import name.sunme.seniorfit.DBHelper;
+import name.sunme.setting.SettingAlarmActivity;
 import name.sunme.setting.SettingGoalActivity;
 import name.sunme.setting.SettingProfileActivity;
 import name.sunme.maindrawbar.R;
@@ -71,6 +72,13 @@ public class SettingFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				
+			}
+		});
+        setting_btn_alarm.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getActivity(), SettingAlarmActivity.class);
+				getActivity().startActivity(intent);
 			}
 		});
         return rootView;

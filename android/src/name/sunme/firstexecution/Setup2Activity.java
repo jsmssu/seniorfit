@@ -31,8 +31,7 @@ public class Setup2Activity extends Activity {
 	int[][] img_day;
 			
 	private Button button_setup2_next;
-	private TextView setup2_daynum;
-	private DBHelper helper;
+	private TextView setup2_daynum; 
 	private DBAdapter adapter;
 	
 	@Override
@@ -63,8 +62,7 @@ public class Setup2Activity extends Activity {
 				(ImageView)findViewById(R.id.setup2_alarm_Saturday),
 				(ImageView)findViewById(R.id.setup2_alarm_Sunday)
 		};
-		Log.d(TAG, "arr oncreate");
-		helper = new DBHelper(getApplicationContext());
+		Log.d(TAG, "arr oncreate"); 
 		adapter = new DBAdapter(getApplicationContext());
 		Log.d(TAG, "DB load");
 		
@@ -101,13 +99,16 @@ public class Setup2Activity extends Activity {
 		loadDayValues();
 	}
 	private void loadDayValues() {
+		loadDaycheck();
+		chageDaynum();
+	}
+	private void loadDaycheck() {
 		for	(int i=0; i<7; i++) {
 			if (adapter.get_setting("alarm_day"+i)!=null) { 
 				bool_alarm[i] = Boolean.parseBoolean(adapter.get_setting("alarm_day"+i));
 				setDayButton(i);
 			}
 		}
-		chageDaynum();
 	}
 	private void chageDaynum() {
 		int n = 0;
