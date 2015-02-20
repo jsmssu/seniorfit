@@ -2,10 +2,11 @@ package name.sunme.maindrawbar;
 
 import java.io.File;
  
+
 import name.sunme.seniorfit.DBAdapter;
-import name.sunme.seniorfit.FacebookLoginActivity;
 import name.sunme.setting.SettingGoalActivity;
 import name.sunme.setting.SettingProfileActivity;
+import name.sunme.firstexecution.FacebookLoginActivity;
 import name.sunme.maindrawbar.R;
 import name.sunme.othersite.OtherSiteFragment; 
 import android.app.Activity;

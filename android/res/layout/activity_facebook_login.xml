@@ -5,42 +5,43 @@
     android:background="@drawable/login_bg"
     tools:context=".MainActivity" >
 
-<TextView
-    android:id="@+id/lblEmail"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="69dp"
-    android:text="Email ID : "
-    android:textAppearance="?android:attr/textAppearanceLarge" 
-    android:visibility="gone"/>
+    <TextView
+        android:id="@+id/lblEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="69dp"
+        android:text="Email ID : "
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:visibility="gone" />
 
-<com.facebook.widget.LoginButton
-    android:id="@+id/facebook_authButton"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:layout_centerHorizontal="true"
-    android:layout_marginBottom="106dp" />
+    <com.facebook.widget.LoginButton
+        android:id="@+id/facebook_authButton"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="106dp"
+        android:textStyle="bold" />
 
-<Button
-    android:id="@+id/facebook_next"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignLeft="@+id/facebook_authButton"
-    android:layout_alignParentBottom="true"
-    android:layout_alignRight="@+id/facebook_authButton"
-    android:layout_marginBottom="34dp"
-    android:background="#37b7bb"
-    android:text="설정시작하기"
-    android:textColor="#ffffff" />
+    <Button
+        android:id="@+id/facebook_next"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="36dp"
+        android:background="#37b7bb"
+        android:text="설정시작하기"
+        android:textColor="#ffffff"
+        android:textStyle="bold" />
 
-<ImageView
-    android:id="@+id/imageView1"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentTop="true"
-    android:layout_centerHorizontal="true"
-    android:layout_marginTop="198dp"
-    android:src="@drawable/login_icn_logo" />
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="122dp"
+        android:src="@drawable/login_icn_logo" />
 
 </RelativeLayout>
