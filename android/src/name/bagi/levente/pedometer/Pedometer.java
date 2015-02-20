@@ -32,7 +32,6 @@ import com.echo.holographlibrary.PieSlice;
 
 import name.sunme.maindrawbar.R;
 import name.sunme.seniorfit.DBAdapter;
-import name.sunme.seniorfit.TodaysWorkingoutList;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
