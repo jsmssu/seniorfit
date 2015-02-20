@@ -12,16 +12,11 @@ import com.google.android.gms.internal.bm;
 
 import name.sunme.firstexecution.Setup1Activity;
 import name.sunme.firstexecution.Setup3Activity;
-import name.sunme.maindrawbar.ActivityStyle;
-import name.sunme.seniorfit.DBAdapter;
-import name.sunme.seniorfit.DBHelper;
+
+import name.sunme.seniorfit.DBAdapter; 
 import name.sunme.seniorfit.Utils;
-import name.sunme.maindrawbar.R;
-import name.sunme.maindrawbar.R.layout;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
+import name.sunme.maindrawbar.R; 
+import android.app.Activity; 
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -30,19 +25,15 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
+import android.util.Log; 
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.EditText;
+import android.view.View.OnClickListener; 
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.NumberPicker;
+import android.widget.LinearLayout; 
 import android.widget.TextView;
 
 public class SettingProfileActivity extends Activity {
@@ -68,13 +59,7 @@ public class SettingProfileActivity extends Activity {
 	TextView settingprofile_bminumber;
 	TextView settingprofile_bmitext;
 	private DBAdapter adapter;
-	
-	
-	
-	
-	int weight;
-	int height;
-	
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -124,8 +109,7 @@ public class SettingProfileActivity extends Activity {
 	OnClickListener listener_weightclick = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			CustomDialogs.change_weight(SettingProfileActivity.this, settingprofile_weight);
-			loadWeight();applyBMI();
+			CustomDialogs.change_weight(SettingProfileActivity.this, settingprofile_weight, mHandler);
 		}
 	};
 	
@@ -140,8 +124,7 @@ public class SettingProfileActivity extends Activity {
 	OnClickListener listener_heightclick = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			CustomDialogs.change_height(SettingProfileActivity.this, settingprofile_height);
-			loadHeight();applyBMI();
+			CustomDialogs.change_height(SettingProfileActivity.this, settingprofile_height, mHandler);
 		}
 	};
 
@@ -164,9 +147,19 @@ public class SettingProfileActivity extends Activity {
 		startActivityForResult(intent, REQUEST_CODE_IMAGE);
 	}
 
+	
 
 	private void applyBMI() {
-		try {
+		DBAdapter dbAdapter = new DBAdapter(getApplicationContext());
+		int weight = 0;
+		int height = 0;
+		String weight_s = dbAdapter.get_setting("weight");
+		String height_s = dbAdapter.get_setting("height");
+		if (weight_s!=null)weight = Integer.parseInt(weight_s);
+		if (height_s!=null)height = Integer.parseInt(height_s);
+		
+		try { 
+			
 			float t_bmi = Utils.getBMI_number(weight, height);
 			String t_bmi_string = Utils.getBMI_string(t_bmi);
 			
@@ -204,14 +197,12 @@ public class SettingProfileActivity extends Activity {
 		String t_weight = adapter.get_setting("weight");
 		if (t_weight!=null) {
 			settingprofile_weight.setText(t_weight);
-			weight = Integer.parseInt(t_weight);
 		}
 	}
 	private void loadHeight() {
 		String t_height = adapter.get_setting("height");
 		if (t_height!=null) {
-			settingprofile_weight.setText(t_height);
-			height = Integer.parseInt(t_height);
+			settingprofile_height.setText(t_height);
 		}
 	}
 
@@ -232,6 +223,31 @@ public class SettingProfileActivity extends Activity {
 	}
 
 
+	
+	
+	
+	
+	private final Handler mHandler = new Handler()
+	{
+		@Override
+		public void handleMessage(Message msg)
+		{
+			switch(msg.what) {
+			case 0:
+				applyBMI();
+				break;
+			default:
+				break;
+			}
+		}
+	};
+	
+	
+	
+	
+	
+	
+	
 
 	/*
 	 * 갤러리에서 사진을 불러온후 처리하여 디비에 저장.

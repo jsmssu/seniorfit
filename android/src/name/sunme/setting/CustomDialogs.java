@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +47,7 @@ public class CustomDialogs {
 							}
 						}).setNegativeButton("취소", null).create().show();
 	}
-	public static void change_weight(Context context, final TextView textview) {//this
+	public static void change_weight(Context context, final TextView textview, final Handler mHandler) {//this
 		final DBAdapter dbAdapter = new DBAdapter(context);
 		
 		final LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
@@ -74,11 +75,12 @@ public class CustomDialogs {
 												.getValue());
 								dbAdapter.put_setting("weight", myInputText);
 								if (textview!=null)textview.setText(myInputText);
+								if (mHandler!=null) mHandler.sendEmptyMessage(0);
 							}
 						}).setNegativeButton("취소", null).create().show();
 	}
 	
-	public static void change_height(Context context, final TextView textview) {//this
+	public static void change_height(Context context, final TextView textview, final Handler mHandler) {//this
 		final DBAdapter dbAdapter = new DBAdapter(context);
 		
 		final LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
@@ -106,6 +108,7 @@ public class CustomDialogs {
 												.getValue());
 								dbAdapter.put_setting("height", myInputText);
 								if (textview!=null)textview.setText(myInputText);
+								if (mHandler!=null) mHandler.sendEmptyMessage(0);
 							}
 						}).setNegativeButton("취소", null).create().show();
 	}
