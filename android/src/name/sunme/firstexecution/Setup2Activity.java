@@ -45,22 +45,23 @@ public class Setup2Activity extends Activity {
 		
 		bool_alarm = new Boolean[]{false,false,false,false,false,false,false};
 		img_day = new int[][]{
-					{drawable.setup_mon_black,drawable.setup_mon_white},
-					{drawable.setup_tue_black,drawable.setup_tue_white},
-					{drawable.setup_wed_black,drawable.setup_wed_white},
-					{drawable.setup_thu_black,drawable.setup_thu_white},
-					{drawable.setup_fri_black,drawable.setup_fri_white},
-					{drawable.setup_sat_black,drawable.setup_sat_white},
-					{drawable.setup_sun_black,drawable.setup_sun_white}
-		};		
+				{drawable.setup_sun_black,drawable.setup_sun_white},
+				{drawable.setup_mon_black,drawable.setup_mon_white},
+				{drawable.setup_tue_black,drawable.setup_tue_white},
+				{drawable.setup_wed_black,drawable.setup_wed_white},
+				{drawable.setup_thu_black,drawable.setup_thu_white},
+				{drawable.setup_fri_black,drawable.setup_fri_white},
+				{drawable.setup_sat_black,drawable.setup_sat_white} 
+		};
+			
 		setup_alarm = new ImageView[] {
+				(ImageView)findViewById(R.id.setup2_alarm_Sunday),
 				(ImageView)findViewById(R.id.setup2_alarm_Monday),
 				(ImageView)findViewById(R.id.setup2_alarm_Tuesday),
 				(ImageView)findViewById(R.id.setup2_alarm_Wednesday),
 				(ImageView)findViewById(R.id.setup2_alarm_Thursday),
 				(ImageView)findViewById(R.id.setup2_alarm_Friday),
-				(ImageView)findViewById(R.id.setup2_alarm_Saturday),
-				(ImageView)findViewById(R.id.setup2_alarm_Sunday)
+				(ImageView)findViewById(R.id.setup2_alarm_Saturday)
 		};
 		Log.d(TAG, "arr oncreate"); 
 		adapter = new DBAdapter(getApplicationContext());

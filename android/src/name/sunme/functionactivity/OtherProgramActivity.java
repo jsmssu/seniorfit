@@ -49,25 +49,23 @@ public class OtherProgramActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_other_program);
-
+		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
-
 		dbAdapter = new DBAdapter(getApplicationContext());
-
 		list = (ListView) findViewById(R.id.otherprogram_listview);
 		
 		
 		opis = GlobalData.getOtherProgramItem(getApplicationContext());
-
+		
 		checkTodays();
 
 		oplca = new OtherProgramListCustomAdapter(
 				this, R.layout.activity_other_program_row, opis);
 		list.setAdapter(oplca);
-		Log.d(TAG, "oplca");
+		
 		applyMode();
-		Log.d("TAG", "listUpdate");
+		
 	}
 	
 	OnItemClickListener listclick_normal = new OnItemClickListener() {
@@ -101,7 +99,8 @@ public class OtherProgramActivity extends Activity {
 		String myProgram = dbAdapter.get_setting("myProgram");
 		Log.d(TAG, "myProgram : " + myProgram);
 		for (int i = 0; i < opis.length; i++) {
-			if (opis[i].title.equals(myProgram)) {
+			Log.d(TAG,"i ii "+i);
+			if (opis[i].title!=null&&opis[i].title.equals(myProgram)) {
 				opis[i].isTodays = true;
 			} else {
 				opis[i].isTodays = false;

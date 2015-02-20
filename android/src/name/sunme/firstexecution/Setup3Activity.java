@@ -3,10 +3,9 @@ package name.sunme.firstexecution;
 import name.sunme.seniorfit.DBAdapter;
 import name.sunme.seniorfit.DBHelper;
 import name.sunme.seniorfit.Utils;
-
+import name.sunme.setting.CustomDialogs;
 import name.sunme.maindrawbar.R;
 import name.sunme.maindrawbar.R.layout;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
@@ -36,7 +35,7 @@ public class Setup3Activity extends Activity {
 	private Button button_setup3_next;
 
 	private DBHelper helper;
-	private DBAdapter adapter;
+	private DBAdapter dbAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +45,7 @@ public class Setup3Activity extends Activity {
 		getActionBar().setHomeButtonEnabled(true);
 
 		helper = new DBHelper(getApplicationContext());
-		adapter = new DBAdapter(getApplicationContext());
+		dbAdapter = new DBAdapter(getApplicationContext());
 		setup3_goalMinutes = (TextView) findViewById(R.id.setup3_goalMinutes);
 		setup3_atTime = (TextView) findViewById(R.id.setup3_atTime);
 
@@ -54,37 +53,7 @@ public class Setup3Activity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-
-				final LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-
-				final View layout = inflater.inflate(
-						R.layout.custom_numberpicker_dialog,
-						(ViewGroup) findViewById(R.id.layout_root_numberpicker));
-
-				final AlertDialog.Builder InputDialogbuilder = new AlertDialog.Builder(
-						Setup3Activity.this);
-				InputDialogbuilder.setTitle("분 입력");
-				InputDialogbuilder.setView(layout);
-				final NumberPicker dialogNumberPicker = (NumberPicker) layout
-						.findViewById(R.id.customNumberPicker);
-				dialogNumberPicker.setMinValue(1);
-				dialogNumberPicker.setMaxValue(200);
-
-				InputDialogbuilder.setPositiveButton("입력",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int which) {
-								String myInputText = Integer
-										.toString(dialogNumberPicker.getValue());
-								adapter.put_setting("goalMinutes", myInputText);
-								setup3_goalMinutes.setText(myInputText);
-							}
-						});
-				InputDialogbuilder.setNegativeButton("취소",
-						null);
-				final AlertDialog InputDialog = InputDialogbuilder.create();
-				InputDialog.show();
-
+				CustomDialogs.change_min(Setup3Activity.this, setup3_goalMinutes, null);
 			}  
 
 		});
@@ -97,8 +66,8 @@ public class Setup3Activity extends Activity {
 					@Override
 					public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 						// TODO Auto-generated method stub
-						adapter.put_setting("atTimeHour", Integer.toString(hourOfDay));
-						adapter.put_setting("atTimeMin", Integer.toString(minute));
+						dbAdapter.put_setting("atTimeHour", Integer.toString(hourOfDay));
+						dbAdapter.put_setting("atTimeMin", Integer.toString(minute));
 						setup3_atTime.setText(Utils.timeToString(hourOfDay, minute));
 					}
 				}, 7, 0, false)).show();
@@ -124,13 +93,13 @@ public class Setup3Activity extends Activity {
 		changeAtTime();
 	}
 	private void changeGoalMinutes() {
-		if (adapter.get_setting("goalMinutes")!=null) { 
-			setup3_goalMinutes.setText(adapter.get_setting("goalMinutes"));
+		if (dbAdapter.get_setting("goalMinutes")!=null) { 
+			setup3_goalMinutes.setText(dbAdapter.get_setting("goalMinutes"));
 		}
 	}
 	private void changeAtTime() { 
-		if (adapter.get_setting("atTime")!=null) { 
-			String t = Utils.timeToString(Integer.parseInt(adapter.get_setting("atTimeHour")),Integer.parseInt(adapter.get_setting("atTimeMin")));
+		if (dbAdapter.get_setting("atTime")!=null) { 
+			String t = Utils.timeToString(Integer.parseInt(dbAdapter.get_setting("atTimeHour")),Integer.parseInt(dbAdapter.get_setting("atTimeMin")));
 			setup3_atTime.setText(t); 
 		}
 	}

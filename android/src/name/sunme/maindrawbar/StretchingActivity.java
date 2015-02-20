@@ -53,7 +53,6 @@ public class StretchingActivity extends Activity {
 				Log.d(TAG, "button_otherprogram");
 				Intent intent = new Intent(getApplicationContext(), OtherProgramActivity.class);
 				startActivity(intent);
-				finish();
 			}
 		});
         stretcing_myworkingout.setOnClickListener(new OnClickListener() { 

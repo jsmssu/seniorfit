@@ -12,7 +12,6 @@ import com.google.android.gms.internal.bm;
 
 import name.sunme.firstexecution.Setup1Activity;
 import name.sunme.firstexecution.Setup3Activity;
-
 import name.sunme.seniorfit.DBAdapter; 
 import name.sunme.seniorfit.Utils;
 import name.sunme.maindrawbar.R; 
@@ -29,6 +28,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log; 
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener; 
@@ -299,9 +299,13 @@ public class SettingProfileActivity extends Activity {
 	}
 	
 	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		setResult(RESULT_OK);
+		return super.onKeyDown(keyCode, event);
+	}
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		setResult(RESULT_OK); 
-		Log.d(TAG, "onOptionsItemSelected");
+		setResult(RESULT_OK);
 		finish();
 		return false;
 	}

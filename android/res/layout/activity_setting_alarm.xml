@@ -43,6 +43,7 @@
         android:layout_height="16dp" />
 
     <TimePicker
+        android:id="@+id/settingalarm_time"
         android:layout_width="match_parent"
         android:layout_height="206dp"
         android:background="#ffffff"

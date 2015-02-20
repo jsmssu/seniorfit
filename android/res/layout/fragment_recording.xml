@@ -107,7 +107,6 @@
             android:id="@+id/recording_boxmin_walking"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@drawable/underline_list_row"
             android:orientation="horizontal" >
 
             <TextView
@@ -139,33 +138,12 @@
                 android:src="@drawable/setting_icn_next"
                 android:visibility="invisible" />
         </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/recording_boxweight"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="달력으로 보기"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="16dp"
-                android:src="@drawable/setting_icn_next" />
-        </LinearLayout>
+ 
     </LinearLayout>
-
+    <com.echo.holographlibrary.LineGraph
+        android:id="@+id/recording_week_walkingline"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp" />
 </LinearLayout>

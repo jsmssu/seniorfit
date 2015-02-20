@@ -95,7 +95,7 @@ public class Pedometer extends Activity {
 	String speed_units;
 	String calories_string;// calories burned
 
-	private DBAdapter dbadapter;
+	private DBAdapter dbAdapter;
 	SimpleDateFormat dbformat = new SimpleDateFormat("yyyy.MM.dd");
 	String db_str_walking = "wk_";
 	
@@ -123,7 +123,7 @@ public class Pedometer extends Activity {
 		pedometer_today_walkingcircle = (PieGraph) findViewById(R.id.pedometer_today_walkingcircle); 
 		
 		
-		dbadapter = new DBAdapter(getApplicationContext()); 
+		dbAdapter = new DBAdapter(getApplicationContext()); 
 
 		loadLastDataForGraph();
 		mUtils = Utils.getInstance();
@@ -457,15 +457,20 @@ public class Pedometer extends Activity {
 	Date today;
 	String db_str_walking_today;
 	
+	void loadDbKeyToday() {
+		today = new Date();
+		db_str_walking_today = db_str_walking+dbformat.format(today); 
+	}
+	
 	void loadLastDataForGraph() {
 		Log.d(TAG, "loadLastDataForGraph start");
-		today = new Date();
-		Date lastDay = new Date();
 		
+		Date lastDay = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("MM.dd");  
 		
 		
-		db_str_walking_today = db_str_walking+dbformat.format(today); 
+		loadDbKeyToday();
+		
 		
 		
 		
@@ -478,7 +483,7 @@ public class Pedometer extends Activity {
 		for(int i=0; i<7; i++) {
 			try {
 				String dbkey = db_str_walking+dbformat.format(lastDay);
-				String dbvalue = dbadapter.get_setting(dbkey);
+				String dbvalue = dbAdapter.get_setting(dbkey);
 				Log.d(TAG, "dbkey : " + dbkey + ", data : " + dbvalue);
 				value_linegraph[6-i] = Integer.parseInt(dbvalue);
 			} catch (Exception e) {
@@ -494,8 +499,8 @@ public class Pedometer extends Activity {
 	void loadStepsMsg(int steps) {
 		steps_string = steps + steps_units;
 		mStepValueView.setText(steps_string);
-		
-		dbadapter.put_setting(db_str_walking_today, steps+"");//
+		loadDbKeyToday();
+		dbAdapter.put_setting(db_str_walking_today, steps+"");//
 		value_linegraph[6] = steps;
 		
 		pedometer_today_walkingcircle.removeSlices();

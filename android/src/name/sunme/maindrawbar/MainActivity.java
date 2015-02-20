@@ -115,8 +115,7 @@ public class MainActivity extends Activity {
 			    /* do modify*/
 			    switch (position) {
 			    case 0:
-			    	drawer_layout.closeDrawer(sidebar_left_drawer);
-			    	startActivity(new Intent(getApplicationContext(),SettingGoalActivity.class));
+			    	startActivityForResult(new Intent(getApplicationContext(),SettingGoalActivity.class), REQUEST_CODE_SETTING_PROFILE);
 			    	break;
 			    case 1:
 			        fragment = new WorkingoutFragment();

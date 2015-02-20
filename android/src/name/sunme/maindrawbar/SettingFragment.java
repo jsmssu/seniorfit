@@ -4,6 +4,7 @@ import name.sunme.seniorfit.DBHelper;
 import name.sunme.setting.SettingAlarmActivity;
 import name.sunme.setting.SettingGoalActivity;
 import name.sunme.setting.SettingProfileActivity;
+import name.sunme.functionactivity.OtherProgramActivity;
 import name.sunme.maindrawbar.R;
 import name.sunme.maindrawbar.R.layout;
 import android.app.Activity;
@@ -78,6 +79,13 @@ public class SettingFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(), SettingAlarmActivity.class);
+				getActivity().startActivity(intent);
+			}
+		});
+        setting_btn_changeWorkingout.setOnClickListener(new OnClickListener() { 
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getActivity(), OtherProgramActivity.class);
 				getActivity().startActivity(intent);
 			}
 		});

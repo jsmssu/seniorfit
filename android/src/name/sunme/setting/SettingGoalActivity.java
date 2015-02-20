@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -120,9 +121,14 @@ public class SettingGoalActivity extends Activity {
 		});
         
 	}
-	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		setResult(RESULT_OK);
+		return super.onKeyDown(keyCode, event);
+	}
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
+		setResult(RESULT_OK);
         finish();
         return false;
     }
