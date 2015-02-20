@@ -120,7 +120,7 @@ public class GlobalData {
 			
 			FitApiDataClass[] fadsw3 = null;
 			switch (dayOfYear%14) {
-			/*
+			
 			case 0:
 				fadsw3 = concatFit(fads_a[0],fads_b[1],fads_e[1],fads_e[4]);
 				break;
@@ -138,9 +138,9 @@ public class GlobalData {
 				break;
 			case 11:
 				fadsw3 = concatFit(fads_a[0],fads_b[0],fads_d[0],fads_e[3],running);
-				break;*/
+				break;
 			default:
-				fadsw3 = concatFit(fads_a[0],running);//concatFit(rest);
+				fadsw3 = concatFit(running);//concatFit(rest);
 				break;
 			}
 			opis[2] = new OtherProgramItem("주3회운동", "1시간반", "주3회", fadsw3,
