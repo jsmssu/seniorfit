@@ -2,11 +2,10 @@ package name.sunme.firstexecution;
 
 import name.sunme.seniorfit.DBAdapter;
 import name.sunme.seniorfit.DBHelper; 
+import name.sunme.setting.CustomDialogs;
 import name.sunme.setting.SettingProfileActivity;
-
 import name.sunme.maindrawbar.R;
 import name.sunme.maindrawbar.R.layout;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
@@ -82,89 +81,19 @@ public class Setup1Activity extends Activity {
 			@Override
 			public void onClick(View v) {
 				
-                final LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-                
-                final View layout = inflater.inflate(R.layout.custom_numberpicker_dialog,(ViewGroup) findViewById(R.id.layout_root_numberpicker));
- 
-                    
-                final AlertDialog.Builder InputDialogbuilder = new AlertDialog.Builder(Setup1Activity.this);
-                InputDialogbuilder.setTitle("나이 입력");
-                InputDialogbuilder.setView(layout);
-                final NumberPicker dialogNumberPicker = (NumberPicker)layout.findViewById(R.id.customNumberPicker);
-                dialogNumberPicker.setMinValue(40);
-                dialogNumberPicker.setMaxValue(100); 
-
-                InputDialogbuilder.setPositiveButton("입력", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        String myInputText = Integer.toString(dialogNumberPicker.getValue());
-                        adapter.put_setting("age", myInputText);
-                        setup1_age.setText(myInputText);
-                    }
-                });
-                InputDialogbuilder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                });
-                final AlertDialog InputDialog = InputDialogbuilder.create();
-                InputDialog.show();
+				CustomDialogs.change_age(Setup1Activity.this, setup1_age);
 			}
 		});
 		setup1_height.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-                final LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-                
-                final View layout = inflater.inflate(R.layout.custom_numberpicker_dialog,(ViewGroup) findViewById(R.id.layout_root_numberpicker));
- 
-                    
-                final AlertDialog.Builder InputDialogbuilder = new AlertDialog.Builder(Setup1Activity.this);
-                InputDialogbuilder.setTitle("키 입력");
-                InputDialogbuilder.setView(layout);
-                final NumberPicker dialogNumberPicker = (NumberPicker)layout.findViewById(R.id.customNumberPicker);
-                dialogNumberPicker.setMinValue(100);
-                dialogNumberPicker.setMaxValue(200); 
-
-                InputDialogbuilder.setPositiveButton("입력", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        String myInputText = Integer.toString(dialogNumberPicker.getValue());
-                        adapter.put_setting("height", myInputText);
-                        setup1_height.setText(myInputText);
-                    }
-                });
-                InputDialogbuilder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                });
-                final AlertDialog InputDialog = InputDialogbuilder.create();
-                InputDialog.show();
+				CustomDialogs.change_height(Setup1Activity.this, setup1_height, null);
 			}
 		});
 		setup1_weight.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) { 
-		        
-                final LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-                
-                final View layout = inflater.inflate(R.layout.custom_numberpicker_dialog,(ViewGroup) findViewById(R.id.layout_root_numberpicker));
- 
-                    
-                final AlertDialog.Builder InputDialogbuilder = new AlertDialog.Builder(Setup1Activity.this);
-                InputDialogbuilder.setTitle("무게 입력");
-                InputDialogbuilder.setView(layout);
-                final NumberPicker dialogNumberPicker = (NumberPicker)layout.findViewById(R.id.customNumberPicker);
-                dialogNumberPicker.setMinValue(30);
-                dialogNumberPicker.setMaxValue(200); 
-
-                InputDialogbuilder.setPositiveButton("입력", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        String myInputText = Integer.toString(dialogNumberPicker.getValue());
-                        adapter.put_setting("weight", myInputText);
-                        setup1_weight.setText(myInputText);
-                    }
-                });
-                InputDialogbuilder.setNegativeButton("취소",null);
-                final AlertDialog InputDialog = InputDialogbuilder.create();
-                InputDialog.show();
+				CustomDialogs.change_weight(Setup1Activity.this, setup1_weight, null); 
 			}
 		});
 		
@@ -180,9 +109,7 @@ public class Setup1Activity extends Activity {
 				if (checkedId == R.id.setup1_radio_man) {
 					adapter.put_setting("sex", "man");
 					Log.d(TAG, "남자 선택");
-				}
-				// TODO Auto-generated method stub
-				
+				} 
 			}
 		});
 		
