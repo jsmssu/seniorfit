@@ -42,7 +42,7 @@ public class VideoDetailActivity extends Activity {
 	JSONObject jo;
 	FitApiDataClass[] fads;
 	int idx = 0;
-	
+	TextView videodetail_time;
 	TextView videodetail_exerciseintensity;
 	TextView videodetail_submenutitle; 
 	TextView videodetail_idxindicator;
@@ -59,7 +59,7 @@ public class VideoDetailActivity extends Activity {
 		videodetail_submenutitle = (TextView)findViewById(R.id.videodetail_submenutitle);
 		videodetail_exerciseintensity = (TextView)findViewById(R.id.videodetail_exerciseintensity);
 		videodetail_idxindicator = (TextView)findViewById(R.id.videodetail_idxindicator);
-		
+		videodetail_time = (TextView)findViewById(R.id.videodetail_time);
 		
 		
 		helper = new DBHelper(getApplicationContext());
@@ -133,8 +133,9 @@ public class VideoDetailActivity extends Activity {
 			else videodetail_submenutitle.setText("데이터가 없습니다.");
 			if (fd._exerciseIntensity!=null) videodetail_exerciseintensity.setText(fd._exerciseIntensity);
 			else videodetail_exerciseintensity.setText("");
+			if (fd._exerciseTime!=null) videodetail_time.setText(fd._exerciseTime);
+			else videodetail_time.setText("");
 			videodetail_idxindicator.setText((idx+1)+"/"+maxIndex);
-			
 			
 			VideoThumbnailAdapter pageadapter;
 			final Integer[] thumbnails;
@@ -145,11 +146,9 @@ public class VideoDetailActivity extends Activity {
 			}
 			
 			ViewPager viewPager = (ViewPager) findViewById(R.id.videodetail_pager);
-			
-			Log.d(TAG, "우아아");
+			 
 			pageadapter = new VideoThumbnailAdapter(this, jo, fd, thumbnails);
-			viewPager.setAdapter(pageadapter);
-			Log.d(TAG, "우아아1");
+			viewPager.setAdapter(pageadapter); 
 			
 			final float density = 1; 
 	 
@@ -158,8 +157,7 @@ public class VideoDetailActivity extends Activity {
 			circleindicator.setPageColor(Color.parseColor("#d1d1d1"));
 			circleindicator.setFillColor(Color.BLACK);
 			circleindicator.setStrokeWidth(0);
-			circleindicator.setViewPager(viewPager);
-			Log.d(TAG, "우아아2");
+			circleindicator.setViewPager(viewPager); 
 			circleindicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
 				@Override

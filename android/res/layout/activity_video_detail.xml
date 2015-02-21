@@ -22,6 +22,7 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/videodetail_time"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:gravity="center"
@@ -34,17 +35,21 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/videodetail_pager"
         android:layout_width="wrap_content"
-        android:layout_height="250dp" 
-        android:layout_margin="5dp"/>
- 
+        android:layout_height="250dp"
+        android:layout_margin="5dp" />
+
     <com.viewpagerindicator.CirclePageIndicator
         android:id="@+id/videodetail_circleindicator"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />   
+        android:layout_height="wrap_content" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
 
     <TextView
         android:id="@+id/videodetail_exerciseintensity"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal" />
 
