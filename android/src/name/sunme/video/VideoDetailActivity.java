@@ -11,11 +11,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.viewpagerindicator.CirclePageIndicator;
+
 import name.sunme.maindrawbar.R;
 import name.sunme.maindrawbar.R.drawable;
 import name.sunme.maindrawbar.R.layout;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.view.ViewPager;
@@ -140,10 +143,24 @@ public class VideoDetailActivity extends Activity {
 			} else {
 				thumbnails = new Integer[]{R.drawable.thumbnail_tmp};
 			}
-			pageadapter = new VideoThumbnailAdapter(this, jo, fd, thumbnails);
+			
 			ViewPager viewPager = (ViewPager) findViewById(R.id.videodetail_pager);
+			
+			Log.d(TAG, "우아아");
+			pageadapter = new VideoThumbnailAdapter(this, jo, fd, thumbnails);
 			viewPager.setAdapter(pageadapter);
-			viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+			Log.d(TAG, "우아아1");
+			
+			final float density = 1; 
+	 
+			CirclePageIndicator circleindicator = (CirclePageIndicator) findViewById(R.id.videodetail_circleindicator);
+			circleindicator.setRadius(10 * density);
+			circleindicator.setPageColor(Color.parseColor("#d1d1d1"));
+			circleindicator.setFillColor(Color.BLACK);
+			circleindicator.setStrokeWidth(0);
+			circleindicator.setViewPager(viewPager);
+			Log.d(TAG, "우아아2");
+			circleindicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
 				@Override
 				public void onPageScrollStateChanged(int state) {
@@ -169,8 +186,8 @@ public class VideoDetailActivity extends Activity {
 					tpositionOffsetPixels = positionOffsetPixels;
 					Log.d(TAG, "Selected " + position+", "+positionOffset +", " + positionOffsetPixels ); 
 					// TODO Auto-generated method stub
-				} 
-			});
+				}
+			});  
 			return 1;
 		}catch (Exception e) {
 			return -1;

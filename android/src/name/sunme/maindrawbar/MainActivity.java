@@ -3,10 +3,12 @@ package name.sunme.maindrawbar;
 import java.io.File;
  
 
+
 import name.sunme.seniorfit.DBAdapter;
 import name.sunme.setting.SettingGoalActivity;
 import name.sunme.setting.SettingProfileActivity;
 import name.sunme.firstexecution.FacebookLoginActivity;
+import name.sunme.firstexecution.TutorialActivity;
 import name.sunme.maindrawbar.R;
 import name.sunme.othersite.OtherSiteFragment; 
 import android.app.Activity;
@@ -63,7 +65,7 @@ public class MainActivity extends Activity {
         Log.d(TAG,"start home");
         if (dbAdapter.get_setting("firstsetting") == null) {
         	Log.d(TAG,"Go to get apidata");
-        	Intent intent = new Intent(getApplicationContext(), FacebookLoginActivity.class);
+        	Intent intent = new Intent(getApplicationContext(), TutorialActivity.class);
             startActivity(intent);
         }
  		super.onCreate(savedInstanceState);

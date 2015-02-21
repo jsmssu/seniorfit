@@ -5,8 +5,8 @@
     android:orientation="vertical" >
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center_horizontal" >
 
         <ImageView
@@ -25,28 +25,5 @@
             android:layout_centerVertical="true"
             android:src="@drawable/videoslider_play_intro_icn_play" />
     </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" >
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/videoslider_play_intro_icn_page" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/videoslider_play_intro_icn_page" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/videoslider_play_intro_icn_page" />
-    </LinearLayout>
-
-    
 
 </LinearLayout>

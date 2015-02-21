@@ -525,7 +525,7 @@ public class Pedometer extends Activity {
 			p.setX(i); 
 			p.setY(value_linegraph[i]); 
 			l.addPoint(p); 
-			p.setLabel_string(label_linegraph[i]);
+			//p.setLabel_string(label_linegraph[i]);
 		} 
 		
 		l.setColor(Color.parseColor("#3ec2c7"));
