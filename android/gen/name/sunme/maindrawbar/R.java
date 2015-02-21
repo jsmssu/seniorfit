@@ -937,6 +937,7 @@ containing a value of this type.
         public static final int buy_now=0x7f0c0011;
         public static final int buy_with_google=0x7f0c0012;
         public static final int center=0x7f0c001f;
+        public static final int chart=0x7f0c00c2;
         public static final int classic=0x7f0c0014;
         public static final int com_facebook_body_frame=0x7f0c00a4;
         public static final int com_facebook_button_xout=0x7f0c00a6;
@@ -1034,7 +1035,6 @@ containing a value of this type.
         public static final int recording_goal_min=0x7f0c00bd;
         public static final int recording_min_stretcing=0x7f0c00bf;
         public static final int recording_min_walking=0x7f0c00c1;
-        public static final int recording_week_walkingline=0x7f0c00c2;
         public static final int right=0x7f0c0021;
         public static final int sandbox=0x7f0c000a;
         public static final int satellite=0x7f0c0005;

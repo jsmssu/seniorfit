@@ -26,27 +26,27 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="오늘의 목표까지 "
                 android:textColor="#ffffff"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:text="오늘의 목표까지 " />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/recording_goal_min"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="~"
                 android:textColor="#ffffff"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:text="~" />
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="분"
                 android:textColor="#ffffff"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:text="분" />
+                android:textStyle="bold" />
         </LinearLayout>
 
         <Space
@@ -138,12 +138,21 @@
                 android:src="@drawable/setting_icn_next"
                 android:visibility="invisible" />
         </LinearLayout>
- 
     </LinearLayout>
-    <com.echo.holographlibrary.LineGraph
-        android:id="@+id/recording_week_walkingline"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="110dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#ffffff"
+        android:orientation="horizontal" >
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/chart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp" />
+    </LinearLayout>
+
 </LinearLayout>

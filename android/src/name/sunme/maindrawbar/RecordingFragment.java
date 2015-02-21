@@ -1,124 +1,147 @@
 package name.sunme.maindrawbar;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.Calendar; 
 
-import com.echo.holographlibrary.Line;
-import com.echo.holographlibrary.LineGraph;
-import com.echo.holographlibrary.LinePoint;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.Legend.LegendForm;
+import com.github.mikephil.charting.components.Legend.LegendPosition;
+import com.github.mikephil.charting.components.XAxis.XAxisPosition;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 
-import name.sunme.maindrawbar.R; 
+import name.sunme.maindrawbar.R;
 import name.sunme.seniorfit.DBAdapter;
 import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater; 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 public class RecordingFragment extends Fragment {
-	private LineGraph recording_week_walkingline;
+	String TAG = "RecordingFragment";
 	DBAdapter dbAdapter;
-	int[] value_linegraph; 
-	String[] label_linegraph;
-	
-	
-	
-    public RecordingFragment() {
-    }
- 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
- 
-    	//do modify
-        View rootView = inflater.inflate(R.layout.fragment_recording, container, false);
-         
-        recording_week_walkingline = (LineGraph)rootView.findViewById(R.id.recording_week_walkingline);
-        dbAdapter = new DBAdapter(getActivity());
-        
-        
-        loadLastDataForGraph();
-        recording_week_walkingline.removeAllLines();
+	int[] values;
+	String[] labels;
+	Calendar[] days;
+	int N_WALKING_POINTS = 7;
+	private LineChart mChart;
+
+	public RecordingFragment() {
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+
+		// do modify
+		Log.d(TAG, "onCreateView");
+		View rootView = inflater.inflate(R.layout.fragment_recording,
+				container, false);
+		Log.d(TAG, "dbAdapter");
+		dbAdapter = new DBAdapter(getActivity()); 
+		Log.d(TAG, "mChart");
 		
-		Line l = new Line();
-		LinePoint p;		
+		mChart = (LineChart) rootView.findViewById(R.id.chart); 
 		
-		for(int i=0; i<7; i++) {
-			p = new LinePoint(); 
-			p.setX(i); 
-			p.setY(value_linegraph[i]); 
-			l.addPoint(p); 
-			p.setLabel_string(label_linegraph[i]);
-		} 
+		Log.d(TAG, "loadValues");
+		loadValues();
+
 		
-		l.setColor(Color.parseColor("#3ec2c7"));
+		Log.d(TAG, "setValueTextColor");
+		mChart.setValueTextColor(Color.BLACK);
+		mChart.setDescription("기록보기");
+		mChart.setNoDataTextDescription("You need to provide data for the chart.");
+		mChart.setDrawGridBackground(true);
+		mChart.setBackgroundColor(Color.WHITE);
+		mChart.setGridWidth(1.25f); 
+		mChart.setTouchEnabled(true); 
+		mChart.setDragEnabled(true);
+		mChart.setScaleEnabled(true);
 		
-		recording_week_walkingline.setMinY(0);
-		recording_week_walkingline.addLine(l);
-		recording_week_walkingline.setLabelSize(30);
-		recording_week_walkingline.setRangeY(0, getMaxWalking());
-		recording_week_walkingline.setLineToFill(1);
-        return rootView;
-    }
-    
-	Date today;
+/////////////////////////////////////////////////////////////////////////////value set
+		Log.d(TAG, "value set");
+		ArrayList<Entry> walkings = new ArrayList<Entry>();
+		for(int i=0;i<N_WALKING_POINTS; i++) {
+			Entry c = new Entry(values[i], i); // 0 == quarter 1
+			walkings.add(c);	
+		}
+		  
+		LineDataSet linedataset1 = new LineDataSet(walkings, "하루 걸음");
+		linedataset1.setColor(Color.parseColor("#3ec2c7"));
+		
+		
+		ArrayList<LineDataSet> dataSets = new ArrayList<LineDataSet>();
+		dataSets.add(linedataset1); 
+		
+		
+		
+/////////////////////////////////////////////////////////////////////////////label set
+		Log.d(TAG, "label set");
+		ArrayList<String> xVals = new ArrayList<String>();
+		for(int i=0; i<N_WALKING_POINTS; i++) {
+			xVals.add(labels[i]);
+		}
+///////////////////////////////////////////////////////////////////////////// data set
+		Log.d(TAG, "data set");
+		LineData data = new LineData(xVals, dataSets); 
+		mChart.setData(data);
+///////////////////////////////////////////////////////////////////////////// view
+		Log.d(TAG, "view");
+		Legend l = mChart.getLegend();
+		l.setFormSize(10f); // set the size of the legend forms/shapes
+		l.setForm(LegendForm.CIRCLE); // set what type of form/shape should be
+										// used
+		l.setPosition(LegendPosition.BELOW_CHART_CENTER);
+
+		XAxis xl = mChart.getXAxis();
+		xl.setPosition(XAxisPosition.BOTTOM);
+		xl.setGridColor(Color.parseColor("#3ec2c7"));
+		
+		
+		return rootView;
+	}
+
+
+	void loadValues() {
+		Log.d(TAG, "loadDays");
+		loadDays();
+		Log.d(TAG, "loadGraphLabels");
+		loadGraphLabels();
+		Log.d(TAG, "loadGraphValues");
+		loadGraphValues();
+	}
+	void loadDays() {
+		days = new Calendar[N_WALKING_POINTS];
+		for(int i=0; i<N_WALKING_POINTS; i++) {
+			days[i] = Calendar.getInstance();
+			days[i].add(Calendar.DATE, -N_WALKING_POINTS+i+1);
+		}
+	}
 	String db_str_walking = "wk_";
-	String db_str_walking_today;
-	SimpleDateFormat format = new SimpleDateFormat("MM.dd");  
-	SimpleDateFormat dbformat = new SimpleDateFormat("yyyy.MM.dd");
-	void loadDbKeyToday() {
-		today = new Date();
-		db_str_walking_today = db_str_walking+dbformat.format(today); 
+	void loadGraphLabels() {
+		labels = new String[N_WALKING_POINTS];
+		SimpleDateFormat format = new SimpleDateFormat("MM.dd");
+		for(int i=0; i<N_WALKING_POINTS; i++) {
+			labels[i] = format.format(days[i].getTime());
+		} 
 	}
-	
-    void loadLastDataForGraph() {
-    	
-    	
-		Date lastDay = new Date();
-
-		
-		loadDbKeyToday();
-		
-		
-		 
-
-		label_linegraph = new String[7];
-		value_linegraph = new int[7];
-		 
-		int idx = 6;
-		for(int i=0; i<7; i++) {
-			try {
-				String dbkey = db_str_walking+dbformat.format(lastDay);
-				String dbvalue = dbAdapter.get_setting(dbkey); 
-				value_linegraph[6-i] = Integer.parseInt(dbvalue);
-			} catch (Exception e) {
-				value_linegraph[6-i] = 0;
+	void loadGraphValues() {
+		SimpleDateFormat dbformat = new SimpleDateFormat("yyyy.MM.dd");
+		values = new int[N_WALKING_POINTS];
+		for(int i=0; i<N_WALKING_POINTS; i++) {
+			String key = db_str_walking + dbformat.format(days[i].getTime());
+			String value = dbAdapter.get_setting(key);
+			if (value!=null) {
+				values[i] =	Integer.parseInt(value);
 			}
-			label_linegraph[6-i] = format.format(lastDay);
-			
-			lastDay = this.getYesterday(lastDay);
-		}
-	}
-    
-	public static Date getYesterday ( Date today )
-	{
-	    if ( today == null ) 
-	        throw new IllegalStateException ( "today is null" );
-	 
-	    Date yesterday = new Date ( );
-	    yesterday.setTime ( today.getTime ( ) - ( (long) 1000 * 60 * 60 * 24 ) );
-	     
-	    return yesterday;
-	}
-	
-	int getMaxWalking() {
-		int max = 100; 
-		for(int i=0; i<7; i++) {
-			if (max < value_linegraph[i]) {
-				max = value_linegraph[i];
-			}
-		}
-		return max;
+		} 
 	}
 }
