@@ -57,8 +57,9 @@ public class SettingAlarmActivity extends Activity {
         getActionBar().setHomeButtonEnabled(true);
 		
 		dbAdapter = new DBAdapter(getApplicationContext()); 
+		Log.d(TAG, "DBAdapter");
 		acrr = new AlarmController(getApplicationContext());
-		
+		Log.d(TAG, "AlarmController");
 		
 		bool_alarm = new Boolean[]{false,false,false,false,false,false,false};
 		img_day = new int[][]{
@@ -86,6 +87,8 @@ public class SettingAlarmActivity extends Activity {
 		setting_alarm_switch = (Switch)findViewById(R.id.setting_alarm_switch);
 		setting_seledctedDay = (TextView)findViewById(R.id.setting_seledctedDay);
         
+		
+		loadDayValues();
 
 		setting_alarm[0].setOnClickListener(new OnClickListener() { public void onClick(View v) { toggleDay(0);applyDayString();setDayButton(0);}});
 		setting_alarm[1].setOnClickListener(new OnClickListener() { public void onClick(View v) { toggleDay(1);applyDayString();setDayButton(1);}});
@@ -95,17 +98,15 @@ public class SettingAlarmActivity extends Activity {
 		setting_alarm[5].setOnClickListener(new OnClickListener() { public void onClick(View v) { toggleDay(5);applyDayString();setDayButton(5);}});
 		setting_alarm[6].setOnClickListener(new OnClickListener() { public void onClick(View v) { toggleDay(6);applyDayString();setDayButton(6);}});
         
+		
         setting_alarm_switch.setOnCheckedChangeListener(alarmSwitch_changelistener);
-        
-        loadDayValues();
-        
-        
 	}
 	OnCheckedChangeListener alarmSwitch_changelistener = new OnCheckedChangeListener() {
 		@Override
 		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 			// TODO Auto-generated method stub
 			bool_switch = isChecked;
+			Log.d(TAG, "alarmSwitch_changelistener " + bool_switch);
 			setAlarm();
 		}
 	};
@@ -134,34 +135,29 @@ public class SettingAlarmActivity extends Activity {
 			}
 		}
 	}
-	private void applyDayString() { 
-		int n=0;
-		for	(int i=0; i<7; i++) { 
-			if(bool_alarm[i]==true) {
-				n = n + 1;
-			} 
-		}
-		
+	
+	String getDayString() {
 		String seledctedDay = "";
-		 
-		if (n > 0) {
-			if (bool_alarm[0]) seledctedDay = seledctedDay + "일,";
-			if (bool_alarm[1]) seledctedDay = seledctedDay + "월,";
-			if (bool_alarm[2]) seledctedDay = seledctedDay + "화,";
-			if (bool_alarm[3]) seledctedDay = seledctedDay + "수,";
-			if (bool_alarm[4]) seledctedDay = seledctedDay + "목,";
-			if (bool_alarm[5]) seledctedDay = seledctedDay + "금,";
-			if (bool_alarm[6]) seledctedDay = seledctedDay + "토,";
-			seledctedDay = seledctedDay.substring(0, seledctedDay.length()-1);
-		}
-		setting_seledctedDay.setText(seledctedDay);
+		if (bool_alarm[0]) seledctedDay = seledctedDay + "일,";
+		if (bool_alarm[1]) seledctedDay = seledctedDay + "월,";
+		if (bool_alarm[2]) seledctedDay = seledctedDay + "화,";
+		if (bool_alarm[3]) seledctedDay = seledctedDay + "수,";
+		if (bool_alarm[4]) seledctedDay = seledctedDay + "목,";
+		if (bool_alarm[5]) seledctedDay = seledctedDay + "금,";
+		if (bool_alarm[6]) seledctedDay = seledctedDay + "토,";
+		if (seledctedDay.length()>0) seledctedDay = seledctedDay.substring(0, seledctedDay.length()-1);
+		return seledctedDay;
+	}
+	private void applyDayString() {  
+		setting_seledctedDay.setText(getDayString());
 	}
 	private void loadDayValues() {
-		loadDaycheck();
-		applyDayString();
-		loadAlarmSwitch();
-		loadTime();
-		loadAlarmDay();
+		Log.d(TAG,"loadDayValues");
+		loadDaycheck();Log.d(TAG,"loadDaycheck");
+		applyDayString();Log.d(TAG,"applyDayString");
+		loadAlarmSwitch();Log.d(TAG,"loadAlarmSwitch");
+		loadTime();Log.d(TAG,"loadTime");
+		loadAlarmDay();Log.d(TAG,"loadAlarmDay");
 	}
 	private void saveTime() { 
 		int minute = settingalarm_time.getCurrentMinute();

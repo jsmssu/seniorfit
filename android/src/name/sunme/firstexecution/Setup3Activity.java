@@ -46,47 +46,55 @@ public class Setup3Activity extends Activity {
 
 		helper = new DBHelper(getApplicationContext());
 		dbAdapter = new DBAdapter(getApplicationContext());
+		
+		
+		
 		setup3_goalMinutes = (TextView) findViewById(R.id.setup3_goalMinutes);
 		setup3_atTime = (TextView) findViewById(R.id.setup3_atTime);
-
-		setup3_goalMinutes.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				CustomDialogs.change_min(Setup3Activity.this, setup3_goalMinutes, null);
-			}  
-
-		});
-		setup3_atTime.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				(new TimePickerDialog(Setup3Activity.this, new OnTimeSetListener() {
-					
-					@Override
-					public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-						// TODO Auto-generated method stub
-						dbAdapter.put_setting("atTimeHour", Integer.toString(hourOfDay));
-						dbAdapter.put_setting("atTimeMin", Integer.toString(minute));
-						setup3_atTime.setText(Utils.timeToString(hourOfDay, minute));
-					}
-				}, 7, 0, false)).show();
-				
-			}
-		});
-
 		button_setup3_next = (Button) findViewById(R.id.button_setup3_next);
-		button_setup3_next.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(getApplicationContext(),
-						Setup4Activity.class);
-				startActivity(intent);
-				Setup3Activity.this.finish();
-			}
-		});
+		
 		loadValues();
+		
+		
+		setup3_goalMinutes.setOnClickListener(setGoal_clicklistener);
+		setup3_atTime.setOnClickListener(setTime_clicklistener); 
+		button_setup3_next.setOnClickListener(next_clicklistener);
+		
 	}
+	OnClickListener setGoal_clicklistener = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			CustomDialogs.change_min(Setup3Activity.this, setup3_goalMinutes, null);
+		}  
+
+	};
+	OnClickListener setTime_clicklistener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			(new TimePickerDialog(Setup3Activity.this, new OnTimeSetListener() {
+				
+				@Override
+				public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+					// TODO Auto-generated method stub
+					dbAdapter.put_setting("atTimeHour", Integer.toString(hourOfDay));
+					dbAdapter.put_setting("atTimeMin", Integer.toString(minute));
+					setup3_atTime.setText(Utils.timeToString(hourOfDay, minute));
+				}
+			}, 7, 0, false)).show(); 
+		}
+	};
+	
+	OnClickListener next_clicklistener = new OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			Intent intent = new Intent(getApplicationContext(),
+					Setup4Activity.class);
+			startActivity(intent);
+			Setup3Activity.this.finish();
+		}
+	};
 
 	private void loadValues() {
 		changeGoalMinutes();

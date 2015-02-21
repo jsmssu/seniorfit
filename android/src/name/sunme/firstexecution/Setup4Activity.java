@@ -50,25 +50,32 @@ public class Setup4Activity extends Activity {
 		dbAdapter = new DBAdapter(getApplicationContext());
 		acrr = new AlarmController(getApplicationContext());
 		
-		button_setup4_next = (Button)findViewById(R.id.button_setup4_next);
-		setup4_seledctedDay = (TextView)findViewById(R.id.setup4_seledctedDay);
 		
+		
+		button_setup4_next = (Button)findViewById(R.id.button_setup4_next);
+		setup4_seledctedDay = (TextView)findViewById(R.id.setup4_seledctedDay); 
 		setup4_atTime = (TextView)findViewById(R.id.setup4_atTime);
 		setup4_goalMinutes = (TextView)findViewById(R.id.setup4_goalMinutes);
-		
-		
 		setup4_alarm = (Switch)findViewById(R.id.setup4_alarm);
 		
-		setup4_alarm.setOnCheckedChangeListener(alarmSwitch_changelistener);
-		button_setup4_next.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				new UrlOpener(Setup4Activity.this, responsehandler).open(); 
-			}
-		});
+		
+		
+		
 		loadValues();
+		
+		
+		
+		
+		setup4_alarm.setOnCheckedChangeListener(alarmSwitch_changelistener);
+		button_setup4_next.setOnClickListener(next_clicklistener);
+		
 	}
-	
+	OnClickListener next_clicklistener = new OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			new UrlOpener(Setup4Activity.this, responsehandler).open(); 
+		}
+	};
 	OnCheckedChangeListener alarmSwitch_changelistener = new OnCheckedChangeListener() {
 		@Override
 		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

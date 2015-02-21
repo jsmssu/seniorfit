@@ -37,11 +37,12 @@ public class Setup2Activity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_setup2);
+		setContentView(R.layout.activity_setup2); 
 		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
-		Log.d(TAG, "oncreate");
+        
+        adapter = new DBAdapter(getApplicationContext()); 
 		
 		bool_alarm = new Boolean[]{false,false,false,false,false,false,false};
 		img_day = new int[][]{
@@ -52,8 +53,7 @@ public class Setup2Activity extends Activity {
 				{drawable.setup_thu_black,drawable.setup_thu_white},
 				{drawable.setup_fri_black,drawable.setup_fri_white},
 				{drawable.setup_sat_black,drawable.setup_sat_white} 
-		};
-			
+		}; 
 		setup_alarm = new ImageView[] {
 				(ImageView)findViewById(R.id.setup2_alarm_Sunday),
 				(ImageView)findViewById(R.id.setup2_alarm_Monday),
@@ -62,43 +62,43 @@ public class Setup2Activity extends Activity {
 				(ImageView)findViewById(R.id.setup2_alarm_Thursday),
 				(ImageView)findViewById(R.id.setup2_alarm_Friday),
 				(ImageView)findViewById(R.id.setup2_alarm_Saturday)
-		};
-		Log.d(TAG, "arr oncreate"); 
-		adapter = new DBAdapter(getApplicationContext());
-		Log.d(TAG, "DB load");
-		
+		};  
 		button_setup2_next = (Button)findViewById(R.id.setup2_button_next);
 		setup2_daynum = (TextView)findViewById(R.id.setup2_daynum);
 		
-		Log.d(TAG, "setup button");
+		
+		loadDayValues();
+		
+		
+		
+		
 		setup_alarm[0].setOnClickListener(new OnClickListener() { public void onClick(View v) { toggleDay(0);chageDaynum();}});
 		setup_alarm[1].setOnClickListener(new OnClickListener() { public void onClick(View v) { toggleDay(1);chageDaynum();}});
 		setup_alarm[2].setOnClickListener(new OnClickListener() { public void onClick(View v) { toggleDay(2);chageDaynum();}});
 		setup_alarm[3].setOnClickListener(new OnClickListener() { public void onClick(View v) { toggleDay(3);chageDaynum();}});
 		setup_alarm[4].setOnClickListener(new OnClickListener() { public void onClick(View v) { toggleDay(4);chageDaynum();}});
 		setup_alarm[5].setOnClickListener(new OnClickListener() { public void onClick(View v) { toggleDay(5);chageDaynum();}});
-		setup_alarm[6].setOnClickListener(new OnClickListener() { public void onClick(View v) { toggleDay(6);chageDaynum();}});
+		setup_alarm[6].setOnClickListener(new OnClickListener() { public void onClick(View v) { toggleDay(6);chageDaynum();}}); 
+		button_setup2_next.setOnClickListener(next_clicklistener); 
 		
 		
-		button_setup2_next.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				for	(int i=0; i<7; i++) {
-					adapter.put_setting("alarm_day"+i, Boolean.toString(bool_alarm[i]));
-				}
-				String ns = adapter.get_setting("dayN");
-				if (ns == null) {
-					adapter.put_setting("dayN", "0");
-				}
-				Intent intent = new Intent(getApplicationContext(), Setup3Activity.class);
-				startActivity(intent);
-				Setup2Activity.this.finish();
-			}
-		});
 		
-		Log.d(TAG, "load values");
-		loadDayValues();
 	}
+	OnClickListener next_clicklistener = new OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			for	(int i=0; i<7; i++) {
+				adapter.put_setting("alarm_day"+i, Boolean.toString(bool_alarm[i]));
+			}
+			String ns = adapter.get_setting("dayN");
+			if (ns == null) {
+				adapter.put_setting("dayN", "0");
+			}
+			Intent intent = new Intent(getApplicationContext(), Setup3Activity.class);
+			startActivity(intent);
+			Setup2Activity.this.finish();
+		}
+	};
 	private void loadDayValues() {
 		loadDaycheck();
 		chageDaynum();
