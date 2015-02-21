@@ -177,8 +177,6 @@ public class Setup4Activity extends Activity {
 	
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
-		Intent intent = new Intent(getApplicationContext(), Setup3Activity.class);
-        startActivity(intent);
         Setup4Activity.this.finish();
         return true;
     }

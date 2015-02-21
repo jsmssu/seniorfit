@@ -167,16 +167,17 @@ public class SettingAlarmActivity extends Activity {
 		int minute = settingalarm_time.getCurrentMinute();
 		int hourOfDay = settingalarm_time.getCurrentHour();
 		
-		Log.d(TAG, "hour : " +hourOfDay + ", min : "+minute);
+		Log.d(TAG, "save hour : " +hourOfDay + ", min : "+minute);
 		dbAdapter.put_setting("atTimeHour", Integer.toString(hourOfDay));
 		dbAdapter.put_setting("atTimeMin", Integer.toString(minute));
 	}
 	private void loadTime() {
 		String hour_str = dbAdapter.get_setting("atTimeHour");
 		String min_str = dbAdapter.get_setting("atTimeMin");
+		Log.d(TAG, "load h : "+hour_str + ", m :  " + min_str);
 		if (hour_str!=null && min_str!=null) {
 			settingalarm_time.setCurrentHour(Integer.parseInt(hour_str));
-			settingalarm_time.setCurrentHour(Integer.parseInt(min_str));
+			settingalarm_time.setCurrentMinute(Integer.parseInt(min_str));
 		}
 	}
 	private void saveAlarmDays() {

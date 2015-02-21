@@ -65,7 +65,6 @@ public class MainActivity extends Activity {
         	Log.d(TAG,"Go to get apidata");
         	Intent intent = new Intent(getApplicationContext(), FacebookLoginActivity.class);
             startActivity(intent);
-            finish();
         }
  		super.onCreate(savedInstanceState);
 		setContentView(R.layout.drawer_activity_main);           
@@ -89,7 +88,7 @@ public class MainActivity extends Activity {
 		drawerItem[0] = new MyDrawerItem(R.drawable.sidebar_aim, "");
 		drawerItem[1] = new MyDrawerItem(R.drawable.sidebar_timer, "운동하기");
 		drawerItem[2] = new MyDrawerItem(R.drawable.sidebar_graph, "기록보기");
-		drawerItem[3] = new MyDrawerItem(R.drawable.sidebar_heart, "운동정보");
+		drawerItem[3] = new MyDrawerItem(R.drawable.sidebar_heart, "건강정보");
 		drawerItem[4] = new MyDrawerItem(R.drawable.sidebar_gear, "설정");
 		Log.d(TAG, "created menu drawbar's list");
 		
