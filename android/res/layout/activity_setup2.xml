@@ -46,44 +46,44 @@
                 android:id="@+id/setup2_alarm_Monday"
 				android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/setup_mon_black"/>
+                android:src="@drawable/setup_mon_white"/>
 
             <ImageView
                 android:id="@+id/setup2_alarm_Tuesday"
 				android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/setup_tue_black"/>
+                android:src="@drawable/setup_tue_white"/>
             
 
             <ImageView
                 android:id="@+id/setup2_alarm_Wednesday"
 				android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/setup_wed_black"/>
+                android:src="@drawable/setup_wed_white"/>
 
             <ImageView
                 android:id="@+id/setup2_alarm_Thursday"
 				android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/setup_thu_black"/>
+                android:src="@drawable/setup_thu_white"/>
 
             <ImageView
                 android:id="@+id/setup2_alarm_Friday"
 				android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/setup_fri_black"/>
+                android:src="@drawable/setup_fri_white"/>
 
             <ImageView
                 android:id="@+id/setup2_alarm_Saturday"
 				android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/setup_sat_black"/>
+                android:src="@drawable/setup_sat_white"/>
 
             <ImageView
                 android:id="@+id/setup2_alarm_Sunday"
 				android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/setup_sun_black"/>
+                android:src="@drawable/setup_sun_white"/>
     </LinearLayout>
 
     <Space

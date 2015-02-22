@@ -81,6 +81,7 @@ public class UrlOpener {
 						Message msg =  new Message();
 						bundle.putString("result", source.toString());
 						msg.setData(bundle);
+						msg.what = 1;
 						mainhandler.sendMessage(msg);
 					}
 					
@@ -107,10 +108,12 @@ public class UrlOpener {
 				catch (Exception e) {
 					mHandler.post(new Runnable() {
 						public void run() {
-							progressDialog.cancel();
-							Toast.makeText (context, "API 데이터 로드 실패", 3).show();
+							progressDialog.cancel(); 
 						}
 					}); 
+					if (mainhandler != null) {
+						mainhandler.sendEmptyMessage(-1);
+					}
 					e.printStackTrace();
 				} finally {
 					

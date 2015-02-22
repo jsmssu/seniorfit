@@ -2,36 +2,16 @@ package name.sunme.firstexecution;
 
 import name.sunme.seniorfit.DBAdapter;
 import name.sunme.seniorfit.DBHelper; 
-import name.sunme.setting.CustomDialogs;
-import name.sunme.setting.SettingProfileActivity;
-import name.sunme.maindrawbar.R;
-import name.sunme.maindrawbar.R.layout;
+import name.sunme.setting.CustomDialogs; 
+import name.sunme.maindrawbar.R; 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.DialogFragment;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnTouchListener;
-import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.NumberPicker;
-import android.widget.NumberPicker.Formatter;
+import android.os.Bundle; 
+import android.util.Log;  
+import android.view.MenuItem; 
+import android.view.View;  
+import android.view.View.OnClickListener;  
+import android.widget.Button; 
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -124,7 +104,7 @@ public class Setup1Activity extends Activity {
 		public void onClick(View v) {  
 			Intent intent = new Intent(getApplicationContext(), Setup2Activity.class);
 			startActivity(intent);
-			Setup1Activity.this.finish();
+			finish();
 		}
 	};
 	OnCheckedChangeListener sexradio_changelistener = new OnCheckedChangeListener() {
@@ -164,7 +144,7 @@ public class Setup1Activity extends Activity {
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
 		Setup1Activity.this.finish();
-        return true;
+		return false;
     }
 	
 }

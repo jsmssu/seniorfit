@@ -4,6 +4,7 @@ import java.io.File;
  
 
 
+
 import name.sunme.seniorfit.DBAdapter;
 import name.sunme.setting.SettingGoalActivity;
 import name.sunme.setting.SettingProfileActivity;
@@ -12,6 +13,7 @@ import name.sunme.firstexecution.TutorialActivity;
 import name.sunme.maindrawbar.R;
 import name.sunme.othersite.OtherSiteFragment; 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
@@ -33,8 +35,7 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 	
-	final static int REQUEST_CODE_SETTING_PROFILE = 2;
-	
+	final static int REQUEST_CODE_SETTING_PROFILE = 2; 
 	
 	String TAG = "MainActivity";
 	
@@ -66,7 +67,7 @@ public class MainActivity extends Activity {
         if (dbAdapter.get_setting("firstsetting") == null) {
         	Log.d(TAG,"Go to get apidata");
         	Intent intent = new Intent(getApplicationContext(), TutorialActivity.class);
-            startActivity(intent);
+            startActivity(intent); 
         }
  		super.onCreate(savedInstanceState);
 		setContentView(R.layout.drawer_activity_main);           
@@ -235,7 +236,6 @@ public class MainActivity extends Activity {
 		if (requestCode == REQUEST_CODE_SETTING_PROFILE && resultCode == RESULT_OK) {
 			Log.d(TAG, "프로필 세팅 적용");	
 			loadValues();
-		}
-		
+		} 
     }
 }

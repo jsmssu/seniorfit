@@ -92,7 +92,7 @@ public class Setup3Activity extends Activity {
 			Intent intent = new Intent(getApplicationContext(),
 					Setup4Activity.class);
 			startActivity(intent);
-			Setup3Activity.this.finish();
+			finish();
 		}
 	};
 

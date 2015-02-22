@@ -114,12 +114,12 @@ public class RecordingFragment extends Fragment {
 		dataSets.add(linedataset2); 
 		
         YAxis rightAxis = mChart.getAxisRight();
-        rightAxis.setTextColor(Color.RED);
+        rightAxis.setTextColor(Color.parseColor("#ff0000"));
         rightAxis.setAxisMaxValue(max_walking+10);
         rightAxis.setDrawGridLines(false);
         
 		YAxis leftAxis = mChart.getAxisLeft();
-		leftAxis.setTextColor(Color.BLUE);
+		leftAxis.setTextColor(Color.parseColor("#00ff00"));
         leftAxis.setAxisMaxValue(max_stretcing+10);
         leftAxis.setDrawGridLines(true);
 

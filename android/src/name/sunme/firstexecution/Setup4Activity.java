@@ -9,6 +9,7 @@ import name.sunme.setting.AlarmController;
 import name.sunme.maindrawbar.R;
 import name.sunme.maindrawbar.R.layout;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -25,6 +26,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 public class Setup4Activity extends Activity {
@@ -155,16 +157,16 @@ public class Setup4Activity extends Activity {
 		{
 			if (msg.what == 0) {
 				Log.d(TAG, "정상 다운로드 완료");
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-    			startActivity(intent);
-    			Setup4Activity.this.finish();
 			}
 			if (msg.what == -1) {
-				Log.d(TAG, "비정상 다운로드 완료");
-            	Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-    			startActivity(intent);
-    			Setup4Activity.this.finish();
-			}  
+				Toast.makeText(getApplicationContext(), "자료를 다운받지 못했습니다.", 3).show();
+				Log.d(TAG, "비정상 다운로드 완료"); 
+			} 
+			Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+			
+			startActivity(intent);
+			Setup4Activity.this.finish();
 		}
 	};
 	
@@ -173,12 +175,19 @@ public class Setup4Activity extends Activity {
 		@Override
 		public void handleMessage(Message msg)
 		{
-			Bundle bundle = msg.getData();
-			String result = bundle.getString("result");
-			Log.d(TAG, "got api json data");
-			Utils.saveFitApiData(getApplicationContext(), result);
-			Utils.showDialog_downloadResource(Setup4Activity.this, downloadendhandler);
-			dbAdapter.put_setting("firstsetting", "true");
+			if(msg.what == -1) {
+				Toast.makeText(getApplicationContext(), "데이터를 받지 못했습니다.", 5).show();
+				Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+				startActivity(intent);
+				Setup4Activity.this.finish();
+			} else {
+				dbAdapter.put_setting("firstsetting", "true");
+				Bundle bundle = msg.getData();
+				String result = bundle.getString("result"); 
+				Utils.saveFitApiData(getApplicationContext(), result);
+				Utils.showDialog_downloadResource(Setup4Activity.this, downloadendhandler); 
+			}  
 		}
 	};
 	

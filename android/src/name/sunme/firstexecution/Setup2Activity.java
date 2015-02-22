@@ -46,14 +46,14 @@ public class Setup2Activity extends Activity {
 		
 		bool_alarm = new Boolean[]{false,false,false,false,false,false,false};
 		img_day = new int[][]{
-				{drawable.setup_sun_black,drawable.setup_sun_white},
-				{drawable.setup_mon_black,drawable.setup_mon_white},
-				{drawable.setup_tue_black,drawable.setup_tue_white},
-				{drawable.setup_wed_black,drawable.setup_wed_white},
-				{drawable.setup_thu_black,drawable.setup_thu_white},
-				{drawable.setup_fri_black,drawable.setup_fri_white},
-				{drawable.setup_sat_black,drawable.setup_sat_white} 
-		}; 
+				{drawable.setup_sun_white, drawable.setup_sun_black},
+				{drawable.setup_mon_white, drawable.setup_mon_black},
+				{drawable.setup_tue_white, drawable.setup_tue_black},
+				{drawable.setup_wed_white, drawable.setup_wed_black},
+				{drawable.setup_thu_white, drawable.setup_thu_black},
+				{drawable.setup_fri_white, drawable.setup_fri_black},
+				{drawable.setup_sat_white, drawable.setup_sat_black}
+		};		
 		setup_alarm = new ImageView[] {
 				(ImageView)findViewById(R.id.setup2_alarm_Sunday),
 				(ImageView)findViewById(R.id.setup2_alarm_Monday),
@@ -96,7 +96,7 @@ public class Setup2Activity extends Activity {
 			}
 			Intent intent = new Intent(getApplicationContext(), Setup3Activity.class);
 			startActivity(intent);
-			Setup2Activity.this.finish();
+			finish();
 		}
 	};
 	private void loadDayValues() {

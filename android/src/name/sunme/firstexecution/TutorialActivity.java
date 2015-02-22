@@ -31,7 +31,7 @@ public class TutorialActivity extends Activity {
 
 		
 		
-		final float density = 4;
+		final float density = 2;
 		// Bind the title indicator to the adapter
 		CirclePageIndicator circleindicator = (CirclePageIndicator) findViewById(R.id.circleindicator);
 		// circleindicator.setBackgroundColor(0xFFCCCCCC);
