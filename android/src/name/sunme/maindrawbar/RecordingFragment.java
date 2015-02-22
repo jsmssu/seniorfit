@@ -24,16 +24,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 public class RecordingFragment extends Fragment {
 	String TAG = "RecordingFragment";
 	DBAdapter dbAdapter;
-	int[] values;
+	int[] walking_values;
+	int[] stretching_values;
 	String[] labels;
 	Calendar[] days;
 	int N_WALKING_POINTS = 7;
 	private LineChart mChart;
 
+	TextView recording_min_walking;
+	TextView recording_min_stretcing;
+	TextView recording_goal_min;
 	public RecordingFragment() {
 	}
 
@@ -44,22 +49,37 @@ public class RecordingFragment extends Fragment {
 		// do modify
 		Log.d(TAG, "onCreateView");
 		View rootView = inflater.inflate(R.layout.fragment_recording,
-				container, false);
-		Log.d(TAG, "dbAdapter");
-		dbAdapter = new DBAdapter(getActivity()); 
-		Log.d(TAG, "mChart");
+				container, false); 
+		dbAdapter = new DBAdapter(getActivity());  
 		
-		mChart = (LineChart) rootView.findViewById(R.id.chart); 
+		mChart = (LineChart)rootView.findViewById(R.id.chart); 
+		recording_min_walking = (TextView)rootView.findViewById(R.id.recording_min_walking); 
+		recording_min_stretcing = (TextView)rootView.findViewById(R.id.recording_min_stretcing); 
+		recording_goal_min = (TextView)rootView.findViewById(R.id.recording_goal_min);
 		
-		Log.d(TAG, "loadValues");
 		loadValues();
+
+		
+		
+		
+
+
+
+
+
+
+
+
+
+
+
 
 		
 		Log.d(TAG, "setValueTextColor");
 		mChart.setValueTextColor(Color.BLACK);
 		mChart.setDescription("기록보기");
 		mChart.setNoDataTextDescription("You need to provide data for the chart.");
-		mChart.setDrawGridBackground(true);
+		mChart.setDrawGridBackground(false);
 		mChart.setBackgroundColor(Color.WHITE);
 		mChart.setGridWidth(1.25f); 
 		mChart.setTouchEnabled(true); 
@@ -69,20 +89,40 @@ public class RecordingFragment extends Fragment {
 /////////////////////////////////////////////////////////////////////////////value set
 		Log.d(TAG, "value set");
 		ArrayList<Entry> walkings = new ArrayList<Entry>();
+		ArrayList<Entry> stretcings = new ArrayList<Entry>();
+
+		int max_walking = 0;
+		int max_stretcing = 0;
 		for(int i=0;i<N_WALKING_POINTS; i++) {
-			Entry c = new Entry(values[i], i); // 0 == quarter 1
-			walkings.add(c);	
+			//
+			if (max_walking<walking_values[i]) { max_walking = walking_values[i]; }
+			if (max_stretcing<stretching_values[i]) { max_stretcing = stretching_values[i]; }
+			//
+			Entry walking_c = new Entry(walking_values[i], i); // 0 == quarter 1
+			walkings.add(walking_c);	
+			Entry stretcing_c = new Entry(stretching_values[i], i); // 0 == quarter 1
+			stretcings.add(stretcing_c);	
 		}
 		  
 		LineDataSet linedataset1 = new LineDataSet(walkings, "하루 걸음");
-		linedataset1.setColor(Color.parseColor("#3ec2c7"));
-		
+		LineDataSet linedataset2 = new LineDataSet(stretcings, "스트레칭");
+		linedataset1.setColor(Color.parseColor("#ff0000"));
+		linedataset2.setColor(Color.parseColor("#00ff00"));
 		
 		ArrayList<LineDataSet> dataSets = new ArrayList<LineDataSet>();
 		dataSets.add(linedataset1); 
+		dataSets.add(linedataset2); 
 		
-		
-		
+        YAxis rightAxis = mChart.getAxisRight();
+        rightAxis.setTextColor(Color.RED);
+        rightAxis.setAxisMaxValue(max_walking+10);
+        rightAxis.setDrawGridLines(false);
+        
+		YAxis leftAxis = mChart.getAxisLeft();
+		leftAxis.setTextColor(Color.BLUE);
+        leftAxis.setAxisMaxValue(max_stretcing+10);
+        leftAxis.setDrawGridLines(true);
+
 /////////////////////////////////////////////////////////////////////////////label set
 		Log.d(TAG, "label set");
 		ArrayList<String> xVals = new ArrayList<String>();
@@ -111,12 +151,34 @@ public class RecordingFragment extends Fragment {
 
 
 	void loadValues() {
-		Log.d(TAG, "loadDays");
-		loadDays();
-		Log.d(TAG, "loadGraphLabels");
-		loadGraphLabels();
-		Log.d(TAG, "loadGraphValues");
-		loadGraphValues();
+		loadDays(); 
+		loadGraphLabels(); 
+		loadGraphWalkingValues();
+		loadGraphStretchingValues();
+		loadGoalMin();
+		loadWalkingText();
+		loadStrectingText();
+	}
+	void loadGoalMin() {
+		if (dbAdapter.get_setting("goalMinutes")!=null) {
+			int goal_min = Integer.parseInt(dbAdapter.get_setting("goalMinutes")); 
+			int strecting_min = stretching_values[N_WALKING_POINTS-1];
+			int left_min = goal_min-strecting_min;
+			if (left_min<=0) {
+				recording_goal_min.setText("(완료)");	
+			} else {
+				recording_goal_min.setText(left_min+"");
+			}
+		}
+		else {
+			recording_goal_min.setText("(목표를 설정해주세욥)");
+		}
+	}
+	void loadWalkingText() {
+		recording_min_walking.setText(walking_values[N_WALKING_POINTS-1]+"");
+	}
+	void loadStrectingText() {
+		recording_min_stretcing.setText(stretching_values[N_WALKING_POINTS-1]+"");
 	}
 	void loadDays() {
 		days = new Calendar[N_WALKING_POINTS];
@@ -125,7 +187,7 @@ public class RecordingFragment extends Fragment {
 			days[i].add(Calendar.DATE, -N_WALKING_POINTS+i+1);
 		}
 	}
-	String db_str_walking = "wk_";
+	
 	void loadGraphLabels() {
 		labels = new String[N_WALKING_POINTS];
 		SimpleDateFormat format = new SimpleDateFormat("MM.dd");
@@ -133,14 +195,27 @@ public class RecordingFragment extends Fragment {
 			labels[i] = format.format(days[i].getTime());
 		} 
 	}
-	void loadGraphValues() {
+	String db_str_walking = "wk_";
+	void loadGraphWalkingValues() {
 		SimpleDateFormat dbformat = new SimpleDateFormat("yyyy.MM.dd");
-		values = new int[N_WALKING_POINTS];
+		walking_values = new int[N_WALKING_POINTS];
 		for(int i=0; i<N_WALKING_POINTS; i++) {
 			String key = db_str_walking + dbformat.format(days[i].getTime());
 			String value = dbAdapter.get_setting(key);
 			if (value!=null) {
-				values[i] =	Integer.parseInt(value);
+				walking_values[i] =	Integer.parseInt(value);
+			}
+		} 
+	}
+	String db_str_stretcing = "tw_";
+	void loadGraphStretchingValues() { //stretching_values
+		SimpleDateFormat dbformat = new SimpleDateFormat("yyyy.MM.dd");
+		stretching_values = new int[N_WALKING_POINTS];
+		for(int i=0; i<N_WALKING_POINTS; i++) {
+			String key = db_str_stretcing + dbformat.format(days[i].getTime());
+			String value = dbAdapter.get_setting(key);
+			if (value!=null) {
+				stretching_values[i] =	Integer.parseInt(value)/60;
 			}
 		} 
 	}

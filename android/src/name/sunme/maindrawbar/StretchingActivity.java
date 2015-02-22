@@ -1,5 +1,8 @@
 package name.sunme.maindrawbar;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,6 +25,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings.Global;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,6 +38,8 @@ public class StretchingActivity extends Activity {
 	private Button stretcing_otherprogram;
 	private Button stretcing_myworkingout; 
 	private ImageView stretcing_startmyworkingout;
+	
+	private DBAdapter dbAdapter;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -42,6 +48,7 @@ public class StretchingActivity extends Activity {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
         
+        dbAdapter = new DBAdapter(getApplicationContext());
         
         Log.d(TAG, "set actioinbar");
         stretcing_otherprogram = (Button)findViewById(R.id.stretcing_otherprogram);
@@ -60,8 +67,7 @@ public class StretchingActivity extends Activity {
 			public void onClick(View v) {
 				Log.d(TAG, "button_chooseprogram");
 				Intent intent = new Intent(getApplicationContext(), MyWorkingoutActivity.class);
-				startActivity(intent);
-				finish();
+				startActivity(intent); 
 			}
 		});
 		stretcing_startmyworkingout.setOnClickListener(new OnClickListener() {
@@ -95,23 +101,58 @@ public class StretchingActivity extends Activity {
 						}
 						intent.putExtra("json", jo.toString()); 
 						startActivity(intent); 
-						////////////////////////////
+						//////////////////////////// 
 					}
-				}
-				
-				
+				} 
 			}
 		});
+		timecheck_thread.start();  
         
 	}
+	String db_str_stretcing = "tw_";
+	SimpleDateFormat dbformat = new SimpleDateFormat("yyyy.MM.dd");
 	
-	@Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
+	boolean threadstopped =true;
+	Thread timecheck_thread = new Thread(new Runnable() {  
+		Date today = new Date();
+		String key = db_str_stretcing + dbformat.format(today);
+		
+        public void run() {
+        	int sec = 0;
+        	threadstopped = false;
+        	String value = dbAdapter.get_setting(key);
+        	if(value!=null) {
+        		sec = Integer.parseInt(value);
+        	}
+            while (!threadstopped) {                
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException ie) { 
+                    ie.printStackTrace();
+                } 
+                sec = sec + 5;
+        		dbAdapter.put_setting(key, Integer.toString(sec));
+        		Log.d(TAG, "¿îµ¿Áß "+sec);
+            }
         }
+    }); 
+	public void stop() {
+        threadstopped = true; 
+        if (timecheck_thread.isAlive()) {
+        timecheck_thread.interrupt(); 
+        }
+    }
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) { 
+		stop();
+        finish();  
         return false;
     }
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			stop();
+		}
+		return super.onKeyDown(keyCode, event);
+	}
 }
