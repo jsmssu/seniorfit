@@ -11,6 +11,7 @@ import com.github.mikephil.charting.components.Legend.LegendForm;
 import com.github.mikephil.charting.components.Legend.LegendPosition;
 import com.github.mikephil.charting.components.XAxis.XAxisPosition;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.components.YAxis.AxisDependency;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -85,7 +86,8 @@ public class RecordingFragment extends Fragment {
 		mChart.setTouchEnabled(true); 
 		mChart.setDragEnabled(true);
 		mChart.setScaleEnabled(true);
-		
+		mChart.setPinchZoom(true);
+		//mChart.animateX(500);
 /////////////////////////////////////////////////////////////////////////////value set
 		Log.d(TAG, "value set");
 		ArrayList<Entry> walkings = new ArrayList<Entry>();
@@ -105,9 +107,26 @@ public class RecordingFragment extends Fragment {
 		}
 		  
 		LineDataSet linedataset1 = new LineDataSet(walkings, "하루 걸음");
-		LineDataSet linedataset2 = new LineDataSet(stretcings, "스트레칭");
+		linedataset1.setAxisDependency(AxisDependency.RIGHT);
 		linedataset1.setColor(Color.parseColor("#ff0000"));
+		linedataset1.setCircleColor(Color.parseColor("#ff0000"));
+		linedataset1.setLineWidth(2f);
+		linedataset1.setCircleSize(4f);
+		linedataset1.setFillAlpha(65);
+		linedataset1.setFillColor(Color.WHITE);
+		linedataset1.setHighLightColor(Color.rgb(244, 117, 117));
+		LineDataSet linedataset2 = new LineDataSet(stretcings, "스트레칭");
+		linedataset2.setAxisDependency(AxisDependency.LEFT);
 		linedataset2.setColor(Color.parseColor("#00ff00"));
+		linedataset2.setCircleColor(Color.parseColor("#00ff00"));
+		linedataset2.setLineWidth(2f);
+		linedataset2.setCircleSize(4f);
+		linedataset2.setFillAlpha(65);
+		linedataset2.setFillColor(Color.WHITE);
+		linedataset2.setHighLightColor(Color.rgb(244, 117, 117));		
+		
+		
+		
 		
 		ArrayList<LineDataSet> dataSets = new ArrayList<LineDataSet>();
 		dataSets.add(linedataset1); 
@@ -143,8 +162,8 @@ public class RecordingFragment extends Fragment {
 
 		XAxis xl = mChart.getXAxis();
 		xl.setPosition(XAxisPosition.BOTTOM);
-		xl.setGridColor(Color.parseColor("#3ec2c7"));
-		
+		xl.setGridColor(Color.WHITE);//Color.parseColor("#3ec2c7")); 
+		xl.setDrawGridLines(false);
 		
 		return rootView;
 	}
@@ -165,13 +184,13 @@ public class RecordingFragment extends Fragment {
 			int strecting_min = stretching_values[N_WALKING_POINTS-1];
 			int left_min = goal_min-strecting_min;
 			if (left_min<=0) {
-				recording_goal_min.setText("(완료)");	
+				recording_goal_min.setText("오늘의 목표 완료");	
 			} else {
-				recording_goal_min.setText(left_min+"");
+				recording_goal_min.setText("오늘의 목표까지  "+left_min+"분");
 			}
 		}
 		else {
-			recording_goal_min.setText("(목표를 설정해주세욥)");
+			recording_goal_min.setText("목표를 설정해주세용");
 		}
 	}
 	void loadWalkingText() {
