@@ -1,11 +1,11 @@
 package name.sunme.video;
 
+import name.sunme.firstexecution.TutorialImageAdapter;
 import name.sunme.firstexecution.Setup1Activity;
 import name.sunme.seniorfit.DBAdapter;
 import name.sunme.seniorfit.DBHelper;
 import name.sunme.seniorfit.FitApiDataClass;
 import name.sunme.seniorfit.GlobalData;
-import name.sunme.seniorfit.ImageAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -113,11 +113,11 @@ public class Setup1Activity extends Activity {
 		public void onCheckedChanged(RadioGroup group, int checkedId) {
 			if (checkedId == R.id.setup1_radio_woman) {
 				adapter.put_setting("sex", "woman");
-				Log.d(TAG, "¿©ÀÚ ¼±ÅÃ");
+				Log.d(TAG, "Â¿Â©Ã€Ãš Â¼Â±Ã…Ãƒ");
 			}
 			if (checkedId == R.id.setup1_radio_man) {
 				adapter.put_setting("sex", "man");
-				Log.d(TAG, "³²ÀÚ ¼±ÅÃ");
+				Log.d(TAG, "Â³Â²Ã€Ãš Â¼Â±Ã…Ãƒ");
 			} 
 		}
 	};

@@ -7,7 +7,15 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="21" />
-
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+    
+    <permission
+        android:name="com.example.SearchMJ.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" >
+    </permission>
+    
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -15,6 +23,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
 
     <application
         android:allowBackup="true"
@@ -31,6 +43,10 @@
         <receiver android:name="name.sunme.setting.AlarmReceiver" >
         </receiver>
 
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyA3G1R1dX6pW6ZXadvyII9fQml3OorBBEI" >
+        </meta-data>
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -72,11 +88,6 @@
             android:name=".MainActivity"
             android:label="SeniorFit"
             android:theme="@style/AppThemeActionbarMenu" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".WorkingoutFragment"
@@ -173,6 +184,15 @@
             android:name="name.sunme.setting.SettingAlarmActivity"
             android:label="@string/title_activity_setting_alarm"
             android:theme="@style/AppThemeActionbarBack" >
+        </activity>
+        <activity
+            android:name="name.sunme.map.GoogleMapActivity"
+            android:label="@string/title_activity_google_map" >
+            
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" /> 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
