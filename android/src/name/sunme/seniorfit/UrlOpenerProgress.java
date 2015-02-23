@@ -28,6 +28,7 @@ public class UrlOpenerProgress {
 	public UrlOpenerProgress(Context pcontext, Handler phandler_main, String url) {
 		this.context = pcontext;
 		this.mainhandler = phandler_main; 
+		this.url = url;
 	}
 	
 	public void open()
@@ -92,7 +93,7 @@ public class UrlOpenerProgress {
 						}
 					});
 										
-				}/*
+				}
 				catch (MalformedURLException e)
 				{
 					e.printStackTrace();
@@ -104,7 +105,7 @@ public class UrlOpenerProgress {
 				catch (IOException e)
 				{
 					e.printStackTrace();
-				}*/
+				}
 				catch (Exception e) {
 					mHandler.post(new Runnable() {
 						public void run() {
