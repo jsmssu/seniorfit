@@ -10,6 +10,7 @@ import name.sunme.maindrawbar.R.layout;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -55,6 +56,18 @@ public class SettingFragment extends Fragment {
         setting_btn_logout = (LinearLayout)rootView.findViewById(R.id.setting_btn_logout);
         
         
+        
+		setting_btn_sendmail.setOnClickListener(new OnClickListener() { 
+			@Override
+			public void onClick(View v) {
+				Uri uri = Uri.parse("mailto:iloveloop@naver.com");
+		        Intent myActivity2 = new Intent(Intent.ACTION_SENDTO, uri);                                   
+		                    myActivity2.putExtra(Intent.EXTRA_SUBJECT,
+		                "[SeniorFit]피드백메일");
+		        startActivity(myActivity2);
+
+			}
+		});
         setting_btn_profile.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {

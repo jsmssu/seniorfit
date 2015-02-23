@@ -112,7 +112,6 @@ public class OtherProgramActivity extends Activity {
 		switch (item.getItemId()) {
 		// action with ID action_refresh was selected
 		case android.R.id.home:
-			startActivity(new Intent(getApplicationContext(), StretchingActivity.class));
 			finish();
 			break;
 		case R.id.action_gear:
