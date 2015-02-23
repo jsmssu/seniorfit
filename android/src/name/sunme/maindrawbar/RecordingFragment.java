@@ -1,5 +1,6 @@
 package name.sunme.maindrawbar;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar; 
@@ -15,9 +16,11 @@ import com.github.mikephil.charting.components.YAxis.AxisDependency;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.utils.ValueFormatter;
 
 import name.sunme.maindrawbar.R;
 import name.sunme.seniorfit.DBAdapter;
+import name.sunme.seniorfit.Utils;
 import name.sunme.seniorfit.WalkingGraphData;
 import android.app.Fragment;
 import android.graphics.Color;
@@ -78,6 +81,8 @@ public class RecordingFragment extends Fragment {
 		mChart.setDragEnabled(true);
 		mChart.setScaleEnabled(true);
 		mChart.setPinchZoom(true);
+		
+		 
 		//mChart.animateX(500);
 /////////////////////////////////////////////////////////////////////////////value set
 		Log.d(TAG, "value set");
@@ -92,6 +97,8 @@ public class RecordingFragment extends Fragment {
 		linedataset1.setFillAlpha(65);
 		linedataset1.setFillColor(Color.WHITE);
 		linedataset1.setHighLightColor(Color.rgb(244, 117, 117));
+		
+		
 		LineDataSet linedataset2 = new LineDataSet(stretching_values, "½ºÆ®·¹Äª");
 		linedataset2.setAxisDependency(AxisDependency.LEFT);
 		linedataset2.setColor(Color.parseColor("#ffa655"));
@@ -103,6 +110,8 @@ public class RecordingFragment extends Fragment {
 		linedataset2.setHighLightColor(Color.rgb(244, 117, 117));		
 		
 		
+		linedataset1.setDrawValues(false);
+		linedataset2.setDrawValues(false);
 		
 		
 		ArrayList<LineDataSet> dataSets = new ArrayList<LineDataSet>();
@@ -112,11 +121,12 @@ public class RecordingFragment extends Fragment {
         YAxis rightAxis = mChart.getAxisRight();
         rightAxis.setTextColor(Color.parseColor("#3ec2c7")); 
         rightAxis.setDrawGridLines(false);
+        rightAxis.setAxisMaxValue(max_wk+10);
         
 		YAxis leftAxis = mChart.getAxisLeft();
 		leftAxis.setTextColor(Color.parseColor("#ffa655")); 
         leftAxis.setDrawGridLines(true);
-        
+        leftAxis.setAxisMaxValue(max_tw+10);
 
 /////////////////////////////////////////////////////////////////////////////label set
 		Log.d(TAG, "label set");
@@ -128,17 +138,17 @@ public class RecordingFragment extends Fragment {
 		Log.d(TAG, "data set");
 		LineData data = new LineData(xVals, dataSets); 
 		mChart.setData(data);
+		mChart.setDescription("");
 ///////////////////////////////////////////////////////////////////////////// view
 		Log.d(TAG, "view");
 		Legend l = mChart.getLegend();
-		l.setFormSize(10f); // set the size of the legend forms/shapes
-		l.setForm(LegendForm.CIRCLE); // set what type of form/shape should be
-										// used
+		l.setFormSize(10f);
+		l.setForm(LegendForm.CIRCLE);
 		l.setPosition(LegendPosition.BELOW_CHART_CENTER);
 
 		XAxis xl = mChart.getXAxis();
 		xl.setPosition(XAxisPosition.BOTTOM);
-		xl.setGridColor(Color.WHITE);//Color.parseColor("#3ec2c7")); 
+		xl.setGridColor(Color.WHITE);
 		xl.setDrawGridLines(false);
 		
 		return rootView;
@@ -191,6 +201,8 @@ public class RecordingFragment extends Fragment {
 	}
 	String db_str_walking = "wk_";
 	String db_str_stretcing = "tw_";
+	int max_wk = 0;
+	int max_tw = 0;
 	void loadGraphValues() {
 		SimpleDateFormat dbformat = new SimpleDateFormat("yyyy.MM.dd");
 		walking_values = new ArrayList<Entry>();
@@ -201,21 +213,25 @@ public class RecordingFragment extends Fragment {
 			String walking_key = db_str_walking + dbf;
 			String walking_value = dbAdapter.get_setting(walking_key);
 			
-			if (walking_value!=null) {
-				Entry c = new Entry(Integer.parseInt(walking_value), i); 
-				walking_values.add(c);
-			} else {
-				Entry c = new Entry(0, i); 
-				walking_values.add(c);
-			}
-			
 			String stretcing_key = db_str_stretcing + dbf;
 			String stretcing_value = dbAdapter.get_setting(stretcing_key);
 			
 			
+			if (walking_value!=null) {
+				int v = Integer.parseInt(walking_value);
+				Entry c = new Entry(v, i); 
+				walking_values.add(c);
+				if (max_wk < v) max_wk = v;
+			} else {
+				Entry c = new Entry(0, i); 
+				walking_values.add(c);
+			} 
+			
 			if (stretcing_value!=null) {
-				Entry c = new Entry(Integer.parseInt(stretcing_value)/60, i); 
+				int v = Integer.parseInt(stretcing_value)/60;
+				Entry c = new Entry(v, i); 
 				stretching_values.add(c);
+				if (max_tw < v) max_tw = v;
 			} else {
 				Entry c = new Entry(0, i); 
 				stretching_values.add(c);

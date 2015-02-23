@@ -1,6 +1,7 @@
 package name.sunme.seniorfit;
 
 import java.io.ByteArrayOutputStream;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -11,6 +12,8 @@ import name.sunme.maindrawbar.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.github.mikephil.charting.utils.ValueFormatter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -169,7 +172,13 @@ public class Utils {
     
     
     
-    
+    public static ValueFormatter value_formatter = new ValueFormatter() {
+		private DecimalFormat mFormat= new DecimalFormat("###");
+		@Override
+		public String getFormattedValue(float value) {
+			return mFormat.format(value);
+		}
+	};
     
     
     

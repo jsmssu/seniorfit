@@ -87,6 +87,9 @@
             android:textColor="#808080"
             android:textSize="30sp" />
 
+        
+
+        
         <com.echo.holographlibrary.LineGraph
             android:id="@+id/pedometer_week_walkingline"
             android:layout_width="match_parent"

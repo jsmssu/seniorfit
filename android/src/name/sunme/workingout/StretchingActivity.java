@@ -129,7 +129,7 @@ public class StretchingActivity extends Activity {
                 } 
                 sec = sec + 5;
         		dbAdapter.put_setting(key, Integer.toString(sec));
-        		Log.d(TAG, "운동중 "+sec);
+        		Log.d(TAG, "운동중 "+key + " :  "+sec);
             }
         }
     }); 
