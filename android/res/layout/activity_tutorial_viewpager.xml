@@ -3,26 +3,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+
     <ImageView
+        android:id="@+id/tutorial_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        android:id="@+id/tutorial_background"
-        />
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/tutorial_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:gravity="center_horizontal"
+        android:text="title"
+        android:textColor="#000000"
+        android:textSize="40sp" />
+
     <TextView
         android:id="@+id/tutorial_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tutorial_title"
         android:layout_centerHorizontal="true"
-        android:text="title"
-        android:layout_marginTop="100dp" />
-    <TextView
-        android:id="@+id/tutorial_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/tutorial_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
         android:text="content"
-        android:layout_marginTop="10dp" />
+        android:textColor="#000000"
+        android:textSize="17sp" />
+
+    <Button
+        android:id="@+id/tutorial_next"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="#37B7BB"
+        android:text="시니어피트 시작하기"
+        android:textColor="#ffffff"
+        android:textSize="24dp"
+        android:textStyle="bold" 
+        android:visibility="gone"/>
 
 </RelativeLayout>

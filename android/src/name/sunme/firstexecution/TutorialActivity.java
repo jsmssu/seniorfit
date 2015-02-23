@@ -34,7 +34,7 @@ public class TutorialActivity extends Activity {
 		// Bind the title indicator to the tia
 		CirclePageIndicator circleindicator = (CirclePageIndicator) findViewById(R.id.circleindicator);
 		// circleindicator.setBackgroundColor(0xFFCCCCCC);
-		circleindicator.setRadius(10 * density);
+		circleindicator.setRadius(5 * density);
 		circleindicator.setPageColor(Color.parseColor("#d1d1d1"));
 		circleindicator.setFillColor(Color.BLACK);
 		circleindicator.setStrokeColor(Color.parseColor("#ffffff"));
@@ -60,12 +60,7 @@ public class TutorialActivity extends Activity {
 				if (tia.images.length == (position + 1)
 						&& positionOffsetPixels == 0
 						&& tpositionOffsetPixels == positionOffsetPixels) {
-					Log.d(TAG, "다음페이지로 갈까");
-					Intent intent = new Intent(getApplicationContext(),
-							Setup1Activity.class);
-
-					startActivity(intent);
-					finish();
+					Log.d(TAG, "다음페이지로 갈까"); 
 				}
 				tpositionOffsetPixels = positionOffsetPixels;
 				Log.d(TAG, "Selected " + position + ", " + positionOffset
