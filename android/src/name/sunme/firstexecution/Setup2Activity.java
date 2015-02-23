@@ -1,13 +1,11 @@
 package name.sunme.firstexecution;
 
-import name.sunme.functionactivity.FitDetail_MainMenuTitleActivity;
 import name.sunme.seniorfit.DBAdapter;
 import name.sunme.seniorfit.DBHelper;
-
+import name.sunme.workingout.FitDetail_MainMenuTitleActivity;
 import name.sunme.maindrawbar.R;
 import name.sunme.maindrawbar.R.drawable;
 import name.sunme.maindrawbar.R.layout;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;

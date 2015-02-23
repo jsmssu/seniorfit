@@ -4,7 +4,7 @@ import name.sunme.seniorfit.DBHelper;
 import name.sunme.setting.SettingAlarmActivity;
 import name.sunme.setting.SettingGoalActivity;
 import name.sunme.setting.SettingProfileActivity;
-import name.sunme.functionactivity.OtherProgramActivity;
+import name.sunme.workingout.OtherProgramActivity;
 import name.sunme.maindrawbar.R;
 import name.sunme.maindrawbar.R.layout;
 import android.app.Activity;

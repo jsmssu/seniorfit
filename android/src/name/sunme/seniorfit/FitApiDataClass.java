@@ -2,7 +2,7 @@ package name.sunme.seniorfit;
 
 import java.util.HashMap;
 
-import name.sunme.functionactivity.MyWorkingoutItem;
+import name.sunme.workingout.MyWorkingoutItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;

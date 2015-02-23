@@ -1,10 +1,9 @@
 package name.sunme.maindrawbar;
 
 import name.bagi.levente.pedometer.Pedometer;
-
 import name.sunme.maindrawbar.R;
 import name.sunme.maindrawbar.R.layout;
-
+import name.sunme.workingout.StretchingActivity;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;

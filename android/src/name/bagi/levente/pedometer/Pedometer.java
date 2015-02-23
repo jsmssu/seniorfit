@@ -51,8 +51,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Adapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -80,15 +82,11 @@ public class Pedometer extends Activity {
 	private boolean mQuitting = false; // Set when user selected Quit from menu,
 										// can be used by onPause, onStop,
 										// onDestroy
-	 
-
-	
-	
 
 	String steps_string;//
 	String steps_units;
 	String pace_string;// steps
-	String pace_units;//steps_per_minute
+	String pace_units;// steps_per_minute
 	String distance_string;// kilometers
 	String distance_units;
 	String speed_string;// kilometers / hour
@@ -98,12 +96,13 @@ public class Pedometer extends Activity {
 	private DBAdapter dbAdapter;
 	SimpleDateFormat dbformat = new SimpleDateFormat("yyyy.MM.dd");
 	String db_str_walking = "wk_";
-	
-	
-	
+
 	private PieGraph pedometer_today_walkingcircle;
 	private LineGraph pedometer_week_walkingline;
+
 	private PieSlice slice;
+
+	ImageView pedometer_start;
 	/**
 	 * True, when service is running.
 	 */
@@ -117,18 +116,73 @@ public class Pedometer extends Activity {
 		setContentView(R.layout.activity_pedometer);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
-		
-		
-		pedometer_week_walkingline = (LineGraph)findViewById(R.id.pedometer_week_walkingline);
-		pedometer_today_walkingcircle = (PieGraph) findViewById(R.id.pedometer_today_walkingcircle); 
-		
-		
-		dbAdapter = new DBAdapter(getApplicationContext()); 
+
+		pedometer_week_walkingline = (LineGraph) findViewById(R.id.pedometer_week_walkingline);
+		pedometer_today_walkingcircle = (PieGraph) findViewById(R.id.pedometer_today_walkingcircle);
+		pedometer_start = (ImageView) findViewById(R.id.pedometer_start);
+
+		dbAdapter = new DBAdapter(getApplicationContext());
 
 		loadLastDataForGraph();
 		mUtils = Utils.getInstance();
-	}
+		
+		pedometer_start.setOnClickListener(start_clicklistener);
+		pedometer_start.setImageResource(R.drawable.walk_icn_start);
+		
+		
 
+	}//mIsRunning
+	
+	OnClickListener start_clicklistener = new OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			if (!mIsRunning && mPedometerSettings.isNewStart()) {
+				startStepService();
+				bindStepService();
+				pedometer_start.setImageResource(R.drawable.walk_icn_end);
+			} else if (mIsRunning) {
+				unbindStepService();
+ 				stopStepService();
+ 				pedometer_start.setImageResource(R.drawable.walk_icn_start);
+			} 
+		}
+	};
+
+	
+	
+	
+	
+	 
+//	public boolean onOptionsItemSelected(MenuItem item) {
+//		switch (item.getItemId()) {
+//		case MENU_PAUSE:
+//			unbindStepService();
+//			stopStepService();
+//			return true;
+//		case MENU_RESUME:
+//			startStepService();
+//			bindStepService();
+//			return true;
+//		case MENU_RESET:
+//			resetValues(true);
+//			return true;
+//		case MENU_QUIT:
+//			resetValues(false);
+//			unbindStepService();
+//			stopStepService();
+//			mQuitting = true;
+//			finish();
+//			return true;
+//		}
+//		return false;
+//	}
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	protected void onStart() {
 		Log.i(TAG, "[ACTIVITY] onStart");
@@ -160,6 +214,8 @@ public class Pedometer extends Activity {
 		} else if (mIsRunning) {
 			bindStepService();
 		}
+		
+		pedometer_start.setOnClickListener(start_clicklistener);
 
 		mPedometerSettings.clearServiceRunning();
 
@@ -174,35 +230,14 @@ public class Pedometer extends Activity {
 				: R.string.miles_per_hour);
 
 		mMaintain = mPedometerSettings.getMaintainOption();
-		/*
-		 * ((LinearLayout)
-		 * this.findViewById(R.id.desired_pace_control)).setVisibility(
-		 * mMaintain != PedometerSettings.M_NONE ? View.VISIBLE : View.GONE );
-		 * if (mMaintain == PedometerSettings.M_PACE) { mMaintainInc = 5f;
-		 * mDesiredPaceOrSpeed = (float)mPedometerSettings.getDesiredPace(); }
-		 * else if (mMaintain == PedometerSettings.M_SPEED) {
-		 * mDesiredPaceOrSpeed = mPedometerSettings.getDesiredSpeed();
-		 * mMaintainInc = 0.1f; } Button button1 = (Button)
-		 * findViewById(R.id.button_desired_pace_lower);
-		 * button1.setOnClickListener(new View.OnClickListener() { public void
-		 * onClick(View v) { mDesiredPaceOrSpeed -= mMaintainInc;
-		 * mDesiredPaceOrSpeed = Math.round(mDesiredPaceOrSpeed * 10) / 10f;
-		 * displayDesiredPaceOrSpeed();
-		 * setDesiredPaceOrSpeed(mDesiredPaceOrSpeed); } }); Button button2 =
-		 * (Button) findViewById(R.id.button_desired_pace_raise);
-		 * button2.setOnClickListener(new View.OnClickListener() { public void
-		 * onClick(View v) { mDesiredPaceOrSpeed += mMaintainInc;
-		 * mDesiredPaceOrSpeed = Math.round(mDesiredPaceOrSpeed * 10) / 10f;
-		 * displayDesiredPaceOrSpeed();
-		 * setDesiredPaceOrSpeed(mDesiredPaceOrSpeed); } }); if (mMaintain !=
-		 * PedometerSettings.M_NONE) { ((TextView)
-		 * findViewById(R.id.desired_pace_label)).setText( mMaintain ==
-		 * PedometerSettings.M_PACE ? R.string.desired_pace :
-		 * R.string.desired_speed ); }
-		 * 
-		 * 
-		 * displayDesiredPaceOrSpeed();
-		 */
+		
+		
+		
+		if (mIsRunning==true) {
+			pedometer_start.setImageResource(R.drawable.walk_icn_end);
+		} else {
+			pedometer_start.setImageResource(R.drawable.walk_icn_start);
+		} 
 	}
 
 	private void displayDesiredPaceOrSpeed() {
@@ -325,68 +360,9 @@ public class Pedometer extends Activity {
 			}
 		}
 	}
-
-	
-	/* Creates the menu items */
-	/*
-	private static final int MENU_SETTINGS = 8;
-	private static final int MENU_QUIT = 9;
-
-	private static final int MENU_PAUSE = 1;
-	private static final int MENU_RESUME = 2;
-	private static final int MENU_RESET = 3;
-	
-	public boolean onPrepareOptionsMenu(Menu menu) {
-		
-		
-		menu.clear();
-		if (mIsRunning) {
-			menu.add(0, MENU_PAUSE, 0, R.string.pause)
-					.setIcon(android.R.drawable.ic_media_pause)
-					.setShortcut('1', 'p');
-		} else {
-			menu.add(0, MENU_RESUME, 0, R.string.resume)
-					.setIcon(android.R.drawable.ic_media_play)
-					.setShortcut('1', 'p');
-		}
-		menu.add(0, MENU_RESET, 0, R.string.reset)
-				.setIcon(android.R.drawable.ic_menu_close_clear_cancel)
-				.setShortcut('2', 'r');
-		menu.add(0, MENU_SETTINGS, 0, R.string.settings)
-				.setIcon(android.R.drawable.ic_menu_preferences)
-				.setShortcut('8', 's')
-				.setIntent(new Intent(this, Settings.class));
-		menu.add(0, MENU_QUIT, 0, R.string.quit)
-				.setIcon(android.R.drawable.ic_lock_power_off)
-				.setShortcut('9', 'q');
-		return true;
-		
-		
-	}
  
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case MENU_PAUSE:
-			unbindStepService();
-			stopStepService();
-			return true;
-		case MENU_RESUME:
-			startStepService();
-			bindStepService();
-			return true;
-		case MENU_RESET:
-			resetValues(true);
-			return true;
-		case MENU_QUIT:
-			resetValues(false);
-			unbindStepService();
-			stopStepService();
-			mQuitting = true;
-			finish();
-			return true;
-		}
-		return false;
-	}*/
+
+	
 
 	// TODO: unite all into 1 type of message
 	private StepService.ICallback mCallback = new StepService.ICallback() {
@@ -443,7 +419,7 @@ public class Pedometer extends Activity {
 				break;
 			case CALORIES_MSG:
 				mCaloriesValue = msg.arg1;
-				loadCalories(mCaloriesValue); 
+				loadCalories(mCaloriesValue);
 				break;
 			default:
 				super.handleMessage(msg);
@@ -451,124 +427,121 @@ public class Pedometer extends Activity {
 		}
 
 	};
-	
+
 	String[] label_linegraph;
-	int[] value_linegraph; 
+	int[] value_linegraph;
 	Date today;
 	String db_str_walking_today;
-	
+
 	void loadDbKeyToday() {
 		today = new Date();
-		db_str_walking_today = db_str_walking+dbformat.format(today); 
+		db_str_walking_today = db_str_walking + dbformat.format(today);
 	}
-	
+
 	void loadLastDataForGraph() {
 		Log.d(TAG, "loadLastDataForGraph start");
-		
+
 		Date lastDay = new Date();
-		SimpleDateFormat format = new SimpleDateFormat("MM.dd");  
-		
-		
+		SimpleDateFormat format = new SimpleDateFormat("MM.dd");
+
 		loadDbKeyToday();
-		
-		
-		
-		
+
 		label_linegraph = new String[7];
 		value_linegraph = new int[7];
-		
-		
-		Log.d(TAG, "lastDay "+lastDay);
+
+		Log.d(TAG, "lastDay " + lastDay);
 		int idx = 6;
-		for(int i=0; i<7; i++) {
+		for (int i = 0; i < 7; i++) {
 			try {
-				String dbkey = db_str_walking+dbformat.format(lastDay);
+				String dbkey = db_str_walking + dbformat.format(lastDay);
 				String dbvalue = dbAdapter.get_setting(dbkey);
 				Log.d(TAG, "dbkey : " + dbkey + ", data : " + dbvalue);
-				value_linegraph[6-i] = Integer.parseInt(dbvalue);
+				value_linegraph[6 - i] = Integer.parseInt(dbvalue);
 			} catch (Exception e) {
-				value_linegraph[6-i] = 0;
+				value_linegraph[6 - i] = 0;
 			}
-			label_linegraph[6-i] = format.format(lastDay);
-			
+			label_linegraph[6 - i] = format.format(lastDay);
+
 			lastDay = this.getYesterday(lastDay);
 		}
 	}
-	
-	
+
 	void loadStepsMsg(int steps) {
 		steps_string = steps + steps_units;
 		mStepValueView.setText(steps_string);
 		loadDbKeyToday();
-		dbAdapter.put_setting(db_str_walking_today, steps+"");//
+		dbAdapter.put_setting(db_str_walking_today, steps + "");//
 		value_linegraph[6] = steps;
-		
+
 		pedometer_today_walkingcircle.removeSlices();
 		slice = new PieSlice();
 		slice.setColor(Color.parseColor("#3ec2c7"));
-		slice.setValue(mStepValue%100);
+		slice.setValue(mStepValue % 100);
 		pedometer_today_walkingcircle.addSlice(slice);
 		slice = new PieSlice();
 		slice.setColor(Color.parseColor("#eeeeee"));
-		slice.setValue(100 - (mStepValue%100));
-		pedometer_today_walkingcircle.addSlice(slice); 
-		 
-		
-		
+		slice.setValue(100 - (mStepValue % 100));
+		pedometer_today_walkingcircle.addSlice(slice);
+
 		pedometer_week_walkingline.removeAllLines();
-		
+
 		Line l = new Line();
-		LinePoint p;		
-		
-		for(int i=0; i<7; i++) {
-			p = new LinePoint(); 
-			p.setX(i); 
-			p.setY(value_linegraph[i]); 
-			l.addPoint(p); 
-			//p.setLabel_string(label_linegraph[i]);
-		} 
-		
+		LinePoint p;
+
+		for (int i = 0; i < 7; i++) {
+			p = new LinePoint();
+			p.setX(i);
+			p.setY(value_linegraph[i]);
+			l.addPoint(p);
+			// p.setLabel_string(label_linegraph[i]);
+		}
+
 		l.setColor(Color.parseColor("#3ec2c7"));
-		
+
 		pedometer_week_walkingline.setMinY(0);
 		pedometer_week_walkingline.addLine(l);
 		pedometer_week_walkingline.setLabelSize(30);
 		pedometer_week_walkingline.setRangeY(0, getMaxWalking());
 		pedometer_week_walkingline.setLineToFill(1);
 	}
+
 	int getMaxWalking() {
-		int max = 100; 
-		for(int i=0; i<7; i++) {
+		int max = 100;
+		for (int i = 0; i < 7; i++) {
 			if (max < value_linegraph[i]) {
 				max = value_linegraph[i];
 			}
 		}
 		return max;
 	}
+
 	void loadPaceMsg(int pace) {
 		if (pace <= 0) {
-			pace_string = "0"+pace_units;
+			pace_string = "0" + pace_units;
 		} else {
-			pace_string = ("" + (int) pace)+pace_units;
+			pace_string = ("" + (int) pace) + pace_units;
 		}
 	}
+
 	void loadDistanceMsg(float distance) {
 		if (distance <= 0) {
-			distance_string = "0"+distance_units;
+			distance_string = "0" + distance_units;
 		} else {
-			distance_string = ("" + (distance + 0.000001f))
-					.substring(0, 5)+distance_units;
+			distance_string = ("" + (distance + 0.000001f)).substring(0, 5)
+					+ distance_units;
 		}
 	}
+
 	void loadSpeedMsg(float speed) {
 		if (speed <= 0) {
-			speed_string = "0" +speed_units;
+			speed_string = "0" + speed_units;
 		} else {
-			speed_string = (("" + (speed + 0.000001f)).substring(
-					0, 4)) +speed_units;
+			speed_string = (("" + (speed + 0.000001f)).substring(0, 4))
+					+ speed_units;
 		}
 	}
-	void loadCalories(int calories){
+
+	void loadCalories(int calories) {
 		if (calories <= 0) {
 			calories_string = "0" + "Ä®·Î¸®";
 		} else {
@@ -576,15 +549,14 @@ public class Pedometer extends Activity {
 		}
 	}
 
-	public static Date getYesterday ( Date today )
-	{
-	    if ( today == null ) 
-	        throw new IllegalStateException ( "today is null" );
-	 
-	    Date yesterday = new Date ( );
-	    yesterday.setTime ( today.getTime ( ) - ( (long) 1000 * 60 * 60 * 24 ) );
-	     
-	    return yesterday;
+	public static Date getYesterday(Date today) {
+		if (today == null)
+			throw new IllegalStateException("today is null");
+
+		Date yesterday = new Date();
+		yesterday.setTime(today.getTime() - ((long) 1000 * 60 * 60 * 24));
+
+		return yesterday;
 	}
 
 	@Override

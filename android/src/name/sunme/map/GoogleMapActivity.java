@@ -2,6 +2,7 @@ package name.sunme.map;
 
 import name.sunme.maindrawbar.R;
 import android.app.Dialog;
+import android.graphics.Point;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -16,6 +17,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 public class GoogleMapActivity extends FragmentActivity implements
 		LocationListener {
@@ -69,7 +72,7 @@ public class GoogleMapActivity extends FragmentActivity implements
 				onLocationChanged(location);
 			}
 			locationManager.requestLocationUpdates(provider, 20000, 0, (android.location.LocationListener) this);
-		}
+		}	
 
 	}
 

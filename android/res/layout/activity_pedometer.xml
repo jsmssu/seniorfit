@@ -1,134 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#ffffff"
-    android:orientation="vertical"
-    android:padding="@dimen/margin" >
+    android:background="#ffffff" >
 
-    <Space
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp" />
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:orientation="vertical" >
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/walk_icn_walkingman" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="오늘"
+                    android:textColor="#808080"
+                    android:textSize="30sp" />
+
+                <TextView
+                    android:id="@+id/step_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0steps"
+                    android:textColor="#000000"
+                    android:textSize="40sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="16dp"
+                    android:src="@drawable/walk_icn_prev"
+                    android:visibility="gone" />
+
+                <com.echo.holographlibrary.PieGraph
+                    android:id="@+id/pedometer_today_walkingcircle"
+                    android:layout_width="240dp"
+                    android:layout_height="240dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="16dp"
+                    android:src="@drawable/walk_icn_next"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="오늘도 뚜벅뚜벅"
+            android:textColor="#808080"
+            android:textSize="30sp" />
+
+        <com.echo.holographlibrary.LineGraph
+            android:id="@+id/pedometer_week_walkingline"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp" />
+    </LinearLayout>
 
     <ImageView
+        android:id="@+id/pedometer_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:src="@drawable/walk_icn_walkingman" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:paddingRight="10dp"
+        android:paddingTop="26dp"
+        android:src="@drawable/walk_icn_start" />
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" >
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:orientation="vertical" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="오늘"
-                android:textColor="#808080"
-                android:textSize="30sp" />
-
-            <TextView
-                android:id="@+id/step_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0steps"
-                android:textColor="#000000"
-                android:textSize="40sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true" >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="16dp"
-                android:src="@drawable/walk_icn_prev"
-                android:visibility="gone" />
-
-            <com.echo.holographlibrary.PieGraph
-                android:id="@+id/pedometer_today_walkingcircle"
-                android:layout_width="240dp"
-                android:layout_height="240dp" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="16dp"
-                android:src="@drawable/walk_icn_next"
-                android:visibility="gone" />
-        </LinearLayout>
-    </RelativeLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="90dp"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:text="오늘도 뚜벅뚜벅"
-        android:textColor="#808080"
-        android:textSize="30sp" />
-
-    <com.echo.holographlibrary.LineGraph
-        android:id="@+id/pedometer_week_walkingline"
-        android:layout_width="match_parent"
-        android:layout_height="110dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp" />
-
-    <!-- Button "-", for decrementing desired pace/speed -->
-    <!--
-        <Button
-            android:id="@+id/button_desired_pace_lower"
-            android:layout_width="@dimen/button"
-            android:layout_height="@dimen/button"
-            android:text="-"
-            android:textSize="@dimen/button_sign" />-->
-    <!-- Container for desired pace/speed -->
-    <!--
-        <LinearLayout
-            android:layout_width="@dimen/desired_pace_width"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/desired_pace_label"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="@string/desired_pace" />-->
-    <!-- Current desired pace/speed -->
-    <!--
-            <TextView
-                android:id="@+id/desired_pace_value"
-                android:layout_width="@dimen/desired_pace_width"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:textSize="@dimen/desired_pace" />
-        </LinearLayout>-->
-    <!-- Button "+", for incrementing desired pace/speed -->
-    <!--
-        <Button
-            android:id="@+id/button_desired_pace_raise"
-            android:layout_width="@dimen/button"
-            android:layout_height="@dimen/button"
-            android:text="+"
-            android:textSize="@dimen/button_sign" />
-    </LinearLayout>-->
-
-</LinearLayout>
+</RelativeLayout>

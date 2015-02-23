@@ -8,10 +8,10 @@ import org.json.JSONArray;
 
 import android.content.Context;
 import android.util.Log;
-import name.sunme.functionactivity.FitDetail_MainMenuTitleActivity;
-import name.sunme.functionactivity.OtherProgramItem;
 import name.sunme.maindrawbar.R;
 import name.sunme.maindrawbar.R.drawable;
+import name.sunme.workingout.FitDetail_MainMenuTitleActivity;
+import name.sunme.workingout.OtherProgramItem;
 
 public class GlobalData {
 	static String TAG = "GlobalData";

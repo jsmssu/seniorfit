@@ -7,15 +7,16 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="21" />
+
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
-    
+
     <permission
         android:name="com.example.SearchMJ.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" >
     </permission>
-    
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -88,6 +89,11 @@
             android:name=".MainActivity"
             android:label="SeniorFit"
             android:theme="@style/AppThemeActionbarMenu" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".WorkingoutFragment"
@@ -102,22 +108,22 @@
             android:label="@string/title_activity_setting" >
         </activity>
         <activity
-            android:name=".StretchingActivity"
+            android:name="name.sunme.workingout.StretchingActivity"
             android:label="@string/title_activity_stretching"
             android:theme="@style/AppThemeActionbarBack" >
         </activity>
         <activity
-            android:name="name.sunme.functionactivity.OtherProgramActivity"
+            android:name="name.sunme.workingout.OtherProgramActivity"
             android:label="@string/title_activity_other_program"
             android:theme="@style/AppThemeActionbarBack" >
         </activity>
         <activity
-            android:name="name.sunme.functionactivity.FitDetail_MainMenuTitleActivity"
+            android:name="name.sunme.workingout.FitDetail_MainMenuTitleActivity"
             android:label="@string/title_activity_fit_detail__main_menu_title"
             android:theme="@style/AppThemeActionbarBack" >
         </activity>
         <activity
-            android:name="name.sunme.functionactivity.ChooseProgramActivity"
+            android:name="name.sunme.workingout.ChooseProgramActivity"
             android:label="@string/title_activity_choose_program" >
         </activity>
         <activity
@@ -156,7 +162,7 @@
             android:theme="@style/AppThemeActionbarBack" >
         </activity>
         <activity
-            android:name="name.sunme.functionactivity.MyWorkingoutActivity"
+            android:name="name.sunme.workingout.MyWorkingoutActivity"
             android:label="@string/title_activity_my_workingout"
             android:theme="@style/AppThemeActionbarBack" >
         </activity>
@@ -188,11 +194,6 @@
         <activity
             android:name="name.sunme.map.GoogleMapActivity"
             android:label="@string/title_activity_google_map" >
-            
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" /> 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
