@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="name.sunme.maindrawbar"
-    android:versionCode="5"
-    android:versionName="1.5" >
+    android:versionCode="6"
+    android:versionName="1.6" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -48,6 +48,7 @@
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyA3G1R1dX6pW6ZXadvyII9fQml3OorBBEI" >
         </meta-data>
+        
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
