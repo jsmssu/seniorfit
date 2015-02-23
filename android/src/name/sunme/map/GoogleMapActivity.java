@@ -1,7 +1,12 @@
 package name.sunme.map;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import name.sunme.maindrawbar.R;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Point;
 import android.location.Criteria;
 import android.location.Location;
@@ -9,12 +14,15 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnMapLoadedCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -22,18 +30,27 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class GoogleMapActivity extends FragmentActivity implements
 		LocationListener {
-
+String TAG = "GoogleMapActivity";
 	GoogleMap googleMap;
-
+	Intent intent;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_google_map);
 
+		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setHomeButtonEnabled(true);
+		
+		
 		// Getting Google Play availability status
 		int status = GooglePlayServicesUtil
 				.isGooglePlayServicesAvailable(getBaseContext());
 
+		intent = getIntent();
+		
+		
+		
 		// Showing status
 		if (status != ConnectionResult.SUCCESS) { // Google Play Services are
 													// not available
@@ -72,14 +89,46 @@ public class GoogleMapActivity extends FragmentActivity implements
 				onLocationChanged(location);
 			}
 			locationManager.requestLocationUpdates(provider, 20000, 0, (android.location.LocationListener) this);
+			googleMap.setOnMapLoadedCallback(new OnMapLoadedCallback() {
+				
+				@Override
+				public void onMapLoaded() {
+					googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+					
+					String result = intent.getStringExtra("json");
+					try {
+						JSONObject jo = new JSONObject(result);
+						JSONObject GeoInfoWalkwayWGS =jo.getJSONObject("GeoInfoWalkwayWGS");
+						int list_total_count = GeoInfoWalkwayWGS.getInt("list_total_count");
+						if(list_total_count>0) {
+							JSONArray rows = GeoInfoWalkwayWGS.getJSONArray("row");
+							for(int i=0; i<rows.length(); i++) {
+								JSONObject row = rows.getJSONObject(i);
+								double LNG = row.getDouble("LNG");
+								double LAT = row.getDouble("LAT");
+								Log.d(TAG,"LNG : "+LNG+", LAT : "+LAT);
+								googleMap.addMarker(new MarkerOptions()
+						        //.title("Hello world")
+								.position(new LatLng(LAT, LNG)));
+							}
+						}
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					
+				}
+			}); 
+			
 		}	
 
 	}
-
+	
 	@Override
 	public void onLocationChanged(Location location) {
 
-		TextView tvLocation = (TextView) findViewById(R.id.tv_location);
+		//TextView tvLocation = (TextView) findViewById(R.id.tv_location);
 
 		// Getting latitude of the current location
 		double latitude = location.getLatitude();
@@ -94,10 +143,10 @@ public class GoogleMapActivity extends FragmentActivity implements
 		googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 
 		// Zoom in the Google Map
-		googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+		//googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 
 		// Setting latitude and longitude in the TextView tv_location
-		tvLocation.setText("Latitude:" + latitude + ", Longitude:" + longitude);
+		//tvLocation.setText("Latitude:" + latitude + ", Longitude:" + longitude);
 
 	}
 
@@ -118,5 +167,9 @@ public class GoogleMapActivity extends FragmentActivity implements
 		// TODO Auto-generated method stub
 		
 	}
-
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		finish();
+		return false;
+	}
 }

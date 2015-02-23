@@ -134,7 +134,7 @@
     <string name="title_activity_content">운동정보</string>
     <string name="title_activity_content_page">운동정보</string>
     <string name="title_activity_setting_alarm">알람 설정</string>
-    <string name="title_activity_google_map">GoogleMapActivity</string>
+    <string name="title_activity_google_map"></string>
     <string name="title_activity_fora_walk">ForaWalkActivity</string>
 
 </resources>

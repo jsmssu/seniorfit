@@ -193,7 +193,8 @@
         </activity>
         <activity
             android:name="name.sunme.map.GoogleMapActivity"
-            android:label="@string/title_activity_google_map" >
+            android:label="@string/title_activity_google_map" 
+            android:theme="@style/AppThemeActionbarBack">
         </activity>
         <activity
             android:name=".ForaWalkFragment"

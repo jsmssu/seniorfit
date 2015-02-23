@@ -4,7 +4,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.android.gms.maps.GoogleMap;
+
 import name.sunme.firstexecution.Setup4Activity;
+import name.sunme.map.GoogleMapActivity;
 import name.sunme.seniorfit.UrlOpenerBasic;
 import name.sunme.seniorfit.UrlOpenerProgress;
 import name.sunme.seniorfit.Utils;
@@ -35,7 +38,7 @@ public class ForaWalkFragment extends Fragment {
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+	public View onCreateView(LayoutInflater inflater, final ViewGroup container,
 			Bundle savedInstanceState) {
 
 		// do modify 
@@ -45,10 +48,9 @@ public class ForaWalkFragment extends Fragment {
 		forawalk_start.setOnClickListener(new OnClickListener() {
 			
 			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
+			public void onClick(View v) { 
 				String apiurl = "http://openapi.seoul.go.kr:8088/6e66446956696c6f39336f4c6b7058/json/GeoInfoWalkwayWGS/0/100";
-				new UrlOpenerBasic(responsehandler,apiurl).open(); 
+				new UrlOpenerBasic(responsehandler,apiurl).open();
 			}
 			
 		});
@@ -64,24 +66,10 @@ public class ForaWalkFragment extends Fragment {
 				 
 			} else { 
 				Bundle bundle = msg.getData();
-				String result = bundle.getString("result"); 
-				try {
-					JSONObject jo = new JSONObject(result);
-					JSONObject GeoInfoWalkwayWGS =jo.getJSONObject("GeoInfoWalkwayWGS");
-					int list_total_count = GeoInfoWalkwayWGS.getInt("list_total_count");
-					if(list_total_count>0) {
-						JSONArray rows = GeoInfoWalkwayWGS.getJSONArray("row");
-						for(int i=0; i<rows.length(); i++) {
-							JSONObject row = rows.getJSONObject(i);
-							double LNG = row.getDouble("LNG");
-							double LAT = row.getDouble("LAT");
-							Log.d(TAG,"LNG : "+LNG+", LAT : "+LAT);
-						}
-					}
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				String result = bundle.getString("result");  
+				Intent intent = new Intent(getActivity(), GoogleMapActivity.class);
+				intent.putExtra("json", result);
+				startActivity(intent);
 			}  
 		}
 	};
