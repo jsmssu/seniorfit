@@ -54,7 +54,7 @@ public class MainActivity extends Activity {
 	
 	
 	
-	final MyDrawerItem[] drawerItem = new MyDrawerItem[5];
+	final MyDrawerItem[] drawerItem = new MyDrawerItem[6];
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +92,8 @@ public class MainActivity extends Activity {
 		drawerItem[1] = new MyDrawerItem(R.drawable.sidebar_timer, "운동하기");
 		drawerItem[2] = new MyDrawerItem(R.drawable.sidebar_graph, "기록보기");
 		drawerItem[3] = new MyDrawerItem(R.drawable.sidebar_heart, "건강정보");
-		drawerItem[4] = new MyDrawerItem(R.drawable.sidebar_gear, "설정");
+		drawerItem[4] = new MyDrawerItem(R.drawable.sidebar_heart, "산책로추천");
+		drawerItem[5] = new MyDrawerItem(R.drawable.sidebar_gear, "설정");
 		Log.d(TAG, "created menu drawbar's list");
 		
 		drAdapter = new MyDrawerListCustomAdapter(this, R.layout.drawer_activity_item_row, drawerItem);
@@ -130,6 +131,9 @@ public class MainActivity extends Activity {
 			        fragment = new OtherSiteFragment();
 			        break;
 			    case 4:
+			    	fragment = new ForaWalkFragment();
+			    	break;
+			    case 5:
 			       fragment = new SettingFragment();
 			       break;
 			 

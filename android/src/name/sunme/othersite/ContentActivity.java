@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import name.sunme.maindrawbar.R;
-import name.sunme.seniorfit.JsonOpener;
+import name.sunme.seniorfit.UrlOpenerBasic;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -67,7 +67,7 @@ public class ContentActivity extends Activity {
 		String url = "http://sunme.name/api/get_category_posts/?cat=" + menu_id
 				+ "&&include=title";
 		// "http://sunme.name/api/get_category_posts/?cat="+2+"&&include=title,custom_fields,content";
-		(new JsonOpener(this, postHandler, url)).open();
+		(new UrlOpenerBasic(postHandler, url)).open();
 		post_list.setOnItemClickListener(contentclick_listener);
 
 	}

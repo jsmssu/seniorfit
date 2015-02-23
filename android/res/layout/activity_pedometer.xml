@@ -90,7 +90,8 @@
         <com.echo.holographlibrary.LineGraph
             android:id="@+id/pedometer_week_walkingline"
             android:layout_width="match_parent"
-            android:layout_height="110dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp" />
     </LinearLayout>

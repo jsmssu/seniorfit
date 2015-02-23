@@ -3,7 +3,7 @@ package name.sunme.firstexecution;
 import name.sunme.maindrawbar.MainActivity;
 import name.sunme.seniorfit.DBAdapter;
 import name.sunme.seniorfit.DBHelper; 
-import name.sunme.seniorfit.UrlOpener;
+import name.sunme.seniorfit.UrlOpenerProgress;
 import name.sunme.seniorfit.Utils;
 import name.sunme.setting.AlarmController;
 import name.sunme.maindrawbar.R;
@@ -75,7 +75,8 @@ public class Setup4Activity extends Activity {
 	OnClickListener next_clicklistener = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			new UrlOpener(Setup4Activity.this, responsehandler).open(); 
+			String apiurl = "http://www.ibtk.kr/SeniorExercise/14ce256b9369a09c3ee861ebc7a16eb0?model_query_pageable={%22enable%22:%22false%22}";
+			new UrlOpenerProgress(Setup4Activity.this, responsehandler,apiurl).open(); 
 		}
 	};
 	OnCheckedChangeListener alarmSwitch_changelistener = new OnCheckedChangeListener() {

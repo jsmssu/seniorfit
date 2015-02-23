@@ -11,7 +11,7 @@ import name.sunme.firstexecution.Setup4Activity;
 import name.sunme.maindrawbar.R;
 import name.sunme.maindrawbar.R.id;
 import name.sunme.maindrawbar.R.layout;
-import name.sunme.seniorfit.JsonOpener;
+import name.sunme.seniorfit.UrlOpenerBasic;
 import name.sunme.seniorfit.Utils;
 import android.app.Activity;
 import android.app.Fragment;
@@ -44,7 +44,7 @@ public class OtherSiteFragment extends Fragment {
 		// do modify
 		View rootView = inflater.inflate(R.layout.fragment_other_site,
 				container, false);
-		(new JsonOpener(getActivity(), menuHandler,
+		(new UrlOpenerBasic(menuHandler,
 				"http://sunme.name/api/get_category_index/?parent=2&&include=title")).open();
 
 		ListView menu_list = (ListView)rootView.findViewById(R.id.othersite_listview);

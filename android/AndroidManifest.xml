@@ -195,6 +195,10 @@
             android:name="name.sunme.map.GoogleMapActivity"
             android:label="@string/title_activity_google_map" >
         </activity>
+        <activity
+            android:name=".ForaWalkFragment"
+            android:label="@string/title_activity_fora_walk" >
+        </activity>
     </application>
 
 </manifest>

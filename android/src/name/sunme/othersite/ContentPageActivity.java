@@ -7,7 +7,7 @@ import org.json.JSONObject;
 
 import name.sunme.maindrawbar.R;
 import name.sunme.maindrawbar.R.layout;
-import name.sunme.seniorfit.JsonOpener;
+import name.sunme.seniorfit.UrlOpenerBasic;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -67,7 +67,7 @@ public class ContentPageActivity extends Activity {
 		}
 		String url = "http://sunme.name/api/get_post/?post_id="+post_id+"&&include=title,content,custom_fields";
 		Log.d(TAG, "url : " + url);
-		(new JsonOpener(this, postHandler, url)).open();
+		(new UrlOpenerBasic(postHandler, url)).open();
 		contentpage_videobutton.setOnClickListener(videostart_listener);
 	}
 	
