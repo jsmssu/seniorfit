@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="name.sunme.maindrawbar"
-    android:versionCode="6"
-    android:versionName="1.6" >
+    android:versionCode="7"
+    android:versionName="1.7" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -45,10 +45,19 @@
         </receiver>
 
         <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/app_id" />
+        <!--
+        <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyA3G1R1dX6pW6ZXadvyII9fQml3OorBBEI" >
+        </meta-data>
+        -->
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyD5A-MjNWUBt2b42JRXXgC2IKE6vaSzgeM" >
         </meta-data>
-        
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -87,7 +96,7 @@
             android:theme="@style/AppThemeActionbarBack" >
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="name.sunme.maindrawbar.MainActivity"
             android:label="SeniorFit"
             android:theme="@style/AppThemeActionbarMenu" >
             <intent-filter>
@@ -97,15 +106,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".WorkingoutFragment"
+            android:name="name.sunme.maindrawbar.WorkingoutFragment"
             android:label="@string/title_activity_workingout" >
         </activity>
         <activity
-            android:name=".RecordingFragment"
+            android:name="name.sunme.maindrawbar.RecordingFragment"
             android:label="@string/title_activity_recording" >
         </activity>
         <activity
-            android:name=".SettingFragment"
+            android:name="name.sunme.maindrawbar.SettingFragment"
             android:label="@string/title_activity_setting" >
         </activity>
         <activity
@@ -142,11 +151,6 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
-
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/app_id" />
-
         <activity
             android:name="name.sunme.setting.SettingProfileActivity"
             android:label="@string/title_activity_setting_profile"
@@ -194,12 +198,8 @@
         </activity>
         <activity
             android:name="name.sunme.map.GoogleMapActivity"
-            android:label="@string/title_activity_google_map" 
-            android:theme="@style/AppThemeActionbarBack">
-        </activity>
-        <activity
-            android:name=".ForaWalkFragment"
-            android:label="@string/title_activity_fora_walk" >
+            android:label="@string/title_activity_google_map"
+            android:theme="@style/AppThemeActionbarBack" >
         </activity>
     </application>
 

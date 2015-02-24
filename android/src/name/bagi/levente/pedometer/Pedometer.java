@@ -20,15 +20,25 @@ package name.bagi.levente.pedometer;
 
 import java.text.AttributedCharacterIterator.Attribute;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import com.echo.holographlibrary.Line;
-import com.echo.holographlibrary.LineGraph;
-import com.echo.holographlibrary.LinePoint;
-import com.echo.holographlibrary.PieGraph;
-import com.echo.holographlibrary.PieSlice;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.components.Legend.LegendForm;
+import com.github.mikephil.charting.components.Legend.LegendPosition;
+import com.github.mikephil.charting.components.XAxis.XAxisPosition;
+import com.github.mikephil.charting.components.YAxis.AxisDependency;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
 
 import name.sunme.maindrawbar.R;
 import name.sunme.seniorfit.DBAdapter;
@@ -95,20 +105,39 @@ public class Pedometer extends Activity {
 
 	private DBAdapter dbAdapter;
 	SimpleDateFormat dbformat = new SimpleDateFormat("yyyy.MM.dd");
-	String db_str_walking = "wk_";
 
-	private PieGraph pedometer_today_walkingcircle;
-	private LineGraph pedometer_week_walkingline;
 
-	private PieSlice slice;
-
+	private PieChart walkingcircle;
+	private LineChart walkingline;
+;
+	int N_WALKING_POINTS = 7;
 	ImageView pedometer_start;
 	/**
 	 * True, when service is running.
 	 */
 	private boolean mIsRunning;
 
+	
+	ArrayList<Entry> walking_values;
+	LineDataSet linedataset1;
+	YAxis leftAxis;
+	int max_wk;
 	/** Called when the activity is first created. */
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	PieDataSet dataSet;
+	ArrayList<Entry> yVals2;
+	Entry circle_e1;
+	Entry circle_e2;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		Log.i(TAG, "[ACTIVITY] onCreate");
@@ -117,21 +146,151 @@ public class Pedometer extends Activity {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
 
-		pedometer_week_walkingline = (LineGraph) findViewById(R.id.pedometer_week_walkingline);
-		pedometer_today_walkingcircle = (PieGraph) findViewById(R.id.pedometer_today_walkingcircle);
+		walkingline = (LineChart) findViewById(R.id.pedometer_week_walkingline);
+		walkingcircle = (PieChart) findViewById(R.id.pedometer_today_walkingcircle);
 		pedometer_start = (ImageView) findViewById(R.id.pedometer_start);
 
 		dbAdapter = new DBAdapter(getApplicationContext());
 
-		loadLastDataForGraph();
+
 		mUtils = Utils.getInstance();
 		
+		/////////////////////////////////////////////////////////////////////////////////////////////
 		pedometer_start.setOnClickListener(start_clicklistener);
 		pedometer_start.setImageResource(R.drawable.walk_icn_start);
 		
+		walkingline.setValueTextColor(Color.BLACK);
+		walkingline.setNoDataTextDescription("You need to provide data for the chart.");
+		walkingline.setDrawGridBackground(false);
+		walkingline.setBackgroundColor(Color.WHITE);
+		walkingline.setGridWidth(1.25f); 
+		walkingline.setTouchEnabled(true); 
+		walkingline.setDragEnabled(true);
+		walkingline.setScaleEnabled(true);
+		walkingline.setPinchZoom(true);
 		
+		 
+		
+		SimpleDateFormat dbformat = new SimpleDateFormat("yyyy.MM.dd");
+		SimpleDateFormat format = new SimpleDateFormat("MM.dd");
+		ArrayList<String> xVals = new ArrayList<String>();
+		walking_values = new ArrayList<Entry>();
+		Calendar day = Calendar.getInstance();
+		max_wk = 0;
+		
+		day.add(Calendar.DATE, -6);
+		for(int i=0; i<N_WALKING_POINTS; i++) {
+			String dbf = dbformat.format(day.getTime());
+			String walking_key = "wk_" + dbf;
+			String walking_value = dbAdapter.get_setting(walking_key);
+			if (walking_value!=null) {
+				int v = Integer.parseInt(walking_value);
+				Entry c = new Entry(v, i); 
+				walking_values.add(c);
+				if (max_wk < v) max_wk = v;
+			} else {
+				Entry c = new Entry(0, i); 
+				walking_values.add(c);
+			} 
+			xVals.add(format.format(day.getTime())); 
+			day.add(Calendar.DATE, +1);
+		} 
+		
+		linedataset1 = new LineDataSet(walking_values, "걸음수");
+		linedataset1.setAxisDependency(AxisDependency.LEFT);
+		linedataset1.setColor(Color.parseColor("#3ec2c7"));
+		linedataset1.setCircleColor(Color.parseColor("#3ec2c7"));
+		linedataset1.setLineWidth(2f);
+		linedataset1.setCircleSize(4f);
+		linedataset1.setFillAlpha(65);
+		linedataset1.setFillColor(Color.WHITE);
+		linedataset1.setHighLightColor(Color.rgb(244, 117, 117));	
+		
+		linedataset1.setDrawValues(false);
+		
+		ArrayList<LineDataSet> dataSets = new ArrayList<LineDataSet>();
+		dataSets.add(linedataset1); 
+		
+		
+		leftAxis = walkingline.getAxisLeft();
+		leftAxis.setTextColor(Color.parseColor("#3ec2c7")); 
+        leftAxis.setDrawGridLines(true);
+        leftAxis.setAxisMaxValue(max_wk+10);
+        YAxis rightAxis = walkingline.getAxisRight();
+        rightAxis.setEnabled(false);
+        LineData data = new LineData(xVals, dataSets); 
+        walkingline.setData(data);
+        walkingline.setDescription("");
+        
+        
+        Legend l = walkingline.getLegend();
+		l.setFormSize(10f);
+		l.setForm(LegendForm.CIRCLE);
+		l.setPosition(LegendPosition.BELOW_CHART_CENTER);
 
+		XAxis xl = walkingline.getXAxis();
+		xl.setPosition(XAxisPosition.BOTTOM);
+		xl.setGridColor(Color.WHITE);
+		xl.setDrawGridLines(false);
+		
+		walkingline.invalidate();
+///////////////////////////////////////////////////////////////////////////////////////////
+		 
+		walkingcircle.setValueTextColor(Color.BLACK);
+		walkingcircle
+				.setNoDataTextDescription("You need to provide data for the chart.");
+		walkingcircle.setBackgroundColor(Color.WHITE);
+		walkingcircle.setTouchEnabled(true);
+		walkingcircle.setUsePercentValues(false);
+		walkingcircle.setHoleColorTransparent(false); 
+		walkingcircle.setHoleRadius(80f);
+		walkingcircle.setDescription("");
+		walkingcircle.setDrawCenterText(false);
+		walkingcircle.setDrawHoleEnabled(true);
+		walkingcircle.setRotationAngle(270); 
+		walkingcircle.setRotationEnabled(true); 
+		//walkingcircle.setCenterText("걸음수"); 
+		yVals2 = new ArrayList<Entry>();
+		
+		circle_e1 = new Entry(0, 0);
+		circle_e2 = new Entry(0, 1);
+		key_walking_today = "wk_" + dbformat.format(day.getTime());
+		String v = dbAdapter.get_setting(key_walking_today);
+		if (v!=null) {
+			circle_e1.setVal(Integer.parseInt(v)%100); 
+		}  
+		circle_e2.setVal(100-circle_e1.getVal());
+		yVals2.add(circle_e1);
+		yVals2.add(circle_e2); 
+		
+		ArrayList<String> xVals2 = new ArrayList<String>();
+		xVals2.add("");
+		xVals2.add(""); 
+		dataSet = new PieDataSet(yVals2, "뚭뚭");
+		dataSet.setSliceSpace(3f);
+		dataSet.setDrawValues(false);
+		ArrayList<Integer> colors = new ArrayList<Integer>();
+		colors.add(Color.parseColor("#3ec2c7"));
+		colors.add(Color.parseColor("#eeeeee"));
+		dataSet.setColors(colors);
+
+		PieData data2 = new PieData(xVals2, dataSet);
+		walkingcircle.setData(data2);
+		walkingcircle.highlightValues(null);
+		walkingcircle.invalidate(); 
+		walkingcircle.setDrawSliceText(false);
+		walkingcircle.setUsePercentValues(false); 
+		walkingcircle.invalidate();
+		
+		walkingcircle.setPadding(0, 0, 0, 0);
+		walkingcircle.setDrawLegend(false); 
 	}//mIsRunning
+	
+	 
+
+
+	
+	
 	
 	OnClickListener start_clicklistener = new OnClickListener() {
 		@Override
@@ -146,39 +305,7 @@ public class Pedometer extends Activity {
  				pedometer_start.setImageResource(R.drawable.walk_icn_start);
 			} 
 		}
-	};
-
-	
-	
-	
-	
-	 
-//	public boolean onOptionsItemSelected(MenuItem item) {
-//		switch (item.getItemId()) {
-//		case MENU_PAUSE:
-//			unbindStepService();
-//			stopStepService();
-//			return true;
-//		case MENU_RESUME:
-//			startStepService();
-//			bindStepService();
-//			return true;
-//		case MENU_RESET:
-//			resetValues(true);
-//			return true;
-//		case MENU_QUIT:
-//			resetValues(false);
-//			unbindStepService();
-//			stopStepService();
-//			mQuitting = true;
-//			finish();
-//			return true;
-//		}
-//		return false;
-//	}
-	
-	
-	
+	};	
 	
 	
 	
@@ -191,6 +318,7 @@ public class Pedometer extends Activity {
 
 	@Override
 	protected void onResume() {
+		this.overridePendingTransition(0,0);
 		Log.i(TAG, "[ACTIVITY] onResume");
 		super.onResume();
 
@@ -367,7 +495,7 @@ public class Pedometer extends Activity {
 	// TODO: unite all into 1 type of message
 	private StepService.ICallback mCallback = new StepService.ICallback() {
 		public void stepsChanged(int value) {
-			mHandler.sendMessage(mHandler.obtainMessage(STEPS_MSG, value, 0));
+			mHandler.sendMessage(mHandler.obtainMessage(STEPS_MSG, value, 0)); 
 		}
 
 		public void paceChanged(int value) {
@@ -404,6 +532,27 @@ public class Pedometer extends Activity {
 				// 걸음걸을때
 				mStepValue = (int) msg.arg1;
 				loadStepsMsg(mStepValue);
+				Entry e = walking_values.remove(N_WALKING_POINTS-1);
+				e.setVal(mStepValue);
+				walking_values.add(N_WALKING_POINTS-1, e);
+				if (max_wk < mStepValue) max_wk = mStepValue;
+		        leftAxis.setAxisMaxValue(max_wk+10);
+				walkingline.notifyDataSetChanged();
+				walkingline.invalidate();   
+				
+				today = new Date();
+				key_walking_today = "wk_" + dbformat.format(today);
+				dbAdapter.put_setting(key_walking_today, Integer.toString(mStepValue));
+				 
+				//////////////////////// 
+				 
+				circle_e1.setVal(mStepValue % 100); 
+				circle_e2.setVal(100 - circle_e1.getVal()); 
+				walkingcircle.notifyDataSetChanged();
+				walkingcircle.invalidate();  
+				
+				mStepValueView.setText(mStepValue+"걸음");
+				
 				break;
 			case PACE_MSG:
 				mPaceValue = msg.arg1;
@@ -431,89 +580,18 @@ public class Pedometer extends Activity {
 	String[] label_linegraph;
 	int[] value_linegraph;
 	Date today;
-	String db_str_walking_today;
+	String key_walking_today;
 
 	void loadDbKeyToday() {
 		today = new Date();
-		db_str_walking_today = db_str_walking + dbformat.format(today);
+		key_walking_today = "wk_" + dbformat.format(today);
 	}
 
-	void loadLastDataForGraph() {
-		Log.d(TAG, "loadLastDataForGraph start");
 
-		Date lastDay = new Date();
-		SimpleDateFormat format = new SimpleDateFormat("MM.dd");
-
-		loadDbKeyToday();
-
-		label_linegraph = new String[7];
-		value_linegraph = new int[7];
-
-		Log.d(TAG, "lastDay " + lastDay);
-		int idx = 6;
-		for (int i = 0; i < 7; i++) {
-			try {
-				String dbkey = db_str_walking + dbformat.format(lastDay);
-				String dbvalue = dbAdapter.get_setting(dbkey);
-				Log.d(TAG, "dbkey : " + dbkey + ", data : " + dbvalue);
-				value_linegraph[6 - i] = Integer.parseInt(dbvalue);
-			} catch (Exception e) {
-				value_linegraph[6 - i] = 0;
-			}
-			label_linegraph[6 - i] = format.format(lastDay);
-
-			lastDay = this.getYesterday(lastDay);
-		}
+	void loadStepsMsg(int steps) { 
+		loadDbKeyToday(); 
 	}
-
-	void loadStepsMsg(int steps) {
-		steps_string = steps + steps_units;
-		mStepValueView.setText(steps_string);
-		loadDbKeyToday();
-		dbAdapter.put_setting(db_str_walking_today, steps + "");//
-		value_linegraph[6] = steps;
-
-		pedometer_today_walkingcircle.removeSlices();
-		slice = new PieSlice();
-		slice.setColor(Color.parseColor("#3ec2c7"));
-		slice.setValue(mStepValue % 100);
-		pedometer_today_walkingcircle.addSlice(slice);
-		slice = new PieSlice();
-		slice.setColor(Color.parseColor("#eeeeee"));
-		slice.setValue(100 - (mStepValue % 100));
-		pedometer_today_walkingcircle.addSlice(slice);
-
-		pedometer_week_walkingline.removeAllLines();
-
-		Line l = new Line();
-		LinePoint p;
-
-		for (int i = 0; i < 7; i++) {
-			p = new LinePoint();
-			p.setX(i);
-			p.setY(value_linegraph[i]);
-			l.addPoint(p);
-			// p.setLabel_string(label_linegraph[i]);
-		}
-
-		l.setColor(Color.parseColor("#3ec2c7"));
-
-		pedometer_week_walkingline.setMinY(0);
-		pedometer_week_walkingline.addLine(l);
-		pedometer_week_walkingline.setLabelSize(30);
-		pedometer_week_walkingline.setRangeY(0, getMaxWalking());
-		pedometer_week_walkingline.setLineToFill(1);
-	}
-
-	int getMaxWalking() {
-		int max = 100;
-		for (int i = 0; i < 7; i++) {
-			if (max < value_linegraph[i]) {
-				max = value_linegraph[i];
-			}
-		}
-		return max;
-	}
+ 
 
 	void loadPaceMsg(int pace) {
 		if (pace <= 0) {
@@ -547,21 +625,12 @@ public class Pedometer extends Activity {
 		} else {
 			calories_string = ("" + (int) calories) + "칼로리";
 		}
-	}
-
-	public static Date getYesterday(Date today) {
-		if (today == null)
-			throw new IllegalStateException("today is null");
-
-		Date yesterday = new Date();
-		yesterday.setTime(today.getTime() - ((long) 1000 * 60 * 60 * 24));
-
-		return yesterday;
-	}
+	} 
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		finish();
 		return false;
 	}
+	 
 }

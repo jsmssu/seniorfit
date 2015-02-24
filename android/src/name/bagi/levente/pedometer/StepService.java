@@ -157,7 +157,7 @@ public class StepService extends Service {
         reloadSettings();
 
         // Tell the user we started.
-        Toast.makeText(this, getText(R.string.pedometer_started), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, getText(R.string.pedometer_started), Toast.LENGTH_SHORT).show();
     }
     
     @Override
@@ -193,7 +193,7 @@ public class StepService extends Service {
         mSensorManager.unregisterListener(mStepDetector);
 
         // Tell the user we stopped.
-        Toast.makeText(this, getText(R.string.pedometer_stopped), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, getText(R.string.pedometer_stopped), Toast.LENGTH_SHORT).show();
     }
 
     private void registerDetector() {
@@ -372,8 +372,7 @@ public class StepService extends Service {
         Intent pedometerIntent = new Intent();
         pedometerIntent.setComponent(new ComponentName(this, Pedometer.class));
         pedometerIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                pedometerIntent, 0);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, pedometerIntent, 0);
         notification.setLatestEventInfo(this, text,
                 getText(R.string.pedometer_notification_subtitle), contentIntent);
 

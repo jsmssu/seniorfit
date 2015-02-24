@@ -15,7 +15,7 @@
     <string name="title_activity_walking">걷기</string>
 
     <!-- for walking -->
-    <string name="pedometer_notification_subtitle">뚜벅뚜벅</string>
+    <string name="pedometer_notification_subtitle">뚜벅뚜벅 만보기작동중</string>
     <string name="pedometer_started">만보기 시작</string>
     <string name="pedometer_stopped">만보기 종료</string>
     <string name="steps">걸음</string>
@@ -136,5 +136,8 @@
     <string name="title_activity_setting_alarm">알람 설정</string>
     <string name="title_activity_google_map"></string>
     <string name="title_activity_fora_walk">ForaWalkActivity</string>
+    <string name="title_activity_walking_main">WalkingMainActivity</string>
+    <string name="title_activity_walking_calc_fragment">WalkingCalcFragment</string>
+    <string name="title_activity_walking_rec">WalkingRecActivity</string>
 
 </resources>
