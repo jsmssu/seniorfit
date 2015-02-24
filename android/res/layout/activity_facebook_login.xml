@@ -13,7 +13,6 @@
         android:text="Email ID : "
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:visibility="gone" />
-
     <com.facebook.widget.LoginButton
         android:id="@+id/facebook_authButton"
         android:layout_width="250dp"
