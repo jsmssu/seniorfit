@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:orientation="horizontal" > 
+    <Button
+        android:id="@+id/walking_calc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/walk_tapbar_unselected"
+        android:gravity="center"
+        android:text="운동 기록"
+        android:textSize="18sp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:src="@drawable/walk_tapbar_divider" />
+
+    <Button
+        android:id="@+id/walking_rec"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/walk_tapbar_unselected"
+        android:gravity="center"
+        android:text="코스 추천"
+        android:textSize="18sp" />
+
+</LinearLayout>

@@ -136,4 +136,9 @@ public class Setup2Activity extends Activity {
         Setup2Activity.this.finish();
         return false;
     }
+	@Override
+	protected void onResume() {
+		this.overridePendingTransition(0,0); 
+		super.onResume();
+	}
 }

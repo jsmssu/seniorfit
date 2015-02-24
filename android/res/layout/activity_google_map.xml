@@ -1,16 +1,24 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="${relativePackage}.${activityClass}" >
-    <!-- <TextView
+
+    <!--
+         <TextView
         android:id="@+id/tv_location"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" /> -->
- 
+        android:layout_height="wrap_content" />
+    -->
+
+    <include layout="@layout/menu_walking" />
+
     <fragment
         android:id="@+id/map"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         class="com.google.android.gms.maps.SupportMapFragment" />
-</RelativeLayout>
+
+</LinearLayout>

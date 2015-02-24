@@ -74,7 +74,7 @@ public class AlarmController {
 		alarmIntent = new Intent(context, AlarmReceiver.class);
 		
 		for(int i=0;i<7;i++) {
-			pendingIntent = PendingIntent.getBroadcast(context, i, alarmIntent, PendingIntent.FLAG_CANCEL_CURRENT); 
+			pendingIntent = PendingIntent.getBroadcast(context, i, alarmIntent, 0); 
 			
 			if (alarmSwitch==false) {  
 				manager.cancel(pendingIntent);	 
@@ -85,12 +85,11 @@ public class AlarmController {
 			        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
 			        calendar.set(Calendar.MINUTE, minute);
 			        
-			        SimpleDateFormat format = new SimpleDateFormat("yyyy년 MM월 dd일 hh시 mm분 ss초");
-			        Log.d(TAG, "now.before(calendar)" + " now:"+format.format(now.getTime())+", calendar"+format.format(calendar.getTime()));
-			        Log.d(TAG, ""+now.before(calendar));
-			        while(now.before(calendar)) {
+			       // SimpleDateFormat format = new SimpleDateFormat("yyyy년 MM월 dd일 hh시 mm분 ss초");
+			        
+			        /*while(now.before(calendar)) {
 			        	calendar.add(Calendar.DATE, 7);
-			        } 
+			        } */
 			        Toast.makeText(context, getDayString() + " 알람 "+calendar.get(Calendar.HOUR_OF_DAY)+"시 "+calendar.get(Calendar.MINUTE)+"분", 3).show();
 			        
 			        manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 86400000*7, pendingIntent);

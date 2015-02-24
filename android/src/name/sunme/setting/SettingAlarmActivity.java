@@ -209,4 +209,9 @@ public class SettingAlarmActivity extends Activity {
 		}
 		return super.onKeyDown(keyCode, event);
 	}
+	@Override
+	protected void onResume() {
+		this.overridePendingTransition(0,0); 
+		super.onResume();
+	}
 }

@@ -41,6 +41,8 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 
 import name.sunme.maindrawbar.R;
+import name.sunme.map.GoogleMapActivity;
+import name.sunme.map.MenuListener;
 import name.sunme.seniorfit.DBAdapter;
 import android.app.Activity;
 import android.content.ComponentName;
@@ -123,12 +125,7 @@ public class Pedometer extends Activity {
 	YAxis leftAxis;
 	int max_wk;
 	/** Called when the activity is first created. */
-	
-	
-	
-	
-	
-	
+	 
 	
 	
 	
@@ -152,12 +149,26 @@ public class Pedometer extends Activity {
 
 		dbAdapter = new DBAdapter(getApplicationContext());
 
-
+		
+		MenuListener ml = new MenuListener(this); 
+		ml.walking_calc.setBackgroundResource(R.drawable.walk_tapbar_selected);
+		ml.walking_rec.setOnClickListener(new OnClickListener(){  
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(Pedometer.this, GoogleMapActivity.class);
+	            startActivity(intent);
+			}
+	    });
+		
+		
 		mUtils = Utils.getInstance();
 		
 		/////////////////////////////////////////////////////////////////////////////////////////////
 		pedometer_start.setOnClickListener(start_clicklistener);
 		pedometer_start.setImageResource(R.drawable.walk_icn_start);
+		 
+		
 		
 		walkingline.setValueTextColor(Color.BLACK);
 		walkingline.setNoDataTextDescription("You need to provide data for the chart.");
@@ -343,14 +354,10 @@ public class Pedometer extends Activity {
 			bindStepService();
 		}
 		
-		pedometer_start.setOnClickListener(start_clicklistener);
-
-		mPedometerSettings.clearServiceRunning();
-
-		mStepValueView = (TextView) findViewById(R.id.step_value);
-
-		mIsMetric = mPedometerSettings.isMetric();
-
+		pedometer_start.setOnClickListener(start_clicklistener); 
+		mPedometerSettings.clearServiceRunning(); 
+		mStepValueView = (TextView) findViewById(R.id.step_value); 
+		mIsMetric = mPedometerSettings.isMetric(); 
 		steps_units = getString(R.string.steps);
 		distance_units = getString(mIsMetric ? R.string.kilometers
 				: R.string.miles);
@@ -360,7 +367,13 @@ public class Pedometer extends Activity {
 		mMaintain = mPedometerSettings.getMaintainOption();
 		
 		
-		
+		if (mIsRunning) {
+			unbindStepService();
+			stopStepService();
+			startStepService();
+			bindStepService();
+			pedometer_start.setImageResource(R.drawable.walk_icn_end);
+		}
 		if (mIsRunning==true) {
 			pedometer_start.setImageResource(R.drawable.walk_icn_end);
 		} else {
@@ -390,23 +403,7 @@ public class Pedometer extends Activity {
 
 		super.onPause();
 		savePaceSetting();
-	}
-
-	@Override
-	protected void onStop() {
-		Log.i(TAG, "[ACTIVITY] onStop");
-		super.onStop();
-	}
-
-	protected void onDestroy() {
-		Log.i(TAG, "[ACTIVITY] onDestroy");
-		super.onDestroy();
-	}
-
-	protected void onRestart() {
-		Log.i(TAG, "[ACTIVITY] onRestart");
-		super.onDestroy();
-	}
+	} 
 
 	private void setDesiredPaceOrSpeed(float desiredPaceOrSpeed) {
 		if (mService != null) {
@@ -529,9 +526,11 @@ public class Pedometer extends Activity {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case STEPS_MSG:
-				// ∞…¿Ω∞…¿ª∂ß
-				mStepValue = (int) msg.arg1;
-				loadStepsMsg(mStepValue);
+				 
+				mStepValue = (int) msg.arg1; 
+				key_walking_today = "wk_" + dbformat.format(new Date());
+				
+				
 				Entry e = walking_values.remove(N_WALKING_POINTS-1);
 				e.setVal(mStepValue);
 				walking_values.add(N_WALKING_POINTS-1, e);
@@ -554,21 +553,36 @@ public class Pedometer extends Activity {
 				mStepValueView.setText(mStepValue+"∞…¿Ω");
 				
 				break;
-			case PACE_MSG:
-				mPaceValue = msg.arg1;
-				loadPaceMsg(mPaceValue);
+			case PACE_MSG: 
+				if (mPaceValue <= 0) {
+					pace_string = "0" + pace_units;
+				} else {
+					pace_string = ("" + (int) mPaceValue) + pace_units;
+				}
 				break;
-			case DISTANCE_MSG:
-				mDistanceValue = ((int) msg.arg1) / 1000f;
-				loadDistanceMsg(mDistanceValue);
+			case DISTANCE_MSG: 
+				if (mDistanceValue <= 0) {
+					distance_string = "0" + distance_units;
+				} else {
+					distance_string = ("" + (mDistanceValue + 0.000001f)).substring(0, 5)
+							+ distance_units;
+				}
 				break;
 			case SPEED_MSG:
 				mSpeedValue = ((int) msg.arg1) / 1000f;
-				loadSpeedMsg(mSpeedValue);
+				if (mSpeedValue <= 0) {
+					speed_string = "0" + speed_units;
+				} else {
+					speed_string = (("" + (mSpeedValue + 0.000001f)).substring(0, 4))
+							+ speed_units;
+				}
 				break;
-			case CALORIES_MSG:
-				mCaloriesValue = msg.arg1;
-				loadCalories(mCaloriesValue);
+			case CALORIES_MSG: 
+				if (mCaloriesValue <= 0) {
+					calories_string = "0" + "ƒÆ∑Œ∏Æ";
+				} else {
+					calories_string = ("" + (int) mCaloriesValue) + "ƒÆ∑Œ∏Æ";
+				}
 				break;
 			default:
 				super.handleMessage(msg);
@@ -580,52 +594,8 @@ public class Pedometer extends Activity {
 	String[] label_linegraph;
 	int[] value_linegraph;
 	Date today;
-	String key_walking_today;
-
-	void loadDbKeyToday() {
-		today = new Date();
-		key_walking_today = "wk_" + dbformat.format(today);
-	}
-
-
-	void loadStepsMsg(int steps) { 
-		loadDbKeyToday(); 
-	}
- 
-
-	void loadPaceMsg(int pace) {
-		if (pace <= 0) {
-			pace_string = "0" + pace_units;
-		} else {
-			pace_string = ("" + (int) pace) + pace_units;
-		}
-	}
-
-	void loadDistanceMsg(float distance) {
-		if (distance <= 0) {
-			distance_string = "0" + distance_units;
-		} else {
-			distance_string = ("" + (distance + 0.000001f)).substring(0, 5)
-					+ distance_units;
-		}
-	}
-
-	void loadSpeedMsg(float speed) {
-		if (speed <= 0) {
-			speed_string = "0" + speed_units;
-		} else {
-			speed_string = (("" + (speed + 0.000001f)).substring(0, 4))
-					+ speed_units;
-		}
-	}
-
-	void loadCalories(int calories) {
-		if (calories <= 0) {
-			calories_string = "0" + "ƒÆ∑Œ∏Æ";
-		} else {
-			calories_string = ("" + (int) calories) + "ƒÆ∑Œ∏Æ";
-		}
-	} 
+	String key_walking_today; 
+	
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

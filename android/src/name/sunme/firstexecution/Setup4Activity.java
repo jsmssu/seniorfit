@@ -90,7 +90,6 @@ public class Setup4Activity extends Activity {
 		dbAdapter.put_setting("alarmSwitch", Boolean.toString(bool_switch));
 	}
 	public void setAlarm() {
-
 		saveSwitch();
 		acrr.setSimpleAlarm();
 	}
@@ -197,4 +196,9 @@ public class Setup4Activity extends Activity {
         Setup4Activity.this.finish();
         return true;
     }
+	@Override
+	protected void onResume() {
+		this.overridePendingTransition(0,0); 
+		super.onResume();
+	}
 }

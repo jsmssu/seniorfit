@@ -18,10 +18,11 @@
             android:layout_weight="1" />
 
         <LinearLayout
+            android:id="@+id/recording_showgoal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:orientation="horizontal" > 
+            android:orientation="vertical" >
 
             <TextView
                 android:id="@+id/recording_goal_min"
@@ -30,17 +31,17 @@
                 android:text="오늘의 목표까지  ~분"
                 android:textColor="#ffffff"
                 android:textSize="20sp"
-                android:textStyle="bold" /> 
+                android:textStyle="bold" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="19dp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/setting_icn_bmi_person" />
         </LinearLayout>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="19dp" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/setting_icn_bmi_person" />
     </LinearLayout>
 
     <LinearLayout
@@ -77,12 +78,14 @@
                 android:gravity="center_vertical"
                 android:text="~"
                 android:textSize="20sp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:text="분"
                 android:textSize="20sp" />
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -110,14 +113,16 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
-			<TextView
+
+            <TextView
                 android:id="@+id/recording_min_walking"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:text="~"
                 android:textSize="20sp" />
-            <TextView 
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"

@@ -132,4 +132,9 @@ public class SettingGoalActivity extends Activity {
         finish();
         return false;
     }
+	@Override
+	protected void onResume() {
+		this.overridePendingTransition(0,0); 
+		super.onResume();
+	}
 }

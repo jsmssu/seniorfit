@@ -41,6 +41,11 @@ import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
+import com.google.android.gms.common.Scopes;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.Scope;
+import com.google.android.gms.fitness.Fitness;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -88,9 +93,9 @@ public class FacebookLoginActivity extends Activity {
 
 		//authButton = (LoginButton) findViewById(R.id.authButton);
 		lblEmail = (TextView) findViewById(R.id.lblEmail); 
-		facebook_next = (Button)findViewById(R.id.facebook_next);
-
-		
+		facebook_next = (Button)findViewById(R.id.facebook_next); 
+		 
+		 
 		facebook_next.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -114,7 +119,11 @@ public class FacebookLoginActivity extends Activity {
 				});
 		lifecycleHelper.onCreate(savedInstanceState);
 		//ensureOpenSession();
+		
+		
+		
 	}
+	
 
 	private boolean ensureOpenSession() {
 		Log.d(TAG, "ensureOpenSession");
@@ -238,5 +247,10 @@ public class FacebookLoginActivity extends Activity {
 			}
 		}
 		return true;
+	}
+	@Override
+	protected void onResume() {
+		this.overridePendingTransition(0,0); 
+		super.onResume();
 	}
 }

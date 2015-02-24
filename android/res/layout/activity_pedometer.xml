@@ -1,141 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#ffffff" >
+    android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+    <include layout="@layout/menu_walking" />
 
-        <Button
-            android:id="@+id/walking_calc"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/walk_tapbar_unselected"
-            android:gravity="center"
-            android:text="운동 기록"
-            android:textSize="18sp" />
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#ffffff" >
 
-        <ImageView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/walk_tapbar_divider" />
+            android:background="#ffffff"
+            android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/walking_rec"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/walk_tapbar_unselected"
-            android:gravity="center"
-            android:text="코스 추천"
-            android:textSize="18sp" />
-    </LinearLayout>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#ffffff"
-        android:orientation="vertical" >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/walk_icn_walkingman" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="40dp" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="16dp"
+                        android:src="@drawable/walk_icn_prev"
+                        android:visibility="gone" />
+
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/pedometer_today_walkingcircle"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="16dp"
+                        android:src="@drawable/walk_icn_next"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="오늘"
+                        android:textColor="#808080"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:id="@+id/step_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0steps"
+                        android:textColor="#000000"
+                        android:textSize="40sp" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="오늘도 뚜벅뚜벅"
+                android:textColor="#808080"
+                android:textSize="30sp" />
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/pedometer_week_walkingline"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_weight="1" />
+        </LinearLayout>
 
         <ImageView
+            android:id="@+id/pedometer_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/walk_icn_walkingman" />
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:paddingRight="10dp"
+            android:paddingTop="26dp"
+            android:src="@drawable/walk_icn_start" />
+    </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal" >
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:orientation="horizontal" >
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginRight="16dp"
-                    android:src="@drawable/walk_icn_prev"
-                    android:visibility="gone" />
-
-                <com.github.mikephil.charting.charts.PieChart
-                    android:id="@+id/pedometer_today_walkingcircle"
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="16dp"
-                    android:src="@drawable/walk_icn_next"
-                    android:visibility="gone" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="오늘"
-                    android:textColor="#808080"
-                    android:textSize="30sp" />
-
-                <TextView
-                    android:id="@+id/step_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0steps"
-                    android:textColor="#000000"
-                    android:textSize="40sp" />
-            </LinearLayout>
-        </RelativeLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="오늘도 뚜벅뚜벅"
-            android:textColor="#808080"
-            android:textSize="30sp" />
-
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/pedometer_week_walkingline"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_weight="1" />
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/pedometer_start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:paddingRight="10dp"
-        android:paddingTop="26dp"
-        android:src="@drawable/walk_icn_start" />
-
-</RelativeLayout>
+</LinearLayout>

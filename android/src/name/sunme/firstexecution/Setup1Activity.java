@@ -146,5 +146,10 @@ public class Setup1Activity extends Activity {
 		Setup1Activity.this.finish();
 		return false;
     }
+	@Override
+	protected void onResume() {
+		this.overridePendingTransition(0,0); 
+		super.onResume();
+	}
 	
 }

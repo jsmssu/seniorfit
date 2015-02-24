@@ -22,13 +22,18 @@ import name.sunme.maindrawbar.R;
 import name.sunme.seniorfit.DBAdapter;
 import name.sunme.seniorfit.Utils;
 import name.sunme.seniorfit.WalkingGraphData;
+import name.sunme.setting.SettingGoalActivity;
+import name.sunme.setting.SettingProfileActivity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class RecordingFragment extends Fragment {
@@ -41,7 +46,7 @@ public class RecordingFragment extends Fragment {
 	Calendar[] days;
 	int N_WALKING_POINTS = 7;
 	private LineChart mChart;
-
+	LinearLayout recording_showgoal;
 	TextView recording_min_walking;
 	TextView recording_min_stretcing;
 	TextView recording_goal_min;
@@ -63,7 +68,7 @@ public class RecordingFragment extends Fragment {
 		recording_min_stretcing = (TextView)rootView.findViewById(R.id.recording_min_stretcing); 
 		recording_goal_min = (TextView)rootView.findViewById(R.id.recording_goal_min);
 		
-		
+		recording_showgoal = (LinearLayout)rootView.findViewById(R.id.recording_showgoal);
 		
 		
 		loadValues();
@@ -175,8 +180,22 @@ public class RecordingFragment extends Fragment {
 			}
 		}
 		else {
-			recording_goal_min.setText("목표를 설정해주세용");
+			recording_goal_min.setText("목표를 설정해주세요.");
 		}
+		recording_showgoal.setOnClickListener(new OnClickListener() { 
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(getActivity(), SettingGoalActivity.class);
+				startActivity(intent);  
+			}
+		});
+	}
+	@Override
+	public
+	void onResume() {
+		super.onResume();
+		loadValues();
 	}
 	void loadWalkingText() {
 		recording_min_walking.setText((int)walking_values.get(N_WALKING_POINTS-1).getVal()+"");

@@ -101,8 +101,7 @@ public class VideoDetailActivity extends Activity {
 				else 
 					idx = 0;
 				try { jo.put("position", Integer.toString(idx)); } catch (JSONException e) {}
-				showVideo(idx);
-				Toast.makeText (getApplicationContext(), "이전 동영상재생", 1).show();
+				showVideo(idx); 
 				break;
 			case RESUL_CODE_NEXT_MOVIE: //이전동영상 틀어주기
 				if (idx + 1 < fads.length) 
@@ -110,8 +109,7 @@ public class VideoDetailActivity extends Activity {
 				else 
 					idx = fads.length-1;
 				try { jo.put("position", Integer.toString(idx)); } catch (JSONException e) {}
-				showVideo(idx);
-				Toast.makeText (getApplicationContext(), "다음 동영상재생", 1).show();
+				showVideo(idx); 
 				break;
 			case RESUL_CODE_STOP_MOVIE:
 				

@@ -50,10 +50,11 @@
         <TextView
             style="@android:style/Widget.EditText"
             android:id="@+id/setup3_goalMinutes"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
             android:gravity="right"
+            android:text="    "
             android:textSize="21sp" 
             android:layout_marginRight="6dp" />
 

@@ -134,10 +134,12 @@
     <string name="title_activity_content">운동정보</string>
     <string name="title_activity_content_page">운동정보</string>
     <string name="title_activity_setting_alarm">알람 설정</string>
-    <string name="title_activity_google_map"></string>
+    <string name="title_activity_google_map">추천하는 산책로</string>
     <string name="title_activity_fora_walk">ForaWalkActivity</string>
     <string name="title_activity_walking_main">WalkingMainActivity</string>
     <string name="title_activity_walking_calc_fragment">WalkingCalcFragment</string>
     <string name="title_activity_walking_rec">WalkingRecActivity</string>
-
+    <!-- Button text -->
+    <string name="btn_logout_from_google">Logout from Google</string>
+    <string name="btn_revoke_access">Revoke Access</string>
 </resources>

@@ -27,6 +27,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +42,10 @@ public class VideoShowActivity extends Activity {
 	private ImageView videoshow_play_intro_pre;
 	private ImageView videoshow_play_intro_next;
 	private ImageView videoshow_play_intro_exit;
+	private LinearLayout videoshow_box_exit;
+	private LinearLayout videoshow_box_next;
+	private LinearLayout videoshow_box_pre; 
+	private TextView videoshow_rec;
 	private ImageView videoshow_play_intro_icn_play;
 	String TAG = "VideoShowActivity";
 	
@@ -66,7 +71,11 @@ public class VideoShowActivity extends Activity {
 		videoshow_play_intro_exit = (ImageView) findViewById(R.id.videoshow_play_intro_exit); 
 		videoshow_play_intro_icn_play = (ImageView) findViewById(R.id.videoshow_play_intro_icn_play); 
 		
+		videoshow_rec = (TextView) findViewById(R.id.videoshow_rec);
 		
+		videoshow_box_exit = (LinearLayout) findViewById(R.id.videoshow_box_exit); 
+		videoshow_box_next = (LinearLayout) findViewById(R.id.videoshow_box_next); 
+		videoshow_box_pre = (LinearLayout) findViewById(R.id.videoshow_box_pre); 
 		
 		path_myapp = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "";
 		
@@ -107,9 +116,12 @@ public class VideoShowActivity extends Activity {
 		
 		layout_videoshow_touch_control.setOnClickListener(layout_clicklistener);
 		videoshow_play_intro_icn_play.setOnClickListener(pause_clicklistener);
-		videoshow_play_intro_pre.setOnClickListener(pre_clicklistener); 
-		videoshow_play_intro_next.setOnClickListener(next_clicklistener); 
-		videoshow_play_intro_exit.setOnClickListener(exit_clicklistener);
+		
+	 
+		
+		videoshow_box_exit.setOnClickListener(pre_clicklistener); 
+		videoshow_box_next.setOnClickListener(next_clicklistener); 
+		videoshow_box_pre.setOnClickListener(exit_clicklistener);
 		
 		videoview.setOnCompletionListener(new OnCompletionListener(){
 			@Override
@@ -174,6 +186,7 @@ public class VideoShowActivity extends Activity {
 		public void onClick(View v) {
 			if (videoview != null && videoview.isPlaying()) {
 				videoview.pause();
+				videoshow_rec.setText("");//
 				layout_videoshow_control.setVisibility(View.VISIBLE);
 				layout_videoshow_touch_control.setVisibility(View.GONE);
 			}

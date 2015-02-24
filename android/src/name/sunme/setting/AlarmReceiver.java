@@ -19,10 +19,6 @@ public class AlarmReceiver extends BroadcastReceiver {
 	public void onReceive(Context context, Intent intent) {
 		// TODO Auto-generated method stub
 		
-		
-			
-		Toast.makeText(context, "running", 3).show();
-	      
 		Intent tintent = new Intent(context, MainActivity.class);
     	PendingIntent mPendingIntent = PendingIntent.getActivity(context, 0, tintent, 0);
 		Notification mNoti = new NotificationCompat.Builder(context)

@@ -96,9 +96,10 @@ public class WalkingActivity extends Activity {
                 .addApi(Fitness.API)
                 .addScope(new Scope(Scopes.FITNESS_LOCATION_READ))
 				.addScope(new Scope(Scopes.FITNESS_ACTIVITY_READ_WRITE))
-				.addScope(new Scope(Scopes.FITNESS_BODY_READ_WRITE))
+				.addScope(new Scope(Scopes.FITNESS_BODY_READ_WRITE)) 
                 .addConnectionCallbacks(
                         new GoogleApiClient.ConnectionCallbacks() {
+
                             @Override
                             public void onConnected(Bundle bundle) {
                                 Log.i(TAG, "Connected!!!");
@@ -423,7 +424,7 @@ public class WalkingActivity extends Activity {
             Log.i(TAG, "\tType: " + dp.getDataType().getName());
             Log.i(TAG, "\tStart: " + dateFormat.format(dp.getStartTime(TimeUnit.MILLISECONDS)));
             Log.i(TAG, "\tEnd: " + dateFormat.format(dp.getEndTime(TimeUnit.MILLISECONDS)));
-            for(Field field : dp.getDataType().getFields()) {
+            for(Field field : dp.getDataType().getFields()) { //½ºÇÇµå¹ë·ù
                 Log.i(TAG, "\tField: " + field.getName() +
                         " Value: " + dp.getValue(field));
             }

@@ -35,7 +35,8 @@
 	
 	    <TextView
 	        android:id="@+id/otherprogram_listrow_time"
-	        android:layout_width="50dp"
+	        android:layout_width="wrap_content"
+	        android:layout_marginRight="10dp"
 	        android:layout_height="32dp" 
 	        android:text="2시간"
 	        android:textSize="16sp" 
@@ -48,7 +49,8 @@
 	        android:layout_gravity="center_vertical"/>
 	    <TextView
 	        android:id="@+id/otherprogram_listrow_day"
-	        android:layout_width="100dp"
+	        android:layout_width="wrap_content"
+	        android:layout_marginRight="10dp"
 	        android:layout_height="32dp"  
 	        android:text="매일운동"
 	        android:textSize="16sp" 

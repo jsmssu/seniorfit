@@ -4,7 +4,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import name.bagi.levente.pedometer.Pedometer;
 import name.sunme.maindrawbar.R;
+import name.sunme.seniorfit.UrlOpenerBasic;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Point;
@@ -13,9 +15,13 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -41,6 +47,19 @@ String TAG = "GoogleMapActivity";
 		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
+		
+		
+		MenuListener ml = new MenuListener(this);
+		ml.walking_rec.setBackgroundResource(R.drawable.walk_tapbar_selected);
+		ml.walking_calc.setOnClickListener(new OnClickListener(){  
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+	            GoogleMapActivity.this.finish();
+			}
+	    }); 
+	       
+		
 		
 		
 		// Getting Google Play availability status
@@ -94,33 +113,10 @@ String TAG = "GoogleMapActivity";
 				@Override
 				public void onMapLoaded() {
 					googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-					
-					String result = intent.getStringExtra("json");
-					try {
-						JSONObject jo = new JSONObject(result);
-						JSONObject GeoInfoWalkwayWGS =jo.getJSONObject("GeoInfoWalkwayWGS");
-						int list_total_count = GeoInfoWalkwayWGS.getInt("list_total_count");
-						if(list_total_count>0) {
-							JSONArray rows = GeoInfoWalkwayWGS.getJSONArray("row");
-							for(int i=0; i<rows.length(); i++) {
-								JSONObject row = rows.getJSONObject(i);
-								double LNG = row.getDouble("LNG");
-								double LAT = row.getDouble("LAT");
-								Log.d(TAG,"LNG : "+LNG+", LAT : "+LAT);
-								googleMap.addMarker(new MarkerOptions()
-						        //.title("Hello world")
-								.position(new LatLng(LAT, LNG)));
-							}
-						}
-					} catch (JSONException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					
-					
+					String apiurl = "http://openapi.seoul.go.kr:8088/6e66446956696c6f39336f4c6b7058/json/GeoInfoWalkwayWGS/0/100";
+					new UrlOpenerBasic(responsehandler,apiurl).open(); 
 				}
-			}); 
-			
+			}); 			
 		}	
 
 	}
@@ -143,13 +139,46 @@ String TAG = "GoogleMapActivity";
 		googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 
 		// Zoom in the Google Map
-		//googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+		googleMap.animateCamera(CameraUpdateFactory.zoomTo(13));
 
 		// Setting latitude and longitude in the TextView tv_location
 		//tvLocation.setText("Latitude:" + latitude + ", Longitude:" + longitude);
 
 	}
-
+	private final Handler responsehandler = new Handler()
+	{
+		@Override
+		public void handleMessage(Message msg)
+		{
+			if(msg.what == -1) {
+				 
+			} else { 
+				Bundle bundle = msg.getData();
+				String result = bundle.getString("result");    
+				try {
+					JSONObject jo = new JSONObject(result);
+					 
+						JSONObject GeoInfoWalkwayWGS =jo.getJSONObject("GeoInfoWalkwayWGS");
+						int list_total_count = GeoInfoWalkwayWGS.getInt("list_total_count");
+						if(list_total_count>0) {
+							JSONArray rows = GeoInfoWalkwayWGS.getJSONArray("row");
+							for(int i=0; i<rows.length(); i++) {
+								JSONObject row = rows.getJSONObject(i);
+								double LNG = row.getDouble("LNG");
+								double LAT = row.getDouble("LAT");
+								Log.d(TAG,"LNG : "+LNG+", LAT : "+LAT);
+								googleMap.addMarker(new MarkerOptions()
+						        //.title("Hello world")
+								.position(new LatLng(LAT, LNG)));
+							}
+						} 
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}  
+		}
+	};
 	@Override
 	public void onStatusChanged(String provider, int status, Bundle extras) {
 		// TODO Auto-generated method stub
@@ -171,5 +200,10 @@ String TAG = "GoogleMapActivity";
 	public boolean onOptionsItemSelected(MenuItem item) {
 		finish();
 		return false;
+	}
+	@Override
+	protected void onResume() {
+		this.overridePendingTransition(0,0); 
+		super.onResume();
 	}
 }

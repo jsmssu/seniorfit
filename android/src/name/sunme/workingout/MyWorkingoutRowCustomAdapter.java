@@ -65,11 +65,11 @@ public class MyWorkingoutRowCustomAdapter extends ArrayAdapter<FitApiDataClass>{
         		r_time = t_time[i];
         	}
         }
-        if (r_time == null) r_time = data[position]._exerciseTime;
+        if (r_time == null) r_time = data[position]._exerciseTime.replace("¡ª ", "");
         myworkingout_next_timer.setText(r_time);
         
         
-        myworkingout_next_calendar.setText(data[position]._exerciseFrequency);
+        myworkingout_next_calendar.setText(data[position]._exerciseFrequency.replace("¡ª ", ""));
         
         return listItem;
 	}
