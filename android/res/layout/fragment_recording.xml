@@ -19,7 +19,7 @@
 
         <LinearLayout
             android:id="@+id/recording_showgoal"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:orientation="vertical" >
@@ -28,10 +28,35 @@
                 android:id="@+id/recording_goal_min"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:text="오늘의 목표까지  ~분"
                 android:textColor="#ffffff"
                 android:textSize="20sp"
                 android:textStyle="bold" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="19dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" >
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/recording_progress1"
+                    android:background="#ffffff" />
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/recording_progress2"
+                    android:background="#88ffffff" />
+            </LinearLayout>
 
             <Space
                 android:layout_width="match_parent"
@@ -99,8 +124,8 @@
             android:id="@+id/recording_boxmin_walking"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:orientation="horizontal" 
-            android:background="@drawable/underline_list_row">
+            android:background="@drawable/underline_list_row"
+            android:orientation="horizontal" >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -127,7 +152,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="걸음"
+                android:text="분"
                 android:textSize="20sp" />
 
             <ImageView
@@ -138,14 +163,14 @@
                 android:src="@drawable/setting_icn_next"
                 android:visibility="invisible" />
         </LinearLayout>
-        
-        
+
         <LinearLayout
             android:id="@+id/recording_boxcal"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:orientation="horizontal"
-            android:background="@drawable/underline_list_row" >
+            android:background="@drawable/underline_list_row"
+            android:orientation="horizontal" >
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -153,19 +178,19 @@
                 android:text="달력으로 보기"
                 android:textSize="20sp"
                 android:textStyle="bold" />
+
             <Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="16dp"
-                android:src="@drawable/setting_icn_next"
-                />
+                android:src="@drawable/setting_icn_next" />
         </LinearLayout>
-        
     </LinearLayout>
 
     <LinearLayout

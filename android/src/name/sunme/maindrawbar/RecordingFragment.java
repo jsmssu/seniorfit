@@ -25,6 +25,8 @@ import name.sunme.seniorfit.Utils;
 import name.sunme.seniorfit.WalkingGraphData;
 import name.sunme.setting.SettingGoalActivity;
 import name.sunme.setting.SettingProfileActivity;
+import name.sunme.timer.StretcingTimer;
+import name.sunme.timer.WalkingTimer;
 import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
@@ -34,7 +36,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 public class RecordingFragment extends Fragment {
@@ -53,8 +57,14 @@ public class RecordingFragment extends Fragment {
 	TextView recording_goal_min;
 	
 	
+	ImageView recording_progress1;
+	ImageView recording_progress2;
+	
+	
 	LinearLayout recording_boxcal;
 	
+	StretcingTimer st;
+	WalkingTimer wt;
 	
 	public RecordingFragment() {
 	}
@@ -74,6 +84,10 @@ public class RecordingFragment extends Fragment {
 		recording_min_stretcing = (TextView)rootView.findViewById(R.id.recording_min_stretcing); 
 		recording_goal_min = (TextView)rootView.findViewById(R.id.recording_goal_min);
 		
+		
+		recording_progress1 = (ImageView)rootView.findViewById(R.id.recording_progress1);
+		recording_progress2 = (ImageView)rootView.findViewById(R.id.recording_progress2);
+		
 		recording_showgoal = (LinearLayout)rootView.findViewById(R.id.recording_showgoal);		
 		recording_boxcal = (LinearLayout)rootView.findViewById(R.id.recording_boxcal);
 		recording_boxcal.setOnClickListener(new OnClickListener() {
@@ -84,6 +98,10 @@ public class RecordingFragment extends Fragment {
 				startActivity(intent);				
 			}
 		});
+		
+		
+		st = new StretcingTimer(getActivity());
+		wt = new WalkingTimer(getActivity());
 		
 		
 		loadValues();
@@ -187,12 +205,22 @@ public class RecordingFragment extends Fragment {
 		if (dbAdapter.get_setting("goalMinutes")!=null) {
 			int goal_min = Integer.parseInt(dbAdapter.get_setting("goalMinutes")); 
 			int strecting_min = (int) stretching_values.get(N_WALKING_POINTS-1).getVal();
-			int left_min = goal_min-strecting_min;
+			int walking_min = (int) walking_values.get(N_WALKING_POINTS-1).getVal();
+			int left_min = goal_min-strecting_min-walking_min;
 			if (left_min<=0) {
+				left_min = 0;
 				recording_goal_min.setText("오늘의 목표 완료");	
 			} else {
 				recording_goal_min.setText("오늘의 목표까지  "+(int)left_min+"분");
 			}
+				
+			LinearLayout.LayoutParams p1 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
+			p1.weight = strecting_min+walking_min;
+			recording_progress1.setLayoutParams(p1);
+			
+			LinearLayout.LayoutParams p2 = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
+			p2.weight = left_min;
+			recording_progress2.setLayoutParams(p2);
 		}
 		else {
 			recording_goal_min.setText("목표를 설정해주세요.");
@@ -244,32 +272,15 @@ public class RecordingFragment extends Fragment {
 		for(int i=0; i<N_WALKING_POINTS; i++) {
 			String dbf = dbformat.format(days[i].getTime());
 			
-			String walking_key = db_str_walking + dbf;
-			String walking_value = dbAdapter.get_setting(walking_key);
 			
-			String stretcing_key = db_str_stretcing + dbf;
-			String stretcing_value = dbAdapter.get_setting(stretcing_key);
+			int walking_value = wt.getValue(wt.getKey(days[i]))/60; 
+			walking_values.add(new Entry(walking_value , i));
+			if (max_wk < walking_value) max_wk = walking_value;
 			
 			
-			if (walking_value!=null) {
-				int v = Integer.parseInt(walking_value);
-				Entry c = new Entry(v, i); 
-				walking_values.add(c);
-				if (max_wk < v) max_wk = v;
-			} else {
-				Entry c = new Entry(0, i); 
-				walking_values.add(c);
-			} 
-			
-			if (stretcing_value!=null) {
-				int v = Integer.parseInt(stretcing_value)/60;
-				Entry c = new Entry(v, i); 
-				stretching_values.add(c);
-				if (max_tw < v) max_tw = v;
-			} else {
-				Entry c = new Entry(0, i); 
-				stretching_values.add(c);
-			}
+			int stretcing_value = st.getValue(st.getKey(days[i]))/60;
+			stretching_values.add(new Entry(stretcing_value, i));
+			if (max_wk < stretcing_value) max_tw = stretcing_value; 
 		} 
 	} 
 }

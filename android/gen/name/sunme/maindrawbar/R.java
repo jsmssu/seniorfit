@@ -1259,8 +1259,8 @@ containing a value of this type.
         public static final int workingout_walking=0x7f0200eb;
     }
     public static final class id {
-        public static final int action_gear=0x7f0d00f1;
-        public static final int action_settings=0x7f0d00f0;
+        public static final int action_gear=0x7f0d00f3;
+        public static final int action_settings=0x7f0d00f2;
         public static final int adjust_height=0x7f0d0005;
         public static final int adjust_width=0x7f0d0006;
         public static final int book_now=0x7f0d0014;
@@ -1272,9 +1272,9 @@ containing a value of this type.
         public static final int button_setup1_next=0x7f0d0076;
         public static final int button_setup3_next=0x7f0d0082;
         public static final int button_setup4_next=0x7f0d0087;
-        public static final int button_stretching=0x7f0d00ec;
+        public static final int button_stretching=0x7f0d00ee;
         public static final int button_tutorial=0x7f0d0089;
-        public static final int button_walking=0x7f0d00ed;
+        public static final int button_walking=0x7f0d00ef;
         public static final int buyButton=0x7f0d0010;
         public static final int buy_now=0x7f0d0015;
         public static final int buy_with_google=0x7f0d0016;
@@ -1283,7 +1283,7 @@ containing a value of this type.
         public static final int calendar_btn_left=0x7f0d004e;
         public static final int calendar_btn_right=0x7f0d0050;
         public static final int center=0x7f0d0021;
-        public static final int chart=0x7f0d00e4;
+        public static final int chart=0x7f0d00e6;
         public static final int circleindicator=0x7f0d008f;
         public static final int classic=0x7f0d0018;
         public static final int com_facebook_body_frame=0x7f0d00c4;
@@ -1379,12 +1379,14 @@ containing a value of this type.
         public static final int pedometer_week_walkingline=0x7f0d004c;
         public static final int picker_subtitle=0x7f0d00c1;
         public static final int production=0x7f0d000d;
-        public static final int recording_boxcal=0x7f0d00e3;
-        public static final int recording_boxmin_stretcing=0x7f0d00df;
-        public static final int recording_boxmin_walking=0x7f0d00e1;
+        public static final int recording_boxcal=0x7f0d00e5;
+        public static final int recording_boxmin_stretcing=0x7f0d00e1;
+        public static final int recording_boxmin_walking=0x7f0d00e3;
         public static final int recording_goal_min=0x7f0d00de;
-        public static final int recording_min_stretcing=0x7f0d00e0;
-        public static final int recording_min_walking=0x7f0d00e2;
+        public static final int recording_min_stretcing=0x7f0d00e2;
+        public static final int recording_min_walking=0x7f0d00e4;
+        public static final int recording_progress1=0x7f0d00df;
+        public static final int recording_progress2=0x7f0d00e0;
         public static final int recording_showgoal=0x7f0d00dd;
         public static final int recordingcal_date=0x7f0d0052;
         public static final int recordingcal_grid=0x7f0d0051;
@@ -1403,13 +1405,13 @@ containing a value of this type.
         public static final int setting_alarm_Tuesday=0x7f0d0059;
         public static final int setting_alarm_Wednesday=0x7f0d005a;
         public static final int setting_alarm_switch=0x7f0d0055;
-        public static final int setting_btn_alarm=0x7f0d00e7;
-        public static final int setting_btn_changeWorkingout=0x7f0d00e8;
-        public static final int setting_btn_goal=0x7f0d00e6;
-        public static final int setting_btn_help=0x7f0d00ea;
-        public static final int setting_btn_logout=0x7f0d00eb;
-        public static final int setting_btn_profile=0x7f0d00e5;
-        public static final int setting_btn_sendmail=0x7f0d00e9;
+        public static final int setting_btn_alarm=0x7f0d00e9;
+        public static final int setting_btn_changeWorkingout=0x7f0d00ea;
+        public static final int setting_btn_goal=0x7f0d00e8;
+        public static final int setting_btn_help=0x7f0d00ec;
+        public static final int setting_btn_logout=0x7f0d00ed;
+        public static final int setting_btn_profile=0x7f0d00e7;
+        public static final int setting_btn_sendmail=0x7f0d00eb;
         public static final int setting_seledctedDay=0x7f0d0057;
         public static final int settingalarm_time=0x7f0d0056;
         public static final int settinggoal_boxmin=0x7f0d0061;
@@ -1494,9 +1496,9 @@ containing a value of this type.
         public static final int videoshow_play_intro_next=0x7f0d00a2;
         public static final int videoshow_play_intro_pre=0x7f0d00a0;
         public static final int videoshow_rec=0x7f0d00a5;
-        public static final int walking_calc=0x7f0d00ee;
+        public static final int walking_calc=0x7f0d00f0;
         public static final int walking_calc2=0x7f0d00a8;
-        public static final int walking_rec=0x7f0d00ef;
+        public static final int walking_rec=0x7f0d00f1;
         public static final int walking_rec2=0x7f0d00a9;
         public static final int week_walkingline=0x7f0d00ac;
         public static final int wk_check=0x7f0d00b1;
