@@ -44,6 +44,8 @@ import name.sunme.maindrawbar.R;
 import name.sunme.map.GoogleMapActivity;
 import name.sunme.map.MenuListener;
 import name.sunme.seniorfit.DBAdapter;
+import name.sunme.timer.WalkingTimer;
+import name.sunme.walking.WalkingActivity;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
@@ -294,9 +296,12 @@ public class Pedometer extends Activity {
 		walkingcircle.invalidate();
 		
 		walkingcircle.setPadding(0, 0, 0, 0);
-		walkingcircle.setDrawLegend(false); 
+		walkingcircle.setDrawLegend(false);
+		
+		
+		timer = new WalkingTimer(getApplicationContext());
 	}//mIsRunning
-	
+	WalkingTimer timer;
 	 
 
 
@@ -307,14 +312,18 @@ public class Pedometer extends Activity {
 		@Override
 		public void onClick(View v) {
 			if (!mIsRunning && mPedometerSettings.isNewStart()) {
+				timer.start();
 				startStepService();
 				bindStepService();
 				pedometer_start.setImageResource(R.drawable.walk_icn_end);
 			} else if (mIsRunning) {
+				timer.stop();
 				unbindStepService();
  				stopStepService();
  				pedometer_start.setImageResource(R.drawable.walk_icn_start);
 			} 
+						
+			
 		}
 	};	
 	
@@ -341,18 +350,25 @@ public class Pedometer extends Activity {
 		mPedometerSettings = new PedometerSettings(mSettings);
 
 		mUtils.setSpeak(mSettings.getBoolean("speak", false));
-
 		// Read from preferences if the service was running on the last onPause
 		mIsRunning = mPedometerSettings.isServiceRunning();
 
+		
+		
+		
+		
 		// Start the service if this is considered to be an application start
 		// (last onPause was long ago)
 		if (!mIsRunning && mPedometerSettings.isNewStart()) {
-			startStepService();
+			timer.start();
 			bindStepService();
 		} else if (mIsRunning) {
 			bindStepService();
 		}
+		
+		
+		
+		
 		
 		pedometer_start.setOnClickListener(start_clicklistener); 
 		mPedometerSettings.clearServiceRunning(); 
@@ -367,13 +383,9 @@ public class Pedometer extends Activity {
 		mMaintain = mPedometerSettings.getMaintainOption();
 		
 		
-		if (mIsRunning) {
-			unbindStepService();
-			stopStepService();
-			startStepService();
-			bindStepService();
-			pedometer_start.setImageResource(R.drawable.walk_icn_end);
-		}
+		
+		
+		
 		if (mIsRunning==true) {
 			pedometer_start.setImageResource(R.drawable.walk_icn_end);
 		} else {

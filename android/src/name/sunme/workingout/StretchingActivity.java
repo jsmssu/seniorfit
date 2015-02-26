@@ -10,11 +10,13 @@ import org.json.JSONObject;
  
 
 
+
 import name.sunme.maindrawbar.R;
 import name.sunme.maindrawbar.R.id;
 import name.sunme.maindrawbar.R.layout;
 import name.sunme.seniorfit.DBAdapter;
 import name.sunme.seniorfit.GlobalData;
+import name.sunme.timer.StretcingTimer;
 import name.sunme.video.VideoDetailActivity;
 import name.sunme.video.VideoShowActivity;
 import android.app.Activity;
@@ -103,52 +105,24 @@ public class StretchingActivity extends Activity {
 				} 
 			}
 		});
-		timecheck_thread.start();  
+		timer = new StretcingTimer(getApplicationContext());
+		timer.start();  
         
 	}
-	String db_str_stretcing = "tw_";
-	SimpleDateFormat dbformat = new SimpleDateFormat("yyyy.MM.dd");
+	StretcingTimer timer;
 	
-	boolean threadstopped =true;
-	Thread timecheck_thread = new Thread(new Runnable() {  
-		Date today = new Date();
-		String key = db_str_stretcing + dbformat.format(today);
-		
-        public void run() {
-        	int sec = 0;
-        	threadstopped = false;
-        	String value = dbAdapter.get_setting(key);
-        	if(value!=null) {
-        		sec = Integer.parseInt(value);
-        	}
-            while (!threadstopped) {                
-                try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException ie) { 
-                    ie.printStackTrace();
-                } 
-                sec = sec + 5;
-        		dbAdapter.put_setting(key, Integer.toString(sec));
-        		Log.d(TAG, "¿îµ¿Áß "+key + " :  "+sec);
-            }
-        }
-    }); 
-	public void stop() {
-        threadstopped = true; 
-        if (timecheck_thread.isAlive()) {
-        timecheck_thread.interrupt(); 
-        }
-    }
+	 
+	
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) { 
-		stop();
+		timer.stop();
         finish();  
         return false;
     }
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			stop();
+			timer.stop();
 		}
 		return super.onKeyDown(keyCode, event);
 	}

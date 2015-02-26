@@ -18,6 +18,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.ValueFormatter;
 
+import name.sunme.calendar.RecordingCalActivity;
 import name.sunme.maindrawbar.R;
 import name.sunme.seniorfit.DBAdapter;
 import name.sunme.seniorfit.Utils;
@@ -50,6 +51,11 @@ public class RecordingFragment extends Fragment {
 	TextView recording_min_walking;
 	TextView recording_min_stretcing;
 	TextView recording_goal_min;
+	
+	
+	LinearLayout recording_boxcal;
+	
+	
 	public RecordingFragment() {
 	}
 
@@ -68,7 +74,16 @@ public class RecordingFragment extends Fragment {
 		recording_min_stretcing = (TextView)rootView.findViewById(R.id.recording_min_stretcing); 
 		recording_goal_min = (TextView)rootView.findViewById(R.id.recording_goal_min);
 		
-		recording_showgoal = (LinearLayout)rootView.findViewById(R.id.recording_showgoal);
+		recording_showgoal = (LinearLayout)rootView.findViewById(R.id.recording_showgoal);		
+		recording_boxcal = (LinearLayout)rootView.findViewById(R.id.recording_boxcal);
+		recording_boxcal.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getActivity(), RecordingCalActivity.class);
+				startActivity(intent);				
+			}
+		});
 		
 		
 		loadValues();

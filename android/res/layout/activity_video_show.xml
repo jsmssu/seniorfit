@@ -23,7 +23,8 @@
         android:id="@+id/layout_videoshow_control"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#88000000" >
+        android:background="#88000000" 
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/videoshow_play_intro_icn_play"
